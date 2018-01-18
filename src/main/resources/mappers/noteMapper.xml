@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.sbang.mapper.NoteMapper">
+	<insert id="create">
+		insert into note (noteTarget, noteSender, noteText)
+		values (#{noteTarget}, #{noteSender}, #{noteText})
+	</insert>
+	
+	<select id="readNote" resultType="NoteVO">
+		select * from note where noteNo=#{noteNo}
+	</select>
+	
+	<delete id='delete'>
+		delete from note where noteNo>0 and noteNo=#{noteNo};
+	</delete>
+	
+	<select id="noteList" resultType="NoteVO"> <!--받은쪽지 리스트  -->
+		select * from note n left outer join (select userNo, userNick from user) u on n.noteSender = u.userNo 
+		where n.noteNo>0 and n.noteTarget=#{noteTarget} and n.noteSender!=#{noteTarget}
+		order by n.noteNo desc, n.noteSendDate limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="noteListSender" resultType="NoteVO"> <!--보낸쪽지 리스트  -->
+		select * from note n left outer join (select userNo, userNick from user) u on n.noteTarget = u.userNo 
+		where n.noteNo>0 and n.noteSender=#{noteSender} and n.noteTarget!=#{noteSender}
+		order by n.noteNo desc, n.noteSendDate limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="noteListToMe" resultType="NoteVO"> <!--받은쪽지 리스트  -->
+		select * from note n left outer join (select userNo, userNick from user) u on n.noteSender = u.userNo 
+		where n.noteNo>0 and n.noteSender=#{noteTarget} and n.noteTarget=#{noteTarget}
+		order by n.noteNo desc, n.noteSendDate limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="noteListCount" resultType="Integer"> <!--받은쪽지 페이지카운트  -->
+		select count(*) from note where noteNo> 0 and noteTarget=#{noteTarget} and noteSender!=#{noteTarget}
+	</select>
+	
+	<select id="noteListSenderCount" resultType="Integer"> <!--보낸쪽지 페이지카운트  -->
+		select count(*) from note where noteNo> 0 and noteSender=#{noteSender} and noteTarget!=#{noteSender}
+	</select>
+	
+	<select id="noteListToMeCount" resultType="Integer"> <!--내게쓴쪽지 페이지카운트  -->
+		select count(*) from note where noteNo> 0 and noteTarget=#{noteTarget} and noteSender=#{noteTarget}
+	</select>
+	
+	<select id="countReceiveNote" resultType="Integer"> <!-- 웹소켓 알림  -->
+		select count(*) from note where noteNo> 0 and noteTarget=#{noteTarget} and noteSender!=#{noteTarget} and noteTarget!=noteSender and noteSendDate = noteOpenDate
+	</select>
+	
+	<update id="openState"> <!-- read날짜 수정  -->
+		update note set noteOpenDate=now() where noteNo=#{noteNo}
+	</update>
+	
+	<select id="targetChk" resultType="Integer"> <!-- 받는이 확인 -->
+		select count(*) from note where noteTarget = #{noteTarget}
+	</select>
+	
+	<insert id="addCutOff"><!--차단목록 추가  -->
+		insert into cutOff (cutOffTarget, cutOffSender)
+		values (#{cutOffTarget}, #{cutOffSender})
+	</insert>
+	
+	<select id="chkCutOff" resultType="Integer"><!--차단목록 확인  -->
+		select count(*) from cutOff where cutOffTarget=#{cutOffTarget} and cutOffSender=#{cutOffSender} 
+	</select>
+	
+	<select id="cutOffList" resultType="CutOffVO">
+		select * from cutOff c left outer join (select userNo, userNick from user) u on c.cutOffTarget = u.userNo
+		where c.cutOffNo>0 and c.cutOffSender=#{cutOffSender} order by c.cutOffNo desc, c.cutOffRegDate
+	</select>
+	
+	<select id="cutOffListCount" resultType="Integer">
+		select count(*) from cutOff where cutOffNo>0 and cutOffSender=#{cutOffSender}
+	</select>
+	
+	<delete id="cutOffDelete">
+		delete from cutOff where cutOffNo=#{cutOffNo}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,2912 @@
+.pc-none {
+	display: none;
+}
+
+.form-horizontal {
+	clear: both;
+}
+
+.navbar {
+	min-height: 40px;
+}
+
+.nav-down {
+	background: rgba(255, 255, 255, 0.5);
+	padding-bottom: 40px;
+	box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.02);
+}
+
+a:link {
+	text-decoration: none;
+}
+
+a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+/*서브헤드*/
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #620017;
+}
+
+.navbar-default .navbar-nav>li>a,
+.navbar-default .navbar-nav .name {
+	color: #620017;
+}
+
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:after{
+	color: #620017;
+}
+
+.navbar-default .navbar-nav .name {
+	line-height: 1.5;
+	cursor: default;
+}
+
+.navbar-default .navbar-brand {
+	color: #620017;
+	height: auto;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	color: #620017;
+}
+
+.navbar-default .navbar-brand:hover {
+	color: #000;
+}
+
+.nav-down .navbar-nav>li>a, .nav-down  .navbar-nav .name { /* 솔아 이거 이상해 */
+	color: #620017;
+}
+
+.nav-down .navbar-brand { /* 솔아 이거 이상해 */
+	color: #620017;
+}
+
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:after{
+	color: #620017;
+	background-color: rgba(0, 0, 0, 0);
+}
+
+/*로그인*/
+.login {
+	width: 450px;
+	margin: 0 auto;
+	padding: 30px;
+	border-radius: 10px;
+	background: #fff;
+	box-shadow: 1px 1px 20px #dadada;
+}
+
+.login_bg {
+	padding: 200px 0 289px;
+	background: #eee;
+	min-height: 924px;
+}
+
+.kakao-login {
+	display: block;
+	padding: 10px;
+	margin: 10px 0;
+	color: #331a19;
+	background: #ffeb00;
+	border: 1px solid #ffeb00;
+	text-align: center;
+	font-size: 13px;
+	font-weight: 600;
+	border-radius: 5px;
+}
+
+.kakao-login:hover {
+	background: rgba(255, 235, 0, 0.7);
+	border: 1px solid rgba(255, 235, 0, 0.7);
+	color: #331a19;
+}
+
+.kakao-login img {
+	width: 18px;
+	margin-left: 5px;
+	float: left;
+}
+
+.naver-login {
+	display: block;
+	padding: 10px;
+	margin: 10px 0 20px;
+	color: #fff;
+	background: #44b035;
+	border: 1px solid #44b035;
+	text-align: center;
+	font-size: 13px;
+	font-weight: 600;
+	border-radius: 5px;
+}
+
+.naver-login:hover {
+	background: rgba(68, 176, 53, 0.9);
+	border: 1px solid rgba(68, 176, 53, 0.9);
+	color: #fff;
+}
+
+.naver-login img {
+	width: 18px;
+	margin-left: 5px;
+	float: left;
+}
+
+.login .form-control, .form-group .form-control {
+	color: #333;
+}
+
+.login .form-group {
+	margin: 0;
+	padding: 0;
+}
+
+.login .col-xs-3 {
+	width:29.9%;
+	text-align:center;
+}
+
+.login .hyphen {
+    width: 20px;
+    float: left;
+}
+
+.login .form-control, .login .form-group .form-control {
+	width: 100%;
+}
+
+.login .checkbox label, .login .radio label, .login label {
+	font-size: 13px;
+	margin-right: 15px;
+}
+
+.login .checkbox .checkbox-material .check {
+	width: 15px;
+	height: 15px;
+}
+
+.login .checkbox .checkbox-material .check:before {
+	margin-top: -6px;
+	margin-left: 5px;
+}
+
+.login .btn-default {
+	width: 100%;
+	margin: 0;
+	padding: 10px 30px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.login .find-user {
+	margin-top: 5px;
+	font-size: 13px;
+}
+
+.login .find-user>a {
+	margin-top: 5px;
+	font-weight: bold;
+	padding-left: 10px;
+}
+
+.login .modal-footer {
+	border: 0;
+	padding: 15px 0;
+}
+
+.login .modal-header h4 {
+	font-weight: bold;
+	color: #620017;
+	text-align: center;
+}
+
+.login .modal-dialog {
+	width: 450px;
+	margin: 200px auto;
+}
+
+.login .modal-body {
+	padding: 15px 30px;
+}
+
+/*회원가입*/
+.join {
+	width: 450px;
+	margin: 0 auto;
+	padding: 30px;
+	border-radius: 10px;
+	background: #fff;
+	box-shadow: 1px 1px 20px #dadada;
+}
+
+.join_bg {
+	padding: 102px 0;
+	background: #eee;
+}
+
+.join .form-group {
+	margin: 15px 0 0 0px;
+}
+
+.join .form-group .col-xs-1 {
+	width: auto;
+	padding: 5px 0 0 0;
+}
+
+.join .form-control, .join .form-group .form-control {
+	color: #444;
+}
+
+.join .form-control, .join .form-group .form-control {
+	width: 100%;
+}
+
+.join .checkbox label, .join .radio label, .join label {
+	font-size: 13px;
+	margin-right: 15px;
+	color: #000;
+	margin-bottom: 5px;
+	word-break:keep-all;
+}
+
+.join .checkbox .checkbox-material .check {
+	width: 15px;
+	height: 15px;
+}
+
+.join .checkbox .checkbox-material .check:before {
+	margin-top: -6px;
+	margin-left: 5px;
+}
+
+.join .btn-default {
+	width: 100%;
+	font-size: 13px;
+}
+
+.join .emailChkBtn {
+	width: auto;
+}
+
+.join .checkbox .checkbox-material .check {
+	position: relative;
+	display: inline-block;
+    width: 15px;
+    height: 15px
+	border: 1px solid rgba(0, 0, 0, .54);
+	overflow: hidden;
+	z-index: 1;
+	border-radius: 3px;
+}
+
+.join .radio label .circle {
+	border: 1px solid rgba(0, 0, 0, .54);
+}
+
+.join .radio input[type=radio]:checked ~ .check {
+	background: rgba(0, 0, 0, .54);
+}
+
+.join .radio label .check:after {
+	background-color: rgba(0, 0, 0, .54);
+}
+
+.join .radio input[type=radio]:checked ~ .circle {
+	border-color: rgba(0, 0, 0, .54);
+}
+
+.join .radio {
+	padding-left: 40px;
+}
+
+
+.join .is-focused .checkbox label:hover {
+	color:#000;
+}
+
+.join .checkbox, .join .radio {
+	display: inline-block;
+}
+
+.join .form-group.is-focused .radio label:hover, .join .form-group.is-focused .radio label:focus
+	{
+	color: rgba(0, 0, 0, .54);
+}
+
+.join .form-group.is-focused .radio label {
+	color: rgba(0, 0, 0, 1);
+}
+
+.join .radio label span {
+	top: 3px;
+}
+
+.join .modal-footer {
+	padding: 10px 0 0 0;
+	border: 0;
+}
+
+.join .form-control, .join .form-group .form-control {
+	width: 100%;
+}
+
+.join .form-group .col-xs-9 {
+	padding-left: 0;
+}
+
+.join .hyphen {
+	width: auto;
+	padding: 5px 0 0 0;
+	float: left;
+}
+
+.join .form-group:after {
+	clear: both;
+	display: block;
+	content: "";
+	zoom: 1;
+}
+
+.join .form-group-box:after {
+	clear: both;
+	display: block;
+	content: "";
+	zoom: 1;
+}
+
+.join .form-group-box .form-group {
+	margin: 20px 0 0;
+	width: 24%;
+}
+
+.join .number .form-group {
+	margin: 0;
+}
+
+.join .form-group-box .form-group:first-child {
+	padding-left: 0px;
+}
+
+.join .terms {
+	font-size: 12px;
+}
+
+.join .terms:hover {
+	 color:#777;
+}
+
+/*마이페이지*/
+.mypage .tab-content {
+	margin-top: 30px;
+	background-color: #fff;
+}
+
+.mypage {
+	background: #eee;
+}
+
+.mypage_bg {
+	padding: 80px 0 50px 0;
+	background: #eee;
+	min-height: 924px;
+}
+
+.mypage .list{
+	margin: 5px 0;
+}
+
+.mypage_bg .modal-content .applyListInfo a {
+	padding: 6px 22px;
+	font-size: 12px;
+	border-color: #620017;
+	background: #620017;
+	color: #fff;
+	border-radius: 4px;
+	margin: 0px 5px;
+	float: right;
+	cursor: pointer;
+}
+
+.mypage_bg .modal-dialog {
+	width: 767px;
+}
+
+.mypage_bg #denyMsg {
+	width: 66%;
+	font-size: 13px;
+	padding: 3px;
+	border-radius: 3px;
+	border: 1px solid #ddd;
+}
+
+.mypage_bg #applyDenyCancel {
+	padding: 6px 22px;
+	font-size: 12px;
+	border-color: #620017;
+	background: #620017;
+	color: #fff;
+	border-radius: 4px;
+	margin: 0px 5px;
+	cursor: pointer;
+}
+
+.nav-tabs {
+	text-align: center;
+	border-bottom: 0;
+}
+
+.nav-tabs li {
+	width: 50%;
+	display: inline-block;
+}
+
+.nav-tabs li a {
+	border-radius: 0;
+	border: 1px solid #ddd;
+	padding: 15px;
+	color: #888;
+	background: #fff;
+}
+
+.nav-tabs li.active>a, .nav-tabs li.active>a:focus, .nav-tabs li.active>a:hover,
+	.nav-tabs li a:focus, .nav-tabs li a:hover {
+	border: 0;
+	background: #620017;
+	color: #fff;
+	border: 1px solid #620017;
+	transition: 0.55s;
+}
+
+.mypage_nav>li>a:focus, .mypage_nav>li>a:hover {
+	text-decoration: none;
+	background: #620017;
+	color: #fff;
+}
+
+.mypage .tabpanel>.nav-tabs {
+	margin-bottom: 30px;
+}
+
+.mypage .tabpanel .nav-tabs>li>a {
+	border-radius: 0px;
+	text-align: center;
+}
+
+.nav-tabs .profile {
+	width: 25%;
+}
+
+.nav-tabs .study {
+	width: 25%;
+}
+
+.mypage .tabpanel .nav-tabs>li.active>a, .mypage .tabpanel .nav-tabs>li>a:hover,
+	.mypage .tabpanel .nav-tabs>li>a:focus {
+	border-bottom: 0px;
+	border: 1px solid #eee;
+}
+
+.mypage .tabpanel-in {
+	margin: 20px 0;
+}
+
+.mypage .tab-content-in {
+	margin: 30px 0;
+	position: relative;
+}
+
+.mypage .user-img-btn {
+	display: none;
+}
+
+.mypage .tabpanel-in .nav-tabs>.active>a {
+	border-radius: 0px;
+	text-align: center;
+	color: #fff;
+	background: #620017;
+	border: 1px solid #620017;
+}
+
+.mypage .tabpanel-in h4 {
+	font-size: 16px;
+	font-weight: bold;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 15px;
+}
+
+.mypage .tabpanel-in li>a {
+	text-align: center;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	color: #888;
+	border-radius: 0;
+}
+
+.mypage .tabpanel-in li>a:focus, .mypage .tabpanel-in li>a:hover {
+	text-decoration: none;
+	color: #fff;
+	background: #620017;
+	border: 1px solid #620017;
+	border-radius: 0;
+}
+
+.mypage .tabpanel-in .tab-content:after {
+	clear: both;
+	display: block;
+	content: "";
+	zoom: 1;
+}
+
+.mypage .tabpanel-in .tab-content .user-img {
+	height: auto;
+	overflow: hidden;
+	border-radius: 200px;
+	border: 1px solid #eee;
+	background-size: cover;
+	min-height: 185px;
+	cursor: pointer;
+}
+
+.mypage .tabpanel-in .tab-content .user-img img {
+	width: 125%;
+	height: 185px;
+	margin-left: -15px;
+}
+
+.mypage .tabpanel-in .tab-content .user-img-text {
+	margin-top: 75px;
+	padding-left: 20px;
+	font-size: 13px;
+	line-height: 1.7em;
+	color: #620017;
+}
+
+.mypage .tabpanel-in .tab-content .user-img-text small {
+	margin-top: 5px;
+	display: block;
+}
+
+.mypage .tabpanel-in .tab-content .btn-danger {
+	font-size: 12px;
+	background-color: #620017;
+	border-color: #620017;
+	margin-bottom: 20px;
+}
+
+.mypage .tabpanel-in .tab-content .btn-danger:hover {
+	background-color: rgba(99, 1, 24, 0.8);
+	transition: 0.55s;
+}
+
+.mypage .tabpanel-in .tab-content p {
+	margin: 0;
+	line-height: 1.7;
+}
+
+.mypage .tabpanel-in .tab-content .thumbnail {
+	margin-top: 20px;
+	padding: 20px;
+	text-align: center;
+}
+
+.mypage .btn-group {
+	width: 100%;
+}
+
+.mypage .btn-group button {
+	float: right;
+}
+
+.mypage .form-control, .mypage .form-group .form-control {
+	width: 100%;
+}
+
+.mypage .form-control, .mypage .form-group .form-control::-webkit-input-placeholder {
+	font-size:12px;
+}
+
+.mypage .form-group {
+	margin: 15px 0 0;
+}
+
+.mypage .hyphen {
+	width: auto;
+	padding: 5px 0 0 0;
+	float: left;
+}
+
+.mypage .form-group-box:after {
+	clear: both;
+	display: block;
+	content: "";
+	zoom: 1;
+}
+
+.mypage .form-group-box .form-group {
+	margin: 20px 0 0;
+	width: 20%;
+}
+
+.mypage .form-group-box .category-group {
+	width: 100%;
+}
+
+.mypage .form-group-box .userIntroduce-group .form-group {
+	width: 100%;
+}
+
+.mypage .form-group-box .changePwd-group {
+	width: 30%;
+}
+
+.mypage .radio label .circle {
+	border: 1px solid rgba(0, 0, 0, .54);
+}
+
+.mypage .radio input[type=radio]:checked ~ .check {
+	background: rgba(0, 0, 0, .54);
+}
+
+.mypage .radio label .check:after {
+	background-color: rgba(0, 0, 0, .54);
+}
+
+.mypage .radio input[type=radio]:checked ~ .circle {
+	border-color: rgba(0, 0, 0, .54);
+}
+
+.mypage .checkbox label, .mypage .radio label {
+	padding-left: 40px;
+}
+
+.mypage .checkbox, .mypage .radio {
+	display: inline-block;
+}
+
+.mypage .form-group.is-focused .radio label:hover, .join .form-group.is-focused .radio label:focus
+	{
+	color: rgba(0, 0, 0, .54);
+}
+
+.mypage .form-group.is-focused .radio label {
+	color: rgba(0, 0, 0, 1);
+}
+
+.mypage .radio label span {
+	top: 3px;
+}
+
+.mypage .number .form-group:first-child {
+	padding-left:15px;
+}
+
+.mypage .number .form-group {
+	margin: 0;
+	width:8%;
+}
+
+.mypage .form-group-box .form-group:first-child {
+	padding-left: 0px;
+}
+
+.mypage .checkbox label, .mypage .radio label, .mypage label {
+	font-size: 12px;
+	margin-right: 15px;
+	color: #666;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.mypage .more {
+	text-align: right;
+}
+
+.mypage .sub-thumbnail .card.hovercard {
+	border: 1px solid #eee;
+}
+
+.applyList:after {
+	clear: both;
+	display: block;
+	content: "";
+	zoom: 1;
+}
+
+.applyListInfo {
+	float: left;
+	padding-left: 20px;
+	padding-top: 20px;
+	width: 91%;
+}
+
+.applyList {
+	display: block;
+	width: 100%;
+}
+
+.applyList .avatar {
+	float: left;
+}
+
+.applyList .avatar img {
+	width: 60px;
+	height: 60px;
+	max-width: 100px;
+	max-height: 100px;
+	left: 40px;
+	margin-bottom: 5px;
+	float: left;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	border: 2px solid rgba(98, 0, 23, 1);
+}
+
+.mypage .header .content {
+	text-align: center;
+	border: 1px solid #620017;
+	background: #620017;
+	color: #fff;
+	font-size: 12px;
+	padding: 10px;
+	margin: 5px 0;
+	display: block;
+	width: 100%;
+	border-radius: 5px;
+	transition: 0.55s;
+}
+
+.mypage .header .collapsed {
+	text-align: center;
+	border: 1px solid #620017;
+	background: #fff;
+	color: #620017;
+	font-size: 12px;
+	padding: 10px;
+	margin: 5px 0;
+	display: block;
+	width: 100%;
+	border-radius: 5px;
+}
+
+.mypage .checkbox {
+	margin-top: 0px;
+	padding: 0 0 0 10px;
+}
+
+.mypage .checkbox input[type=checkbox]:checked+.checkbox-material .check
+	{
+	background-color: #620017;
+}
+
+.mypage .form-group .checkbox label .circle {
+	border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.mypage .form-group .checkbox label .check:after {
+	background-color: rgba(0, 0, 0, .2);
+}
+
+.mypage .form-group .checkbox label {
+	color: #444;
+	font-size: 12px;
+}
+
+.mypage .form-group.is-focused .checkbox label {
+	color: #000;
+}
+
+.mypage .form-group.is-focused .checkbox label:hover, .mypage .form-group.is-focused .checkbox label:focus
+	{
+	color: #444;
+}
+
+.mypage .checkbox .checkbox-material .check {
+	width: 13px;
+	height: 13px;
+}
+
+.mypage .checkbox .checkbox-material {
+	vertical-align: middle;
+	position: relative;
+	top: 1.5px;
+	padding-right: 10px;
+}
+
+.mypage .checkbox .checkbox-material .check:before {
+	margin-top: -7px;
+	margin-left: 4px;
+}
+
+.mypage .checkbox .checkbox-material:before {
+	height: 15px;
+	width: 15px;
+}
+
+.mypage .checkbox .checkbox-material:before {
+	display: none;
+}
+
+.mypage .wizard-card[data-color="red"] .moving-tab {
+	background-color: #620017;
+	box-shadow: 0 16px 26px -10px rgba(98, 0, 23, 0.56), 0 4px 25px 0px
+		rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(98, 0, 23, 0.2);
+}
+
+.mypage #userFile {
+	opacity: 0;
+	position: relative;
+	top: -20px;
+}
+
+.mypage #counter {
+	font-size: 0.8em;
+	color: #fff;
+	margin-bottom: 10px;
+	margin-right: 16px;
+	background: #aaa;
+	padding: 2px 5px;
+	border-radius: 5px;
+	position: relative;
+	top: -40px;
+	left: 96%;
+}
+
+.mypage .form-group.label-floating label.control-label {
+	top:-14px;
+}
+
+.mypage .form-group.label-floating.is-focused label.control-label {
+	top:-35px;
+}
+
+.mypage .timer {
+	font-size: 12px;
+    padding-top: 10px;
+    padding-left: 15px;
+}
+
+.mypage .authCode:after {clear:both;display:block;content:"";zoom:1;}
+
+.mypage .authCode {
+	display:none;
+	clear:both;
+}
+
+/*상세검색페이지*/
+.search-sub {
+	padding: 20px;
+	background: #fff;
+	border-radius: 10px;
+	margin: 70px 0 40px 0;
+	box-shadow: 0 8px 12px 1px rgba(0, 0, 0, 0.1), 0 2px 10px 1px
+		rgba(0, 0, 0, 0.1), 0 4px 5px -10px rgba(0, 0, 0, 0.2);
+}
+
+.search-sub .search-typebtn {
+	text-align: right;
+}
+
+.search-sub .search-typebtn>button {
+	width: 8%;
+	font-size: 12px;
+	padding: 5px 0px;
+	margin: 0;
+}
+
+.search-sub .search-sub-select1 {
+	padding-left: 0;
+}
+
+.search-sub .search-sub-select2 {
+	padding-right: 0;
+}
+
+/*리스트페이지*/
+.list_bg {
+	background: #f0f0f0;
+}
+
+.list .list-thumbnail {
+	margin: 20px 0;
+}
+
+.list .form-control, .list .form-group .form-control {
+	width: 100%;
+}
+
+.list .form-inline .form-group {
+	margin-top: 15px;
+}
+
+.list .form-group {
+	margin: 0;
+}
+
+.list .form-group.label-static label.control-label, .list .form-group.label-floating.is-focused label.control-label,
+	.list .form-group.label-floating:not (.is-empty ) label.control-label {
+	left: 15px;
+}
+
+.list .modal-footer {
+	border: 0px;
+	padding: 5px 0 0 0;
+	clear: both;
+}
+
+.list .modal-footer .btn-default {
+	width: 10%;
+	padding: 10px 30px;
+}
+
+.list .btn-group>.btn:first-child {
+	color: #333;
+}
+
+.list .btn-group>.btn:first-child:hover, .list .btn-group>.btn:first-child:focus
+	{
+	text-decoration: none;
+}
+
+.sub-thumbnail h1 {
+	text-align: center;
+	font-weight: 600;
+	color: #620017;
+	padding-left: 59px;
+	margin-top: 70px;
+}
+
+.sub-thumbnail h1 a {
+	float: right;
+	font-size: 13px;
+	border: 1px solid #aaa;
+	padding: 5px 10px;
+	margin-top: 10px;
+	color: #888;
+	font-weight: 300;
+}
+
+.sub-thumbnail h1 a:hover {
+	background: #888;
+	color: #fff;
+	border: 1px solid #888;
+	font-weight: 300;
+	transition: 0.5s all;
+}
+
+.sub-thumbnail .line {
+	background: #620017;
+	padding: 1px;
+	width: 30px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.sub-thumbnail .card {
+	padding-top: 20px;
+	margin: 10px 0 20px 0;
+	background-color: rgba(214, 224, 226, 0.2);
+	border-top-width: 0;
+	border-bottom-width: 2px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.sub-thumbnail .card .card-heading {
+	padding: 0 20px;
+	margin: 0;
+}
+
+.sub-thumbnail .card .card-heading.simple {
+	font-size: 20px;
+	font-weight: 300;
+	color: #777;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.sub-thumbnail .card .card-heading.image img {
+	display: inline-block;
+	width: 46px;
+	height: 46px;
+	margin-right: 15px;
+	vertical-align: top;
+	border: 0;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+}
+
+.sub-thumbnail .card .card-heading.image .card-heading-header {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.sub-thumbnail .card .card-heading.image .card-heading-header h3 {
+	margin: 0;
+	font-size: 14px;
+	line-height: 16px;
+	color: #262626;
+}
+
+.sub-thumbnail .card .card-heading.image .card-heading-header span {
+	font-size: 12px;
+	color: #999999;
+}
+
+.sub-thumbnail .card .card-body {
+	padding: 0 20px;
+	margin-top: 20px;
+}
+
+.sub-thumbnail .card .card-media {
+	padding: 0 20px;
+	margin: 0 -14px;
+}
+
+.sub-thumbnail .card .card-media img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.sub-thumbnail .card .card-actions {
+	min-height: 30px;
+	padding: 0 20px 20px 20px;
+	margin: 20px 0 0 0;
+}
+
+.sub-thumbnail .card .card-comments {
+	padding: 20px;
+	margin: 0;
+	background-color: #f8f8f8;
+}
+
+.sub-thumbnail .card .card-comments .comments-collapse-toggle {
+	padding: 0;
+	margin: 0 20px 12px 20px;
+}
+
+.sub-thumbnail .card .card-comments .comments-collapse-toggle a,
+	.sub-thumbnail .card .card-comments .comments-collapse-toggle span {
+	padding-right: 5px;
+	overflow: hidden;
+	font-size: 12px;
+	color: #999;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.sub-thumbnail .card-comments .media-heading {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.sub-thumbnail .card.people {
+	position: relative;
+	display: inline-block;
+	width: 170px;
+	height: 300px;
+	padding-top: 0;
+	margin-left: 20px;
+	overflow: hidden;
+	vertical-align: top;
+}
+
+.sub-thumbnail .card.people:first-child {
+	margin-left: 0;
+}
+
+.sub-thumbnail .card.people .card-top {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: inline-block;
+	width: 170px;
+	height: 150px;
+	background-color: #ffffff;
+}
+
+.sub-thumbnail .card.people .card-top.green {
+	background-color: #53a93f;
+}
+
+.sub-thumbnail .main-thumbnail .card.people .card-top.blue {
+	background-color: #427fed;
+}
+
+.sub-thumbnail .card.people .card-info {
+	position: absolute;
+	top: 150px;
+	display: inline-block;
+	width: 100%;
+	height: 101px;
+	overflow: hidden;
+	background: #ffffff;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.sub-thumbnail .card.people .card-info .title {
+	display: block;
+	margin: 8px 14px 0 14px;
+	overflow: hidden;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 18px;
+	color: #404040;
+}
+
+.sub-thumbnail .card.people .card-info .desc {
+	display: block;
+	margin: 8px 14px 0 14px;
+	overflow: hidden;
+	font-size: 12px;
+	line-height: 16px;
+	color: #737373;
+	text-overflow: ellipsis;
+}
+
+.sub-thumbnail .card.people .card-bottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	display: inline-block;
+	width: 100%;
+	padding: 10px 20px;
+	line-height: 29px;
+	text-align: center;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.sub-thumbnail .card.hovercard {
+	position: relative;
+	padding-top: 0;
+	overflow: hidden;
+	text-align: center;
+	border: 1px solid #ddd;
+	background: rgba(255, 255, 255, 1);
+	box-shadow: 0 8px 12px 1px rgba(0, 0, 0, 0.1), 0 2px 10px 1px
+		rgba(0, 0, 0, 0.1), 0 4px 5px -10px rgba(0, 0, 0, 0.2);
+}
+
+.sub-thumbnail .card.hovercard .m_icon {
+	position: absolute;
+	top: -141px;
+	right: 306px;
+	font-size: 16px;
+	padding: 4px 8px;
+	font-weight: 600;
+	border-radius: 50px;
+	color: #fff;
+	background: #620017;
+}
+
+.sub-thumbnail .card.hovercard .icon_1 {
+	position: absolute;
+	top: 60px;
+	left: 250px;
+	font-size: 12px;
+	padding-left: 8px;
+	color: #555;
+}
+
+.sub-thumbnail .card.hovercard .icon_2 {
+	position: absolute;
+	top: 60px;
+	left: 300px;
+	font-size: 12px;
+	padding-left: 8px;
+	color: #555;
+}
+
+.sub-thumbnail .card.hovercard .icon i {
+	font-size: 15px;
+	padding-right: 5px;
+}
+
+.sub-thumbnail .card.hovercard .cardheader {
+	background-size: cover;
+	height: 200px;
+	opacity: 0.5;
+}
+
+/*썸네일 확대*/
+.cardheaderbox {
+	overflow: hidden;
+}
+
+.cardheader {
+	transform: scale(1);
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transition: all 0.3s ease-in-out; /* 부드러운 모션을 위해 추가*/
+}
+
+.cardheader:hover {
+	transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+	-moz-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	-o-transform: scale(1.2);
+}
+
+.card .hovercard {
+	overflow: hidden;
+}
+
+.sub-thumbnail .card.hovercard .card-name {
+	font-size: 17px;
+	font-weight: 600;
+	color: #fff;
+	position: absolute;
+	top: 79px;
+	left: 0;
+	width: 100%;
+	padding: 10px 15px;
+	border-radius: 3px;
+}
+
+.sub-thumbnail .card.hovercard .avatar {
+	position: relative;
+	top: -50px;
+	margin-bottom: -50px;
+}
+
+.sub-thumbnail .card.hovercard .avatar img {
+	width: 100px;
+	height: 100px;
+	max-width: 100px;
+	max-height: 100px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	border: 5px solid rgba(255, 255, 255, 0.5);
+}
+
+.sub-thumbnail .card.hovercard .avatar .master {
+	border: 5px solid rgba(98, 0, 23, 0.5);
+}
+
+.sub-thumbnail .card.hovercard .info {
+	padding: 4px 8px 10px;
+}
+
+.sub-thumbnail .card.hovercard .info .title {
+	margin-bottom: 4px;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 1;
+	color: #262626;
+	vertical-align: middle;
+}
+
+.sub-thumbnail .card.hovercard .info .desc {
+	overflow: hidden;
+	font-size: 12px;
+	line-height: 20px;
+	color: #737373;
+}
+
+.sub-thumbnail .card.hovercard .info .info-bold {
+	font-weight: bold;
+}
+
+.sub-thumbnail .card.hovercard .btn-sm {
+	padding: 5px 25px;
+	background-color: #620017;
+	border: 1px solid #620017;
+	color: #fff;
+	border-radius: 5px;
+}
+
+.sub-thumbnail .card.hovercard .btn-sm:hover {
+	background-color: rgba(98, 0, 23, 0.8);
+	border: 1px solid rgba(98, 0, 23, 0.8);
+	transition: 0.5s all;
+	color: #fff;
+	border-radius: 5px;
+	padding: 5px 25px;
+}
+
+.pagination {
+	padding-bottom: 20px;
+}
+
+.pagination>li>a, .pagination>li>span {
+	color: #333;
+	border-radius: 50px;
+	margin: 0 10px;
+	border: 0px;
+	box-shadow: 0 8px 12px 1px rgba(0, 0, 0, 0.1), 0 2px 10px 1px
+		rgba(0, 0, 0, 0.1), 0 4px 5px -10px rgba(0, 0, 0, 0.2);
+}
+
+.pagination>li>a:hover {
+	background: #620017;
+	color: #fff;
+}
+
+.pagination>li:first-child>a, .pagination>li:first-child>span,
+	.pagination>li:last-child>a, .pagination>li:last-child>span {
+	border-radius: 50px;
+	padding: 6px 12px;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover,
+	.pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover
+	{
+	background-color: #620017;
+	border-color: #620017;
+}
+
+/*등록페이지*/
+.write .checkbox .checkbox-material:before {
+	display: none;
+}
+
+.write .wizard-card[data-color="red"] .moving-tab {
+	background-color: #620017;
+	box-shadow: 0 16px 26px -10px rgba(98, 0, 23, 0.56), 0 4px 25px 0px
+		rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(98, 0, 23, 0.2);
+}
+
+.write .wizard-card[data-color="red"] .form-group .form-control {
+	background-image: linear-gradient(#620017, #620017),
+		linear-gradient(#D2D2D2, #D2D2D2);
+}
+
+.write {
+	padding: 0;
+}
+
+.write_bg {
+	padding: 110px 0;
+	background: #eee;
+	min-height: 949px;
+}
+
+.write .category {
+	margin-bottom: 15px;
+}
+
+.write .wizard-container {
+	padding-top: 0;
+}
+
+.write .form-group {
+	margin: 0px;
+}
+
+.write .form-group select {
+	font-size: 12px;
+}
+
+.write .form-group .hasDatepicker {
+	font-size: 12px;
+}
+
+.write .area {
+	margin: 20px 0 0 0;
+}
+
+.write .form-group:after {
+	clear: both;
+	display: block;
+	content: "";
+	zoom: 1;
+}
+
+.write .form-group.label-static label.control-label, .write .form-group.label-floating.is-focused label.control-label,
+	.write .form-group.label-floating:not (.is-empty ) label.control-label
+	{
+	top: -30px;
+	left: 15px;
+	font-size: 11px;
+	line-height: 1.07143;
+}
+
+.write .form-group.label-floating.is-focused label.control-label {
+	color: #888;
+	left: 10px;
+}
+
+.write .form-group label.control-label {
+	padding-left: 10px;
+	color: #000;
+	top: -11px;
+	font-size: 12px;
+	text-align: left;
+}
+
+.write .form-control, .write .form-group .form-control {
+	width: 100%;
+}
+
+.write .area .form-inner {
+	width: 46%;
+	float: left;
+	font-size: 12px;
+	margin: 7px 10px;
+	border: 0px;
+	border-bottom: 1px solid #D2D2D2;
+	color: #eee;
+}
+
+.write .area .form-btn {
+	width: 20%;
+	border: 1px solid #620017;
+	background: #fff;
+	color: #620017;
+	font-size: 12px;
+	padding: 5px 0;
+	border-radius: 3px;
+}
+
+.write .header .content {
+	text-align: center;
+	border: 1px solid #620017;
+	background: #620017;
+	color: #fff;
+	font-size: 12px;
+	padding: 10px;
+	margin: 5px 0;
+	display: block;
+	width: 100%;
+	border-radius: 5px;
+	transition: 0.55s;
+}
+
+.write .header .collapsed {
+	text-align: center;
+	border: 1px solid #620017;
+	background: #fff;
+	color: #620017;
+	font-size: 12px;
+	padding: 10px;
+	margin: 5px 0;
+	display: block;
+	width: 100%;
+	border-radius: 5px;
+}
+
+.write .list:after {
+	clear: both;
+	display: block;
+	content: "";
+	zoom: 1;
+}
+
+.write .list {
+	margin: 5px 0;
+}
+
+.write .list .midCategoryBox {
+	color: #444;
+	padding-left: 5px;
+	font-size: 12px;
+}
+
+.write .btn-success {
+	background: #620017;
+	color: #fff;
+	border: 1px solid #620017;
+	font-size: 12px;
+	padding: 10px;
+}
+
+.write .btn-success:hover {
+	background: rgba(98, 0, 23, 0.9);
+	transition: 0.55s;
+}
+
+.write .checkbox {
+	margin-top: 0px;
+	padding: 0 0 0 10px;
+}
+
+.write .wizard-card[data-color="red"] .checkbox input[type=checkbox]:checked+.checkbox-material .check
+	{
+	background-color: #620017;
+}
+
+.write .form-group .checkbox label .circle {
+	border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.write .form-group .checkbox label .check:after {
+	background-color: rgba(0, 0, 0, .2);
+}
+
+.write .form-group .checkbox label {
+	color: #444;
+	font-size: 12px;
+}
+
+.write .form-group.is-focused .checkbox label {
+	color: #000;
+}
+
+.write .form-group.is-focused .checkbox label:hover, .write .form-group.is-focused .checkbox label:focus
+	{
+	color: #444;
+}
+
+.write .checkbox .checkbox-material .check {
+	width: 13px;
+	height: 13px;
+}
+
+.write .checkbox .checkbox-material {
+	vertical-align: middle;
+	position: relative;
+	top: 1.5px;
+	padding-right: 10px;
+}
+
+.write .checkbox .checkbox-material .check:before {
+	margin-top: -7px;
+	margin-left: 4px;
+}
+
+.write .checkbox .checkbox-material:before {
+	height: 15px;
+	width: 15px;
+}
+
+.ui-widget.ui-widget-content {
+	width: 15%;
+}
+
+.ui-widget-header {
+	background: #fff;
+	border: 0px;
+}
+
+.ui-datepicker .ui-datepicker-title {
+	line-height: 1.9em;
+	font-size: 13px;
+	font-weight: 400;
+}
+
+.ui-datepicker th {
+	padding: .7em .3em;
+	font-size: 12px;
+	text-align: center;
+	font-weight: 300;
+	border: 0;
+}
+
+.ui-widget.ui-widget-content {
+	border: 1px solid #620017;
+	background: #fff;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default,
+	.ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover,
+	html .ui-button.ui-state-disabled:active {
+	border: 1px solid #fff;
+	background: #fff;
+	font-weight: normal;
+	color: #555555;
+	font-size: 12px;
+	text-align: center;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover,
+	.ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus,
+	.ui-button:hover, .ui-button:focus {
+	border: 0px;
+	background: #fff;
+	font-weight: bold;
+	top: 2px;
+	color: #212121;
+}
+
+.ui-datepicker .ui-datepicker-next {
+	right: 1px;
+}
+
+.ui-datepicker .ui-datepicker-prev {
+	left: 1px;
+}
+
+.write #Datepicker:after {
+	clear: both;
+	display: block;
+	content: "";
+	zoom: 1;
+}
+
+.write #Datepicker {
+	padding-bottom: 5px;
+	text-align: center;
+	border-radius: 4px;
+}
+
+.write #Datepicker .btn-group-xs>.btn, .write #Datepicker .btn-xs {
+	line-height: 1;
+}
+
+.write .dayChkBtn {
+	width: 100%;
+	border: 1px solid #620017;
+	background: #fff;
+	color: #620017;
+	font-size: 12px;
+	padding: 6px 0;
+	border-radius: 3px;
+}
+
+.write .dayChk {
+	font-size: 12px;
+	padding-bottom: 10px;
+	font-weight: bold;
+}
+
+.write .dayChk span {
+	width: 65px;
+	display: inline-block;
+}
+
+.write .dayChk .wave {
+	width: 20px;
+}
+
+.write .fileUp {
+	font-size: 12px;
+	margin-top: 10px;
+	line-height: 1.5;
+	color: #555;
+	font-weight: 300;
+}
+
+.write .form-group input[type=file] {
+	cursor: pointer;
+}
+
+.write .thumnail {
+	padding-top: 20px;
+}
+
+.write .thumnail li {
+	list-style: none;
+}
+
+.write .write-category {
+	border: 1px solid #aaa;
+	padding: 30px 20px;
+	margin: 0 0 20px 0;
+	text-align: center;
+}
+
+.write .btn-default {
+	padding: 10px;
+	font-size: 12px;
+}
+
+.write .area-btn {
+	padding: 5px 10px;
+}
+
+.write .step2 .time_box {
+	padding-left: 30px;
+}
+
+.write .step2 .time .form-control {
+	padding: 0px;
+}
+
+.write .step2 .hyphen {
+	display: inline-block;
+	position: relative;
+	bottom: 10px;
+}
+
+.write .step3 textarea {
+	resize: none;
+}
+
+.write #timepicker1, #timepicker2 {
+	width: 100%;
+	float: left;
+}
+
+.write .ti_tx, .write .mi_tx, .write .mer_tx {
+	width: 100%;
+	text-align: center;
+	margin: 10px 0;
+}
+
+.write .time, .write .mins, .write .meridian {
+	width: 44px;
+	float: left;
+	font-size: 15px;
+	color: #2d2e2e;
+	font-family: arial;
+	font-weight: 700;
+}
+
+.write .prev, .write .next {
+	cursor: pointer;
+	padding: 18px;
+	width: 28%;
+	border: 1px solid #ccc;
+	margin: auto;
+	background: url(../images/arrow.png) no-repeat;
+	border-radius: 5px;
+}
+
+.write .prev:hover, .write .next:hover {
+	background-color: #ccc;
+}
+
+.write .next {
+	background-position: 50% 150%;
+}
+
+.write .prev {
+	background-position: 50% -50%;
+}
+
+.write .time_pick {
+	position: relative;
+}
+
+.write .timepicker_wrap {
+	padding: 10px;
+	border-radius: 5px;
+	z-index: 998;
+	display: none;
+	box-shadow: 2px 2px 5px 0 rgba(50, 50, 50, 0.35);
+	background: #f6f6f6;
+	border: 1px solid #ccc;
+	float: left;
+	position: absolute;
+	top: 27px;
+	left: 0;
+}
+
+.write .arrow_top {
+	position: absolute;
+	top: -10px;
+	left: 20px;
+	background: url(../images/top_arr.png) no-repeat;
+	width: 18px;
+	height: 10px;
+	z-index: 999;
+}
+
+.write input.timepicki-input {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid #CCCCCC;
+	border-radius: 5px 5px 5px 5px;
+	float: none;
+	margin: 0;
+	text-align: center;
+	width: 70%;
+}
+
+.write a.reset_time {
+	float: left;
+	margin-top: 5px;
+	color: #000;
+}
+
+.write .dl-horizontal {
+	text-align: left;
+}
+
+.write .height500 {
+	height: 500px;
+	margin: 85px 0;
+	overflow: auto;
+}
+
+.write input[type='text'] {
+	color: #333333;
+}
+
+.write .myclass input[type='text'] {
+	color: #5CB85C
+}
+
+.write .time_pick {
+	width: 46%;
+	display: inline-block;
+}
+
+.indexpicker .time_pick>input {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.write .onePage {
+	height: 100%;
+}
+
+.write .scrollNav ul {
+	position: fixed;
+	right: 20px;
+	top: 25%;
+}
+
+.write .scrollNav li {
+	color: #fff;
+	cursor: pointer;
+}
+
+.write .thumbnail-wrappper {
+	width: 25%;
+}
+
+.write .thumbnail {
+	position: relative;
+	padding-top: 100%; /* 1:1 ratio */
+	overflow: hidden;
+}
+
+.write .thumbnail .centered {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-transform: translate(50%, 50%);
+	-ms-transform: translate(50%, 50%);
+	transform: translate(50%, 50%);
+}
+
+.write .thumbnail .centered img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	max-width: 100%;
+	height: auto;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.write .mailbox-attachment-name {
+	display: inline-block;
+	width: 90px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.write .wrap {
+	width: 500px;
+	height: auto;
+	position: relative;
+	display: inline-block;
+}
+
+.write .wrap textarea {
+	width: 100%;
+	max-height:370px;
+	resize: none;
+	min-height: 2em;
+	line-height: 1.6em;
+}
+
+.write .wrap span {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+}
+
+.write #counter {
+	font-size: 0.75em;
+	color: #fff;
+	margin-bottom: 10px;
+	margin-right: 16px;
+	background: #aaa;
+	padding: 0 4px;
+	border-radius: 5px;
+}
+
+/*뷰페이지*/
+.view_bg {
+	padding: 70px 0;
+	background: #eee;
+	min-height: 949px;
+}
+
+.view {
+	background: #fff;
+	box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px
+		rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+	border-radius: 6px;
+	position: relative;
+}
+
+.view .carousel {
+	margin: 15px 0;
+	overflow: hidden;
+	background: #02091f;
+}
+
+.view .carousel-inner {
+	height: 450px;
+}
+
+.view .carousel-inner .item {
+	height: 100%;
+}
+
+.view .carousel-inner .item img {
+	height: 100%;
+	margin: 0 auto;
+}
+
+.view .carousel .carousel-control i {
+	padding: 240px 0;
+}
+
+.view .carousel-control.right {
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0,
+		rgba(0, 0, 0, 0) 100%);
+}
+
+.view .carousel-control.left {
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0,
+		rgba(0, 0, 0, 0) 100%);
+}
+
+.view .carousel-indicators {
+	position: absolute;
+	top: 20px;
+	right: 47%;
+	z-index: 15;
+	width: 9%;
+	padding-left: 0;
+	margin-left: -30%;
+	text-align: center;
+	list-style: none;
+	left: auto;
+}
+
+.view .carousel-indicators li {
+	margin: 0 5px;
+}
+
+.view .view-tit {
+	position: absolute;
+	bottom: 0;
+	min-width: 1140px;
+	background: rgba(2, 9, 31, 0.3);
+}
+
+.view .user-img {
+	height: auto;
+	overflow: hidden;
+	border-radius: 200px;
+	border: 2px solid #fff;
+}
+
+.view .user-img img {
+	width: 153%;
+	height: 90px;
+	margin-left: -15px;
+}
+
+.view .user-img-text {
+	margin-top: 18px;
+	padding-left: 20px;
+}
+
+.view .user-name {
+	clear: both;
+	z-index: 1;
+}
+
+.view .user-name .dropdown-toggle {
+	border: 0;
+	background: none;
+	color: #fff;
+	font-size: 15px;
+	padding-left: 0;
+	margin-top: 10px;
+}
+
+.view .dropdown-menu {
+	margin: -20px 0 0;
+	left: 70px;
+	border: 0;
+	background-color: rgba(255, 255, 255, .9);
+}
+
+.view h1 {
+	font-weight: 600;
+	color: #fff;
+	margin: 0;
+	font-size: 20px;
+}
+
+.view .view-icon {
+	text-align: right;
+}
+
+.view .view-icon:after {
+	clear: both;
+	display: block;
+	content: "";
+	zoom: 1;
+}
+
+.view .view-icon a {
+	color: #fff;
+	font-size: 25px;
+	float: right;
+	padding: 0 20px;
+}
+
+.view .view-icon a:hover {
+	color: rgba(255, 255, 255, .5);
+}
+
+.view .view-category {
+	font-size: 13px;
+	border: 1px solid #fff;
+	padding: 5px;
+	text-align: center;
+	margin-top: 15px;
+	color: #fff;
+	display: inline-block;
+	width: 15%;
+	margin-left: 1%;
+	float: right;
+}
+
+.view-user {
+	margin: 10px 0;
+}
+
+.view-content {
+	margin-top: 40px;
+	clear: both;
+}
+
+.view-info:after {
+	clear: both;
+	display: block;
+	content: "";
+	zoom: 1;
+}
+
+.view-info {
+	margin-bottom: 40px;
+	padding-top: 30px;
+}
+
+.view-info>div {
+	padding: 10px 0;
+}
+
+.view-info>.col-md-12 {
+	padding: 30px;
+}
+
+.view-btns {
+	clear: both;
+	text-align: right;
+}
+
+.view-btns .view-btn {
+	font-size: 13px;
+}
+
+.view-btns .btn-primary {
+	background: #620017;
+	border: 1px solid #620017;
+}
+
+.view-btns #applyDiv, .view-btns #endDiv {
+	padding-left: 3px;
+	float: right;
+}
+
+.view-btns .btn-primary:hover {
+	opacity: 0.9;
+}
+
+.view-info .view-info-tit {
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.view-info .view-info-con p {
+	font-size: 13px;
+}
+
+.view .box-body {
+	clear: both;
+}
+
+.view .box-body .reply-name {
+	width: 20%;
+	float: left;
+    padding-left: 20px;
+}
+
+.view .box-body .reply-name .reply-name-form {
+	width: auto;
+	padding-bottom: 7px;
+	border: 0;
+	font-size: 14px;
+	color: #888;
+}
+
+.view .box-body label {
+	font-size: 12px;
+}
+
+.view .box-body .reply-name .form-group {
+	margin: 6px 0 0 12px;
+}
+
+.view .box-body .reply-tit {
+	width: 60%;
+	float: left;
+}
+
+.view .box-body .reply-tit .form-group {
+	margin: 0;
+}
+
+.view .box-body .reply-tit .form-control {
+	width: 90%;
+	color: #888;
+}
+
+.view .box-body .reply-bot {
+	width: 20%;
+	float: left;
+	margin-top: 12px;
+	text-align: right;
+	padding-right: 20px;
+}
+
+.view .box-body .reply-bot input[type=checkbox] {
+	margin-right: 5px;
+}
+
+.view .box-body .reply-bot label {
+	font-size: 13px;
+	margin-top: 20px;
+}
+
+.view .box-body .reply-bot .btn-primary {
+	background-color: #620017;
+	border-color: #620017;
+	margin-top: -22px;
+	margin-left: 20px;
+	font-size: 13px;
+	padding-top: 10px;
+}
+
+.view .timeline>li>.fa, .view .timeline>li>.glyphicon, .view .timeline>li>.ion
+	{
+	color: #fff;
+	background: #620017;
+}
+
+.view .timeline-header small {
+	padding-right: 5px;
+	color: #aaa;
+}
+
+.view .timeline>li>.timeline-item>.timeline-header {
+	font-size: 13px;
+	color: #888;
+}
+
+.view .timeline>li>.timeline-item>.timeline-footer {
+	text-align: right;
+}
+
+.view .timeline>li>.timeline-item>.timeline-footer .btn-primary {
+	background-color: #620017;
+	border-color: #620017;
+	padding: 4px 12px;
+	font-size: 11px;
+}
+
+.view .timeline .reply-modify {
+	width: 70%;
+	color: black;
+	display: inline-block;
+}
+
+.view .view-info-con .table > tbody > tr > th {
+	border-top: 1px solid #f4f4f4;
+    font-size: 12px;
+    font-weight: normal;
+    width: 14.5%;
+    text-align: center;
+}
+
+.view .view-info-con .table > tbody > tr > td {
+    font-size: 12px;
+    text-align: center;
+}
+
+.timeline>li>.timeline-item>.timeline-body .btn-primary {
+	background-color: #620017;
+	border-color: #620017;
+}
+
+.timeline>li>.timeline-item>.timeline-body .btn {
+	font-size: 11px;
+	padding: 4px 12px;
+	margin-left: 5px;
+}
+
+.timeline>li>.timeline-item>.timeline-footer .btn {
+	font-size: 11px;
+	padding: 4px 12px;
+	margin-left: 5px;
+}
+
+.timeline>li>.timeline-item>.timeline-body .replyModifyBtn {
+	text-align: right;
+}
+
+.timeline>li>.timeline-item>.timeline-body label {
+	font-size: 12px;
+	position: relative;
+	top: 10px;
+	left: 20px;
+}
+
+.timeline>li>.timeline-item>.timeline-body label i {
+	padding-left: 5px;
+}
+
+/*공지사항*/
+.notice {
+	padding: 50px 0;
+}
+
+.notice .form-group {
+	margin: 0;
+	padding: 0;
+	width: 25%;
+	float: left;
+}
+
+.notice .form-group .form-control {
+	width: 100%;
+}
+
+.notice .btn {
+	padding: 6px 22px;
+	margin-left: 20px;
+	font-size: 12px;
+}
+
+.notice .searchForm {
+	margin: 30px 0;
+}
+
+.notice .btn-primary {
+	float: right;
+	background: #620017;
+	border-color: #620017;
+}
+
+.notice .panel-title {
+	font-size: 13px;
+}
+
+.notice .panel-body {
+	font-size: 13px;
+}
+
+.notice .panel-title .date {
+	font-size: 11px;
+	float: right;
+	margin-left: 10px;
+}
+
+.notice .panel-title .btn-danger {
+	color: #fff;
+	padding: 1px 5px;
+	margin-left: 0px;
+	float: right;
+	margin-left: 5px;
+	margin-top: -5px;
+	background: #620017;
+	border-color: #620017;
+}
+/*1대1게시판*/
+.qnA {
+	padding: 50px 0;
+}
+
+.qnA .form-group {
+	margin: 0;
+	padding: 0;
+	width: 25%;
+	float: left;
+}
+
+.qnA .form-group .form-control {
+	width: 100%;
+}
+
+.qnA .btn {
+	padding: 6px 22px;
+	margin-left: 20px;
+	font-size: 12px;
+}
+
+.qnA .searchForm {
+	margin: 30px 0;
+}
+
+.qnA .btn-primary {
+	float: right;
+	background: #620017;
+	border-color: #620017;
+}
+
+.qnA .panel-title {
+	font-size: 13px;
+}
+
+.qnA .panel-body {
+	font-size: 13px;
+}
+
+.qnA .panel-title .name {
+	font-size: 11px;
+	float: right;
+	margin-left: 10px;
+}
+
+.qnA .panel-title .btn-danger {
+	color: #fff;
+	padding: 1px 5px;
+	margin-left: 0px;
+	float: right;
+	margin-left: 5px;
+	margin-top: -5px;
+	background: #620017;
+	border-color: #620017;
+}
+
+.qnA .panel-body .btn-danger {
+	color: #fff;
+	padding: 5px 10px;
+	margin-left: 5px;
+	background: #620017;
+	border-color: #620017;
+	margin-bottom: 20px;
+}
+
+.qnA .panel-body .qnAreplyBtn {
+	text-align: right;
+	margin-bottom: 10px;
+}
+
+/*게시판*/
+.pagination-nav {
+	text-align: center;
+}
+
+.qnA h1, .notice h1 {
+	font-weight: 600;
+	color: #620017;
+	text-align: center;
+}
+
+/*프로필보기*/
+.userInfo .card {
+	padding: 30px;
+	background-color: rgba(214, 224, 226, 0.2);
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-top-right-radius: 5px;
+	border-top-right-radius: 5px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.userInfo .card.hovercard {
+	position: relative;
+	padding-top: 0;
+	overflow: hidden;
+	text-align: center;
+	background-color: #fff;
+	background-color: rgba(255, 255, 255, 1);
+}
+
+.userInfo .card.hovercard .card-background {
+	height: 200px;
+}
+
+.userInfo .card-background img {
+	-webkit-filter: blur(25px);
+	-moz-filter: blur(25px);
+	-o-filter: blur(25px);
+	-ms-filter: blur(25px);
+	filter: blur(25px);
+	margin-left: -100px;
+	margin-top: -200px;
+	min-width: 130%;
+}
+
+.userInfo .card.hovercard .useravatar {
+	position: absolute;
+	top: 20px;
+	left: 0;
+	right: 0;
+}
+
+.userInfo .card.hovercard .useravatar img {
+	width: 150px;
+	height: 150px;
+	max-width: 150px;
+	max-height: 150px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	border: 5px solid rgba(255, 255, 255, 0.5);
+}
+
+.card.hovercard .card-info {
+	position: absolute;
+	bottom: 20px;
+	left: 0;
+	right: 0;
+}
+
+.userInfo .card.hovercard .card-info .card-title {
+	display: inline-block;
+	padding: 4px 5px;
+	font-size: 16px;
+	line-height: 1;
+	color: #33000c;
+	font-weight: 600;
+	background-color: rgba(255, 255, 255, 0.1);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.userInfo .card.hovercard .card-info {
+	overflow: hidden;
+	font-size: 12px;
+	line-height: 20px;
+	color: #737373;
+	text-overflow: ellipsis;
+}
+
+.userInfo .card.hovercard .bottom {
+	padding: 0 20px;
+	margin-bottom: 17px;
+}
+
+.userInfo .btn-pref .btn {
+	-webkit-border-radius: 0 !important;
+	margin-top: -1px;
+	margin-bottom: 0;
+	border: 1px solid #620017;
+}
+
+.userInfo .btn-pref .btn-primary {
+	background: #620017;
+}
+
+.userInfo .btn-pref .btn i {
+	font-size: 20px;
+}
+
+.userInfo .btn-pref .btn-default i {
+	color: #620017;
+}
+
+.userInfo .well {
+	padding: 30px;
+}
+
+.userInfo .user-info-tit {
+	font-size: 12px;
+	color: #777;
+	margin-bottom: 25px;
+}
+
+.userInfo .user-info-con {
+	font-size: 12px;
+	color: #33000c;
+	font-weight: bold;
+	margin-bottom: 25px;
+}
+
+.userInfo .user-info-con small {
+	padding-right: 5px;
+}
+
+.userInfo .last {
+	margin-bottom: 0;
+}
+
+/*endStudy*/
+.endStudy {
+	background: #eee;
+	position: relative;
+}
+
+.endStudy .finishStudy {
+	font-size: 120px;
+	position: absolute;
+	top: 35%;
+	left: 33%;
+	z-index: 1;
+	font-weight: 600;
+	color: #620017;
+	border: 10px solid #620017;
+	padding: 30px 100px;
+	border-radius: 25px;
+}
+
+.endStudy .studyEndImg {
+	opacity: 0.6;
+}
+
+.endStudy .studyEndContent {
+	opacity: 0.6;
+}
+
+/*반응형 css 시작*/
+@media ( min-width : 0px) and (max-width: 450px) {
+	.pc-none {
+		display: block;
+	}
+	.mobile-none {
+		display: none;
+	}
+	input[type=file] {
+		width: 100%;
+	}
+	.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+		background: #fff;
+	}
+	.navbar {
+		min-height: 50px;
+	}
+	.login {
+		width: 100%;
+		padding: 50px 20px;
+		box-shadow: none;
+		min-height: 640px;
+	}
+	.login_bg {
+		padding: 0px;
+	}
+	.login .modal-dialog {
+		width: 100%;
+		padding: 20px;
+		margin: 50px auto;
+	}
+	.navbar-default .navbar-nav>li>a {
+		color: #620017;
+	}
+	.join {
+		width: 100%;
+		min-height: 640px;
+		padding: 50px 20px 10px;
+	}
+	.join_bg {
+		padding: 0px;
+	}
+	.small, small {
+		font-size: 80%;
+	}
+	.search-sub {
+		margin: 50px 0 30px 0;
+		padding: 15px;
+	}
+	.search-sub .search-typebtn {
+		text-align: left;
+		margin-bottom: 30px;
+	}
+	.search-sub .search-typebtn>button {
+		width: 44%;
+		font-size: 11px;
+		padding: 8px 22px;
+		margin: 0 8px;
+	}
+	.list .modal-footer .btn-default {
+		width: 100%;
+		margin: 0;
+	}
+
+	/*마이페이지*/
+	.page_bg {
+		padding: 70px 0 0 0;
+	}
+	.nav-tabs .profile {
+		width: 50%;
+		margin-bottom: 2px;
+	}
+	.nav-tabs .study {
+		width: 50%;
+		margin-bottom: 2px;
+	}
+	.nav-tabs li {
+		width: 100%;
+		margin-bottom: 2px;
+	}
+	.mypage .tabpanel-in .tab-content .user-img {
+		margin-left: 16.66666667%;
+	}
+	.mypage .tabpanel-in .tab-content .user-img-text {
+		margin-top: 15px;
+		padding: 0;
+		margin-left: 0;
+		font-size: 12px;
+		text-align: center;
+	}
+	.mypage .form-group-box .form-group {
+		width: 100%;
+	}
+	.mypage .form-group-box .phoneNum {
+		width: 30%;
+	}
+	.sub-thumbnail .card.hovercard .avatar img {
+		left: 56px;
+	}
+	.sub-thumbnail .card.hovercard .icon_2 {
+		left: 264px;
+	}
+	.sub-thumbnail .card.hovercard .icon_1 {
+		left: 211px;
+	}
+	.sub-thumbnail .card.hovercard .m_icon {
+		right: 274px;
+		left: 7px;
+	}
+	.mypage .header .content {
+		text-align: center;
+		border: 1px solid #620017;
+		background: #620017;
+		color: #fff;
+		font-size: 12px;
+		padding: 10px;
+		margin: 5px 0;
+		display: block;
+		width: 100%;
+		border-radius: 5px;
+		transition: 0.55s;
+	}
+	.mypage .header .collapsed {
+		text-align: center;
+		border: 1px solid #620017;
+		background: #fff;
+		color: #620017;
+		font-size: 12px;
+		padding: 10px;
+		margin: 5px 0;
+		display: block;
+		width: 100%;
+		border-radius: 5px;
+	}
+	.mypage .header {
+		width: 33.3%;
+		float: left;
+		padding: 0 3px;
+	}
+	.mypage .CA04 {
+		margin-right: 33.3%;
+	}
+	.mypage .collapse.in {
+		clear: both;
+	}
+	.mypage .form-group-box .form-group:first-child {
+		padding-left: 15px;
+	}
+	.mypage .form-group-box .category-group:first-child {
+		padding-left: 0;
+	}
+	.mypage .form-group-box .category {
+		padding: 0;
+	}
+	.mypage .checkbox .checkbox-material .check {
+		width: 13px;
+		height: 13px;
+	}
+	.mypage .list {
+		padding: 0;
+	}
+	.mypage .list:after {
+		clear: both;
+		display: block;
+		content: "";
+		zoom: 1;
+	}
+	.mypage .checkbox {
+		width: 50%;
+		float: left;
+		padding: 0;
+	}
+	.checkbox .checkbox-material:before {
+		height: 15px;
+		width: 15px;
+	}
+	.checkbox .checkbox-material .check:before {
+		margin-top: -7px;
+		margin-left: 5px;
+		z-index: 1;
+	}
+	.mypage .checkbox .collapse.in {
+		clear: both;
+	}
+	.mypage .checkbox label, .mypage .radio label, .mypage label {
+		margin-right: 0px;
+	}
+	.mypage #userFile {
+		opacity: 0;
+		position: relative;
+		top: -20px;
+	}
+
+	/*스터디뷰*/
+	.view h1 {
+		font-size: 16px;
+	}
+	.view .view-tit {
+		min-width: 100%;
+	}
+	.view .user-name {
+		float: left;
+	}
+	.view .user-name .dropdown-toggle {
+		font-size: 13px;
+	}
+	.view .user-img img {
+		width: 180%;
+		height: 75px;
+		margin-left: -18px;
+	}
+	.view .view-icon a {
+		font-size: 20px;
+		margin-top: -40px;
+		padding: 0;
+	}
+	.view .carousel-inner {
+		height: 300px;
+	}
+	.view .view-category {
+		width: 19%;
+		margin-top: 10px;
+		font-size: 12px;
+	}
+	.view .carousel-indicators {
+		position: absolute;
+		top: 20px;
+		right: auto;
+		z-index: 15;
+		width: 100%;
+		padding-left: 0;
+		margin-left: 0;
+		text-align: center;
+		list-style: none;
+		left: auto;
+	}
+	.view .box-body .reply-name {
+		width: 20%;
+		float: left;
+	}
+	.view .box-body .reply-tit {
+		width: 80%;
+		float: left;
+	}
+	.view .box-body .reply-bot {
+		width: 100%;
+		margin-top: 0;
+		text-align: right;
+		padding-right: 20px;
+	}
+	.view .box-body .reply-bot .btn-primary {
+		background-color: #620017;
+		border-color: #620017;
+		margin-top: 0px;
+		margin-left: 20px;
+		font-size: 13px;
+		padding-top: 10px;
+	}
+	.view-info .view-info-con {
+		font-size: 12px;
+	}
+
+	/*완료스터디*/
+	.endStudy .finishStudy {
+		font-size: 50px;
+		position: absolute;
+		top: 9%;
+		left: 17%;
+		z-index: 1;
+		font-weight: 600;
+		color: #620017;
+		border: 5px solid #620017;
+		padding: 30px 70px;
+		border-radius: 25px;
+	}
+
+	/*스터디 등록*/
+	.write .list {
+		padding: 0;
+	}
+	.write .checkbox {
+		width: 50%;
+		float: left;
+		padding: 0;
+	}
+	.write .header .content {
+		text-align: center;
+		border: 1px solid #620017;
+		background: #620017;
+		color: #fff;
+		font-size: 12px;
+		padding: 10px;
+		margin: 5px 0;
+		display: block;
+		width: 100%;
+		border-radius: 5px;
+		transition: 0.55s;
+	}
+	.write .header .collapsed {
+		text-align: center;
+		border: 1px solid #620017;
+		background: #fff;
+		color: #620017;
+		font-size: 12px;
+		padding: 10px;
+		margin: 5px 0;
+		display: block;
+		width: 100%;
+		border-radius: 5px;
+	}
+	.write .header {
+		width: 33.3%;
+		float: left;
+		padding: 0 3px;
+	}
+	.write .CA04 {
+		margin-right: 33.3%;
+	}
+	.write .collapse.in {
+		clear: both;
+	}
+	.write .wrap {
+		width: 100%;
+	}
+}

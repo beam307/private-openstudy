@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.sbang.mapper.adminMapper">
+
+	<update id="changeAdminPwd"> <!-- 비밀번호 변경 -->
+		update admin set adminPwd = #{adminPwd}
+	</update>
+	
+	<select id="getAdminPwd" resultType="String"> <!-- 비밀번호 가져오기 -->
+		select * from admin
+	</select>
+
+	<select id="userList" resultType="UserVO"> <!-- 회원 리스트 -->
+		<![CDATA[
+			select userNo, userEmail, userNick, userName, userGender, userBirth, userPhoneNumber,
+			userRegDate, userUpdateDate, userCertification, userKakao, userNaver,
+			DATEDIFF(userHaltDate,curdate()) as userHaltDate, userLeave
+			from user where userNo > 0 and userAuth = 0
+		]]>
+		<include refid="search"></include>
+		<![CDATA[
+			order by userNo desc limit
+			#{pageStart}, #{perPageNum}
+		]]>
+	</select>
+
+	<select id="userCount" resultType="int">
+		<![CDATA[
+			select count(*) from user where userNo>0
+		]]>
+		<include refid="search"></include>
+	</select>
+
+	<!-- 검색 sql 모듈 -->
+	<sql id="search">
+		<if test="keyword != null">
+			and userName like CONCAT('%', #{keyword}, '%')
+		</if>
+	</sql>
+
+	<select id="studyList" resultType="StudyVO"> <!-- 스터디 리스트 -->
+		<![CDATA[
+			select * from (
+			select s.*, null studyEndDate, u.userNick  from study s left outer join user u on s.studyWriter = u.userNo
+			union
+			select sn.*, u.userNick from studyEnd sn left outer join user u on sn.studyWriter = u.userNo) u
+			where u.studyNo > 0
+		]]>
+		<include refid="searchStudy"></include>
+		<![CDATA[
+			order by studyNo desc limit
+			#{pageStart}, #{perPageNum}
+		]]>
+	</select>
+
+	<select id="studyCount" resultType="int"> <!-- 스터디 총 갯수 -->
+		<![CDATA[
+			select count(studyNo)
+			from (select *, null studyEndDate from study union all select * from studyEnd) i
+			where studyNo > 0
+		]]>
+		<include refid="searchStudy"></include>
+	</select>
+
+	<!-- 검색 sql 모듈 -->
+	<sql id="searchStudy">
+		<if test="keyword != null">
+			and studyName like CONCAT('%', #{keyword}, '%')
+		</if>
+	</sql>
+
+	<update id="userDelete"> <!-- 관리자 회원탈퇴 -->
+		update user set userLeave = 1 where userNo = #{userNo}
+	</update>
+
+	<update id="userDeleteCancel"> <!-- 관리자 회원탈퇴철회 -->
+		update user set userLeave = 0 where userNo = #{userNo}
+	</update>
+
+	<update id="studyDelete"> <!-- 관리자 스터디삭제 -->
+		update study set studyDelete = 1 where studyNo = #{studyNo}
+	</update>
+
+	<update id="studyDeleteCancel"> <!-- 관리자 스터디삭제취소 -->
+		update study set studyDelete = 0 where studyNo = #{studyNo}
+	</update>
+
+	<update id="todyCntUpdate"> <!-- 투데이 카운트 + 1 -->
+		update visit set visitCnt = visitCnt + 1 where visitDay = curdate()
+	</update>
+
+	<select id="totalVisit" resultType="Integer"> <!-- 전체 방문자 카운트 -->
+		select sum(visitCnt) from visit
+	</select>
+
+	<select id="totalUserReg" resultType="Integer"> <!-- 전체 가입자 카운트 -->
+		select count(*) from user
+	</select>
+
+	<select id="totalStudyReg" resultType="Integer"> <!-- 전체 스터디 등록 수 -->
+		select count(*) from study
+	</select>
+
+	<select id="totalStudyApply" resultType="Integer"> <!-- 전체 스터디 신청 수 -->
+		select count(*) from user_study
+	</select>
+
+	<select id="totalStudyEnd" resultType="Integer"> <!-- 전체 스터디 완료 수 -->
+		select count(*) from studyEnd
+	</select>
+
+	<select id="weekVisit" resultType="Integer"> <!-- 주간 방문자 수 -->
+		select visitCnt from visit where visitDay in (CURDATE(), CURDATE() - interval 1 day, CURDATE() - interval 2 day,
+		CURDATE() - interval 3 day, CURDATE() - interval 4 day, CURDATE() - interval 5 day, CURDATE() - interval 6 day) order
+		by visitDay desc
+	</select>
+
+	<select id="weekUserReg" resultType="Integer"> <!-- 주간 가입자 수 -->
+		select count(u.userRegDate) from visit v
+		left outer join user u on DATE_FORMAT(u.userRegDate, '%Y%m%d') = v.visitDay
+		where v.visitDay > curdate() - interval 7 day
+		group by v.visitDay
+		order by v.visitDay desc
+	</select>
+
+	<select id="weekStudyReg" resultType="Integer"> <!-- 주간 스터디 등록 수 -->
+		select count(s.studyRegDate) from visit v -- 등록 수
+		left outer join study s on DATE_FORMAT(s.studyRegDate, '%Y%m%d') =
+		v.visitDay
+		where v.visitDay > curdate() - interval 7 day
+		group by v.visitDay
+		order by v.visitDay desc
+	</select>
+
+	<select id="weekStudyApply" resultType="Integer"> <!-- 주간 스터디 신청 수 -->
+		select count(us.applyDate) from visit v -- 신청 수
+		left outer join user_study us on DATE_FORMAT(us.applyDate, '%Y%m%d') =
+		v.visitDay
+		where v.visitDay > curdate() - interval 7 day
+		group by v.visitDay
+		order by v.visitDay desc
+	</select>
+
+	<select id="weekStudyEnd" resultType="Integer"> <!-- 주간 스터디 완료 수 -->
+		select count(se.studyEndDate) from visit v -- 완료 수
+		left outer join studyEnd se on DATE_FORMAT(se.studyEndDate,
+		'%Y%m%d') = v.visitDay
+		where v.visitDay > curdate() - interval 7 day
+		group by v.visitDay
+		order by v.visitDay desc;
+	</select>
+
+	<update id="userHalt"> <!-- 유저 정지 -->
+		update user set userHaltDate = ADDDATE(curdate(), #{haltTime}) where userNo = #{userNo}
+	</update>
+
+	<select id="userHaltCheck" resultType="String"> <!-- 유저정지 체크 -->
+		select userHaltDate from user where userHaltDate > curdate() and userNo = #{userNo}
+	</select>
+
+</mapper>

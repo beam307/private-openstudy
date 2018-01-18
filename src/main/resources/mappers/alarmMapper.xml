@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.sbang.mapper.AlarmMapper">
+	<insert id="create"> <!-- 알림 추가 -->
+		insert into alarm (alarmTarget, alarmSender, alarmTargetStudy, alarmFlag)
+		values (#{alarmTarget}, #{alarmSender}, #{alarmTargetStudy}, #{alarmFlag})
+	</insert>
+	
+	<delete id='delete'><!-- 알림 제거  -->
+		delete from alarm where alarmNo>0 and alarmNo=#{alarmNo};
+	</delete>
+	
+	<select id="alarmList" resultType="AlarmVO"> <!-- 알림 리스트  -->
+		<![CDATA[
+		select a.*, u.userNick, u.userProfileImgPath, concat_ws('', s.studyName, se.studyName) as studyName
+		from alarm a
+		left outer join user u on a.alarmSender = u.userNo
+		left outer join study s on a.alarmTargetStudy = s.studyNo
+		left outer join studyEnd se on a.alarmTargetStudy = se.studyNo
+		where a.alarmNo > 0 and a.alarmTarget = #{alarmTarget} and DATE_SUB( now(), INTERVAL 3 month ) <= a.alarmRegDate and a.alarmRegDate <= now()
+		order by a.alarmNo desc, a.alarmRegDate 
+		]]>
+	</select>
+	
+	<update id="openState"> <!-- 알림read날짜 수정  -->
+		update alarm set alarmOpenDate=now() where alarmTarget = #{alarmTarget}
+	</update>
+	
+	<update id="readState"> <!-- 알림read날짜 수정  -->
+		update alarm set alarmReadState=1 where alarmNo = #{alarmNo}
+	</update>
+	
+	<select id="countReceiveAlarm" resultType="Integer"> <!-- 웹소켓 알림  -->
+		select count(*) from alarm where alarmNo> 0 and alarmTarget=#{alarmTarget} and alarmRegDate = alarmOpenDate
+	</select>
+	
+</mapper>

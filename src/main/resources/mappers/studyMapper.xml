@@ -1,0 +1,1195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.sbang.mapper.StudyMapper">
+
+	<!-- 스터디방 CRUD -->
+	<insert id="create"> <!-- 스터디 등록 -->
+		insert into
+		study(studyName, studyUpCategory, studyCategory, studyUpRegion, studyDownRegion,
+		studyTargetAge, studyMaxMemCnt,
+		studyIntroduce, studyStartDate, studyWriter)
+		values
+		(#{studyName}, #{studyUpCategory},
+		#{studyCategory}, #{studyUpRegion}, #{studyDownRegion},
+		#{studyTargetAge}, #{studyMaxMemCnt}, #{studyIntroduce},
+		#{studyStartDate}, #{studyWriter})
+	</insert>
+
+	<select id="read" resultType="StudyVO"> <!-- 스터디 조회 -->
+		select * from study where studyNo = #{studyNo}
+	</select>
+	
+	<select id="readEnd" resultType="StudyVO"> <!-- 완료 스터디 조회 -->
+		select * from studyEnd where studyNo = #{studyNo}
+	</select>
+
+	<update id="update"> <!-- 스터디 수정 -->
+		update study set
+		studyName = #{studyName}, studyUpCategory = #{studyUpCategory}, studyCategory = #{studyCategory},
+		studyUpRegion = #{studyUpRegion}, studyDownRegion = #{studyDownRegion},
+		studyTargetAge = #{studyTargetAge},
+		studyMaxMemCnt = #{studyMaxMemCnt},
+		studyIntroduce = #{studyIntroduce}, studyStartDate = #{studyStartDate}, studyUpdateDate = now()
+		where studyNo = #{studyNo}
+	</update>
+
+	<update id="delete"> <!-- 스터디 삭제 -->
+		update study set studyDelete = 1 where studyNo = #{studyNo}
+	</update>
+	
+	<delete id="deleteWish"> <!-- 북마크삭제 -->
+		delete from wishlist where studyNo = #{studyNo}
+	</delete>
+
+	<!-- 이미지검색 CRUD -->
+	<insert id="addImg">
+		insert into image(imagePath,studyNo) values(#{imagePath},LAST_INSERT_ID())
+	</insert>
+
+	<delete id="deleteImg"> <!-- 이미지삭제 -->
+		delete from image where studyNo = #{studyNo}
+	</delete>
+
+	<select id="getImg" resultType="string">
+		select imagePath from image where studyNo = #{studyNo}
+	</select>
+	
+	<select id="getImgEnd" resultType="string">
+		select imagePath from endImage where studyNo = #{studyNo}
+	</select>
+
+	<insert id="replaceImg">
+		insert into image(imagePath,studyNo) values (#{imagePath},#{studyNo})
+	</insert>
+
+	<!-- 서치 -->
+	<select id="listSearch" resultType="StudyVO"><!--게시글 리스트 전체 출력(카테고리,지역,검색, 정렬:line) -->
+  		<![CDATA[
+		  	select s.studyNo, s.studyCurMemCnt, s.studyName, s.studyStartDate, s.studyViewCnt, s.studyReplyCnt, i.imagePath, s.studyWriter, s.studyUpRegion, s.studyDownRegion, u.userProfileImgPath, u.userNick
+			from study s
+			left outer join (select imagePath, studyNo from image group by studyNo) i on i.studyNo = s.studyNo
+		  	left outer join user u on s.studyWriter = u.userNo
+		  	where s.studyNo > 0 and studyDelete = 0
+  		]]>
+		<include refid="search"></include>
+		<include refid="upCategory"></include>
+		<include refid="category"></include>
+		<include refid="upRegion"></include>
+		<include refid="downRegion"></include>
+  		<![CDATA[order by]]>
+		<include refid="line"></include>
+		<![CDATA[s.studyNo desc, s.studyRegDate limit #{pageStart}, #{perPageNum}]]>
+	</select>
+
+	<select id="listSearchCount" resultType="Integer">
+  		<![CDATA[
+	  		select count(*) from study s left outer join user u on s.studyWriter = u.userNo where s.studyNo > 0 and studyDelete = 0
+  		]]>
+		<include refid="search"></include>
+		<include refid="upCategory"></include>
+		<include refid="category"></include>
+		<include refid="upRegion"></include>
+		<include refid="downRegion"></include>
+	</select>
+	
+	<select id="listSearchRand" resultType="StudyVO"><!-- 랜덤으로 스터디 6개 출력 -->
+	  	select s.studyNo, s.studyCurMemCnt, s.studyName, s.studyStartDate, s.studyViewCnt, s.studyReplyCnt, i.imagePath, s.studyWriter, s.studyUpRegion, s.studyDownRegion, u.userProfileImgPath, u.userNick
+		from study s
+		left outer join (select imagePath, studyNo from image group by studyNo) i on i.studyNo = s.studyNo
+	  	left outer join user u on s.studyWriter = u.userNo
+	  	where s.studyNo > 0 and studyDelete = 0
+  		order by rand() limit 6
+	</select>
+
+	<!-- 댓글 -->
+	<update id="updateReplyCnt">
+		update study set studyReplyCnt = studyReplyCnt + #{amount} where studyNo = #{studyNo}
+	</update>
+
+	<!-- 북마크 -->
+	<update id="updateFavCnt">
+		update study set studyFavCnt = studyFavCnt + #{amount} where studyNo = #{studyNo}
+	</update>
+
+	<!-- 조회수 -->
+	<update id="updateViewCnt">
+		update study set studyViewCnt=studyViewCnt+1 where studyNo = #{studyNo}
+	</update>
+
+	<delete id="cancelAllStudy"> <!-- 스터디 전체 취소 -->
+		delete from user_study where studyNo = #{studyNo}
+	</delete>
+
+	<!-- 유저번호로 닉네임,프로필이미지 가져오기 -->
+	<select id="userInfoByStudyWriter" resultType="UserVO">
+		select userNick, userProfileImgPath from user where userNo =
+		#{studyWriter}
+	</select>
+
+	<!-- 정렬 sql 모듈 -->
+	<sql id="line">
+		<if test="lineUp !=null">
+			<if test="lineUp == 'v'.toString()">
+				s.studyViewCnt desc,
+			</if>
+			<if test="lineUp == 'f'.toString()">
+				s.studyFavCnt desc,
+			</if>
+			<if test="lineUp == 'r'.toString()">
+				s.studyReplyCnt desc,
+			</if>
+		</if>
+	</sql>
+
+	<!-- 검색 sql 모듈 -->
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">
+				and (s.studyName like CONCAT('%', #{keyword}, '%')
+				OR u.userNick like CONCAT('%', #{keyword}, '%')
+				OR s.studyCategory like CONCAT('%', #{keyword}, '%')
+				OR s.studyUpCategory like CONCAT('%', #{keyword}, '%')
+				OR s.studyUpRegion like CONCAT('%', #{keyword}, '%')
+				OR s.studyDownRegion like CONCAT('%', #{keyword}, '%')
+				OR s.studyIntroduce like CONCAT('%', #{keyword}, '%')
+				)
+			</if>
+		</if>
+	</sql>
+
+	<!-- 지역 검색 sql 모듈 -->
+	<sql id="upRegion">
+		<if test="upRegion !=null">
+			<if test="upRegion == '11'.toString()">
+				and s.studyUpRegion like CONCAT('%','서울', '%')
+			</if>
+			<if test="upRegion == '21'.toString()">
+				and s.studyUpRegion like CONCAT('%','부산', '%')
+			</if>
+			<if test="upRegion == '22'.toString()">
+				and s.studyUpRegion like CONCAT('%','대구', '%')
+			</if>
+			<if test="upRegion == '23'.toString()">
+				and s.studyUpRegion like CONCAT('%','인천', '%')
+			</if>
+			<if test="upRegion == '24'.toString()">
+				and s.studyUpRegion like CONCAT('%','광주', '%')
+			</if>
+			<if test="upRegion == '25'.toString()">
+				and s.studyUpRegion like CONCAT('%','대전', '%')
+			</if>
+			<if test="upRegion == '26'.toString()">
+				and s.studyUpRegion like CONCAT('%','울산', '%')
+			</if>
+			<if test="upRegion == '29'.toString()">
+				and s.studyUpRegion like CONCAT('%','세종', '%')
+			</if>
+			<if test="upRegion == '31'.toString()">
+				and s.studyUpRegion like CONCAT('%','경기', '%')
+			</if>
+			<if test="upRegion == '32'.toString()">
+				and s.studyUpRegion like CONCAT('%','강원', '%')
+			</if>
+			<if test="upRegion == '33'.toString()">
+				and s.studyUpRegion like CONCAT('%','충북', '%')
+			</if>
+			<if test="upRegion == '34'.toString()">
+				and s.studyUpRegion like CONCAT('%','충남', '%')
+			</if>
+			<if test="upRegion == '35'.toString()">
+				and s.studyUpRegion like CONCAT('%','전북', '%')
+			</if>
+			<if test="upRegion == '36'.toString()">
+				and s.studyUpRegion like CONCAT('%','전남', '%')
+			</if>
+			<if test="upRegion == '37'.toString()">
+				and s.studyUpRegion like CONCAT('%','경북', '%')
+			</if>
+			<if test="upRegion == '38'.toString()">
+				and s.studyUpRegion like CONCAT('%','경남', '%')
+			</if>
+			<if test="upRegion == '39'.toString()">
+				and s.studyUpRegion like CONCAT('%','제주', '%')
+			</if>
+			<if test="upRegion == '40'.toString()">
+				and s.studyUpRegion like CONCAT('%','전국', '%')
+			</if>
+		</if>
+	</sql>
+
+	<!-- 지역 검색 sql 모듈 -->
+	<sql id="downRegion">
+		<if test="downRegion !=null">
+		
+			<if test="downRegion == 'all'.toString()">
+				and s.studyDownRegion like CONCAT('%','전체', '%')
+			</if>
+			<!-- 서울 -->
+			<if test="downRegion == '1101'.toString()">
+				and s.studyDownRegion like CONCAT('%','강남구', '%')
+			</if>
+			<if test="downRegion == '1102'.toString()">
+				and s.studyDownRegion like CONCAT('%','강동구', '%')
+			</if>
+			<if test="downRegion == '1103'.toString()">
+				and s.studyDownRegion like CONCAT('%','강북구', '%')
+			</if>
+			<if test="downRegion == '1104'.toString()">
+				and s.studyDownRegion like CONCAT('%','강서구', '%')
+			</if>
+			<if test="downRegion == '1105'.toString()">
+				and s.studyDownRegion like CONCAT('%','관악구', '%')
+			</if>
+			<if test="downRegion == '1106'.toString()">
+				and s.studyDownRegion like CONCAT('%','광진구', '%')
+			</if>
+			<if test="downRegion == '1107'.toString()">
+				and s.studyDownRegion like CONCAT('%','구로구', '%')
+			</if>
+			<if test="downRegion == '1108'.toString()">
+				and s.studyDownRegion like CONCAT('%','금천구', '%')
+			</if>
+			<if test="downRegion == '1109'.toString()">
+				and s.studyDownRegion like CONCAT('%','노원구', '%')
+			</if>
+			<if test="downRegion == '1110'.toString()">
+				and s.studyDownRegion like CONCAT('%','도봉구', '%')
+			</if>
+			<if test="downRegion == '1111'.toString()">
+				and s.studyDownRegion like CONCAT('%','동대문구', '%')
+			</if>
+			<if test="downRegion == '1112'.toString()">
+				and s.studyDownRegion like CONCAT('%','동작구', '%')
+			</if>
+			<if test="downRegion == '1113'.toString()">
+				and s.studyDownRegion like CONCAT('%','마포구', '%')
+			</if>
+			<if test="downRegion == '1114'.toString()">
+				and s.studyDownRegion like CONCAT('%','서대문구', '%')
+			</if>
+			<if test="downRegion == '1115'.toString()">
+				and s.studyDownRegion like CONCAT('%','서초구', '%')
+			</if>
+			<if test="downRegion == '1116'.toString()">
+				and s.studyDownRegion like CONCAT('%','성동구', '%')
+			</if>
+			<if test="downRegion == '1117'.toString()">
+				and s.studyDownRegion like CONCAT('%','성북구', '%')
+			</if>
+			<if test="downRegion == '1118'.toString()">
+				and s.studyDownRegion like CONCAT('%','송파구', '%')
+			</if>
+			<if test="downRegion == '1119'.toString()">
+				and s.studyDownRegion like CONCAT('%','양천구', '%')
+			</if>
+			<if test="downRegion == '1120'.toString()">
+				and s.studyDownRegion like CONCAT('%','영등포구', '%')
+			</if>
+			<if test="downRegion == '1121'.toString()">
+				and s.studyDownRegion like CONCAT('%','용산구', '%')
+			</if>
+			<if test="downRegion == '1122'.toString()">
+				and s.studyDownRegion like CONCAT('%','은평구', '%')
+			</if>
+			<if test="downRegion == '1123'.toString()">
+				and s.studyDownRegion like CONCAT('%','종로구', '%')
+			</if>
+			<if test="downRegion == '1124'.toString()">
+				and s.studyDownRegion like CONCAT('%','중구', '%')
+			</if>
+			<if test="downRegion == '1125'.toString()">
+				and s.studyDownRegion like CONCAT('%','중랑구', '%')
+			</if>
+
+
+			<!-- 부산 -->
+			<if test="downRegion == '2101'.toString()">
+				and s.studyDownRegion like CONCAT('%','강서구', '%')
+			</if>
+			<if test="downRegion == '2102'.toString()">
+				and s.studyDownRegion like CONCAT('%','금정구', '%')
+			</if>
+			<if test="downRegion == '2103'.toString()">
+				and s.studyDownRegion like CONCAT('%','기장군', '%')
+			</if>
+			<if test="downRegion == '2104'.toString()">
+				and s.studyDownRegion like CONCAT('%','남구', '%')
+			</if>
+			<if test="downRegion == '2105'.toString()">
+				and s.studyDownRegion like CONCAT('%','동구', '%')
+			</if>
+			<if test="downRegion == '2106'.toString()">
+				and s.studyDownRegion like CONCAT('%','동래구', '%')
+			</if>
+			<if test="downRegion == '2107'.toString()">
+				and s.studyDownRegion like CONCAT('%','부산진구', '%')
+			</if>
+			<if test="downRegion == '2108'.toString()">
+				and s.studyDownRegion like CONCAT('%','북구', '%')
+			</if>
+			<if test="downRegion == '2109'.toString()">
+				and s.studyDownRegion like CONCAT('%','사상구', '%')
+			</if>
+			<if test="downRegion == '2110'.toString()">
+				and s.studyDownRegion like CONCAT('%','사하구', '%')
+			</if>
+			<if test="downRegion == '2111'.toString()">
+				and s.studyDownRegion like CONCAT('%','서구', '%')
+			</if>
+			<if test="downRegion == '2112'.toString()">
+				and s.studyDownRegion like CONCAT('%','수영구', '%')
+			</if>
+			<if test="downRegion == '2113'.toString()">
+				and s.studyDownRegion like CONCAT('%','연제구', '%')
+			</if>
+			<if test="downRegion == '2114'.toString()">
+				and s.studyDownRegion like CONCAT('%','영도구', '%')
+			</if>
+			<if test="downRegion == '2115'.toString()">
+				and s.studyDownRegion like CONCAT('%','중구', '%')
+			</if>
+			<if test="downRegion == '2116'.toString()">
+				and s.studyDownRegion like CONCAT('%','해운대구', '%')
+			</if>
+
+
+			<!-- 대구 -->
+			<if test="downRegion == '2201'.toString()">
+				and s.studyDownRegion like CONCAT('%','남구', '%')
+			</if>
+			<if test="downRegion == '2202'.toString()">
+				and s.studyDownRegion like CONCAT('%','달서구', '%')
+			</if>
+			<if test="downRegion == '2203'.toString()">
+				and s.studyDownRegion like CONCAT('%','달성군', '%')
+			</if>
+			<if test="downRegion == '2204'.toString()">
+				and s.studyDownRegion like CONCAT('%','동구', '%')
+			</if>
+			<if test="downRegion == '2205'.toString()">
+				and s.studyDownRegion like CONCAT('%','북구', '%')
+			</if>
+			<if test="downRegion == '2206'.toString()">
+				and s.studyDownRegion like CONCAT('%','서구', '%')
+			</if>
+			<if test="downRegion == '2207'.toString()">
+				and s.studyDownRegion like CONCAT('%','수성구', '%')
+			</if>
+			<if test="downRegion == '2208'.toString()">
+				and s.studyDownRegion like CONCAT('%','중구', '%')
+			</if>
+
+
+			<!-- 인천 -->
+			<if test="downRegion == '2301'.toString()">
+				and s.studyDownRegion like CONCAT('%','강화군', '%')
+			</if>
+			<if test="downRegion == '2302'.toString()">
+				and s.studyDownRegion like CONCAT('%','계양구', '%')
+			</if>
+			<if test="downRegion == '2303'.toString()">
+				and s.studyDownRegion like CONCAT('%','남구', '%')
+			</if>
+			<if test="downRegion == '2304'.toString()">
+				and s.studyDownRegion like CONCAT('%','남동구', '%')
+			</if>
+			<if test="downRegion == '2305'.toString()">
+				and s.studyDownRegion like CONCAT('%','동구', '%')
+			</if>
+			<if test="downRegion == '2306'.toString()">
+				and s.studyDownRegion like CONCAT('%','부평구', '%')
+			</if>
+			<if test="downRegion == '2307'.toString()">
+				and s.studyDownRegion like CONCAT('%','서구', '%')
+			</if>
+			<if test="downRegion == '2308'.toString()">
+				and s.studyDownRegion like CONCAT('%','연수구', '%')
+			</if>
+			<if test="downRegion == '2309'.toString()">
+				and s.studyDownRegion like CONCAT('%','옹진군', '%')
+			</if>
+			<if test="downRegion == '2310'.toString()">
+				and s.studyDownRegion like CONCAT('%','중구', '%')
+			</if>
+
+
+			<!-- 광주 -->
+			<if test="downRegion == '2401'.toString()">
+				and s.studyDownRegion like CONCAT('%','광산구', '%')
+			</if>
+			<if test="downRegion == '2402'.toString()">
+				and s.studyDownRegion like CONCAT('%','남구', '%')
+			</if>
+			<if test="downRegion == '2403'.toString()">
+				and s.studyDownRegion like CONCAT('%','동구', '%')
+			</if>
+			<if test="downRegion == '2404'.toString()">
+				and s.studyDownRegion like CONCAT('%','북구', '%')
+			</if>
+			<if test="downRegion == '2405'.toString()">
+				and s.studyDownRegion like CONCAT('%','서구', '%')
+			</if>
+
+
+			<!-- 대전 -->
+			<if test="downRegion == '2501'.toString()">
+				and s.studyDownRegion like CONCAT('%','대덕구', '%')
+			</if>
+			<if test="downRegion == '2502'.toString()">
+				and s.studyDownRegion like CONCAT('%','동구', '%')
+			</if>
+			<if test="downRegion == '2503'.toString()">
+				and s.studyDownRegion like CONCAT('%','서구', '%')
+			</if>
+			<if test="downRegion == '2504'.toString()">
+				and s.studyDownRegion like CONCAT('%','유성구', '%')
+			</if>
+			<if test="downRegion == '2505'.toString()">
+				and s.studyDownRegion like CONCAT('%','중구', '%')
+			</if>
+
+
+			<!-- 울산 -->
+			<if test="downRegion == '2601'.toString()">
+				and s.studyDownRegion like CONCAT('%','남구', '%')
+			</if>
+			<if test="downRegion == '2602'.toString()">
+				and s.studyDownRegion like CONCAT('%','동구', '%')
+			</if>
+			<if test="downRegion == '2603'.toString()">
+				and s.studyDownRegion like CONCAT('%','북구', '%')
+			</if>
+			<if test="downRegion == '2604'.toString()">
+				and s.studyDownRegion like CONCAT('%','울주군', '%')
+			</if>
+			<if test="downRegion == '2605'.toString()">
+				and s.studyDownRegion like CONCAT('%','중구', '%')
+			</if>
+
+
+			<!-- 세종 -->
+			<if test="downRegion == '2901'.toString()">
+				and s.studyDownRegion like CONCAT('%','세종시', '%')
+			</if>
+
+
+			<!-- 경기 -->
+			<if test="downRegion == '3101'.toString()">
+				and s.studyDownRegion like CONCAT('%','가평군', '%')
+			</if>
+			<if test="downRegion == '3102'.toString()">
+				and s.studyDownRegion like CONCAT('%','고양시 덕양구', '%')
+			</if>
+			<if test="downRegion == '3103'.toString()">
+				and s.studyDownRegion like CONCAT('%','고양시 일산동구', '%')
+			</if>
+			<if test="downRegion == '3104'.toString()">
+				and s.studyDownRegion like CONCAT('%','고양시 일산서구', '%')
+			</if>
+			<if test="downRegion == '3105'.toString()">
+				and s.studyDownRegion like CONCAT('%','과천시', '%')
+			</if>
+			<if test="downRegion == '3106'.toString()">
+				and s.studyDownRegion like CONCAT('%','광명시', '%')
+			</if>
+			<if test="downRegion == '3107'.toString()">
+				and s.studyDownRegion like CONCAT('%','광주시', '%')
+			</if>
+			<if test="downRegion == '3108'.toString()">
+				and s.studyDownRegion like CONCAT('%','구리시', '%')
+			</if>
+			<if test="downRegion == '3109'.toString()">
+				and s.studyDownRegion like CONCAT('%','군포시', '%')
+			</if>
+			<if test="downRegion == '3110'.toString()">
+				and s.studyDownRegion like CONCAT('%','김포시', '%')
+			</if>
+			<if test="downRegion == '3111'.toString()">
+				and s.studyDownRegion like CONCAT('%','남양주시', '%')
+			</if>
+			<if test="downRegion == '3112'.toString()">
+				and s.studyDownRegion like CONCAT('%','동두천시', '%')
+			</if>
+			<if test="downRegion == '3113'.toString()">
+				and s.studyDownRegion like CONCAT('%','부천시', '%')
+			</if>
+			<if test="downRegion == '3114'.toString()">
+				and s.studyDownRegion like CONCAT('%','성남시 분당구', '%')
+			</if>
+			<if test="downRegion == '3115'.toString()">
+				and s.studyDownRegion like CONCAT('%','성남시 수정구', '%')
+			</if>
+			<if test="downRegion == '3116'.toString()">
+				and s.studyDownRegion like CONCAT('%','성남시 중원구', '%')
+			</if>
+			<if test="downRegion == '3117'.toString()">
+				and s.studyDownRegion like CONCAT('%','수원시 권선구', '%')
+			</if>
+			<if test="downRegion == '3118'.toString()">
+				and s.studyDownRegion like CONCAT('%','수원시 영통구', '%')
+			</if>
+			<if test="downRegion == '3119'.toString()">
+				and s.studyDownRegion like CONCAT('%','수원시 장안구', '%')
+			</if>
+			<if test="downRegion == '3120'.toString()">
+				and s.studyDownRegion like CONCAT('%','수원시 팔달구', '%')
+			</if>
+			<if test="downRegion == '3121'.toString()">
+				and s.studyDownRegion like CONCAT('%','시흥시', '%')
+			</if>
+			<if test="downRegion == '3122'.toString()">
+				and s.studyDownRegion like CONCAT('%','안산시 단원구', '%')
+			</if>
+			<if test="downRegion == '3123'.toString()">
+				and s.studyDownRegion like CONCAT('%','안산시 상록구', '%')
+			</if>
+			<if test="downRegion == '3124'.toString()">
+				and s.studyDownRegion like CONCAT('%','안성시', '%')
+			</if>
+			<if test="downRegion == '3125'.toString()">
+				and s.studyDownRegion like CONCAT('%','안양시 동안구', '%')
+			</if>
+			<if test="downRegion == '3126'.toString()">
+				and s.studyDownRegion like CONCAT('%','안양시 만안구', '%')
+			</if>
+			<if test="downRegion == '3127'.toString()">
+				and s.studyDownRegion like CONCAT('%','양주시', '%')
+			</if>
+			<if test="downRegion == '3128'.toString()">
+				and s.studyDownRegion like CONCAT('%','양평군', '%')
+			</if>
+			<if test="downRegion == '3129'.toString()">
+				and s.studyDownRegion like CONCAT('%','여주시', '%')
+			</if>
+			<if test="downRegion == '3130'.toString()">
+				and s.studyDownRegion like CONCAT('%','연천군', '%')
+			</if>
+			<if test="downRegion == '3131'.toString()">
+				and s.studyDownRegion like CONCAT('%','오산시', '%')
+			</if>
+			<if test="downRegion == '3132'.toString()">
+				and s.studyDownRegion like CONCAT('%','용인시 기흥구', '%')
+			</if>
+			<if test="downRegion == '3133'.toString()">
+				and s.studyDownRegion like CONCAT('%','용인시 수지구', '%')
+			</if>
+			<if test="downRegion == '3134'.toString()">
+				and s.studyDownRegion like CONCAT('%','용인시 처인구', '%')
+			</if>
+			<if test="downRegion == '3135'.toString()">
+				and s.studyDownRegion like CONCAT('%','의왕시', '%')
+			</if>
+			<if test="downRegion == '3136'.toString()">
+				and s.studyDownRegion like CONCAT('%','의정부시', '%')
+			</if>
+			<if test="downRegion == '3137'.toString()">
+				and s.studyDownRegion like CONCAT('%','이천시', '%')
+			</if>
+			<if test="downRegion == '3138'.toString()">
+				and s.studyDownRegion like CONCAT('%','파주시', '%')
+			</if>
+			<if test="downRegion == '3139'.toString()">
+				and s.studyDownRegion like CONCAT('%','평택시', '%')
+			</if>
+			<if test="downRegion == '3140'.toString()">
+				and s.studyDownRegion like CONCAT('%','포천시', '%')
+			</if>
+			<if test="downRegion == '3141'.toString()">
+				and s.studyDownRegion like CONCAT('%','하남시', '%')
+			</if>
+			<if test="downRegion == '3142'.toString()">
+				and s.studyDownRegion like CONCAT('%','화성시', '%')
+			</if>
+
+
+			<!-- 강원 -->
+			<if test="downRegion == '3201'.toString()">
+				and s.studyDownRegion like CONCAT('%','강릉시', '%')
+			</if>
+			<if test="downRegion == '3202'.toString()">
+				and s.studyDownRegion like CONCAT('%','고성군', '%')
+			</if>
+			<if test="downRegion == '3203'.toString()">
+				and s.studyDownRegion like CONCAT('%','동해시', '%')
+			</if>
+			<if test="downRegion == '3204'.toString()">
+				and s.studyDownRegion like CONCAT('%','삼척시', '%')
+			</if>
+			<if test="downRegion == '3205'.toString()">
+				and s.studyDownRegion like CONCAT('%','속초시', '%')
+			</if>
+			<if test="downRegion == '3206'.toString()">
+				and s.studyDownRegion like CONCAT('%','양구군', '%')
+			</if>
+			<if test="downRegion == '3207'.toString()">
+				and s.studyDownRegion like CONCAT('%','양양군', '%')
+			</if>
+			<if test="downRegion == '3208'.toString()">
+				and s.studyDownRegion like CONCAT('%','영월군', '%')
+			</if>
+			<if test="downRegion == '3209'.toString()">
+				and s.studyDownRegion like CONCAT('%','원주시', '%')
+			</if>
+			<if test="downRegion == '3210'.toString()">
+				and s.studyDownRegion like CONCAT('%','인제군', '%')
+			</if>
+			<if test="downRegion == '3211'.toString()">
+				and s.studyDownRegion like CONCAT('%','정선군', '%')
+			</if>
+			<if test="downRegion == '3212'.toString()">
+				and s.studyDownRegion like CONCAT('%','철원군', '%')
+			</if>
+			<if test="downRegion == '3213'.toString()">
+				and s.studyDownRegion like CONCAT('%','춘천시', '%')
+			</if>
+			<if test="downRegion == '3214'.toString()">
+				and s.studyDownRegion like CONCAT('%','태백시', '%')
+			</if>
+			<if test="downRegion == '3215'.toString()">
+				and s.studyDownRegion like CONCAT('%','평창군', '%')
+			</if>
+			<if test="downRegion == '3216'.toString()">
+				and s.studyDownRegion like CONCAT('%','홍천군', '%')
+			</if>
+			<if test="downRegion == '3217'.toString()">
+				and s.studyDownRegion like CONCAT('%','화천군', '%')
+			</if>
+			<if test="downRegion == '3218'.toString()">
+				and s.studyDownRegion like CONCAT('%','횡성군', '%')
+			</if>
+
+
+			<!-- 충북 -->
+			<if test="downRegion == '3301'.toString()">
+				and s.studyDownRegion like CONCAT('%','괴산군', '%')
+			</if>
+			<if test="downRegion == '3302'.toString()">
+				and s.studyDownRegion like CONCAT('%','단양군', '%')
+			</if>
+			<if test="downRegion == '3303'.toString()">
+				and s.studyDownRegion like CONCAT('%','보은군', '%')
+			</if>
+			<if test="downRegion == '3304'.toString()">
+				and s.studyDownRegion like CONCAT('%','영동군', '%')
+			</if>
+			<if test="downRegion == '3305'.toString()">
+				and s.studyDownRegion like CONCAT('%','옥천군', '%')
+			</if>
+			<if test="downRegion == '3306'.toString()">
+				and s.studyDownRegion like CONCAT('%','음성군', '%')
+			</if>
+			<if test="downRegion == '3307'.toString()">
+				and s.studyDownRegion like CONCAT('%','제천시', '%')
+			</if>
+			<if test="downRegion == '3308'.toString()">
+				and s.studyDownRegion like CONCAT('%','증평군', '%')
+			</if>
+			<if test="downRegion == '3309'.toString()">
+				and s.studyDownRegion like CONCAT('%','진천군', '%')
+			</if>
+			<if test="downRegion == '3310'.toString()">
+				and s.studyDownRegion like CONCAT('%','청주시 상당구', '%')
+			</if>
+			<if test="downRegion == '3311'.toString()">
+				and s.studyDownRegion like CONCAT('%','청주시 흥덕구', '%')
+			</if>
+			<if test="downRegion == '3312'.toString()">
+				and s.studyDownRegion like CONCAT('%','청주시 서원구', '%')
+			</if>
+			<if test="downRegion == '3313'.toString()">
+				and s.studyDownRegion like CONCAT('%','청주시 청원구', '%')
+			</if>
+			<if test="downRegion == '3314'.toString()">
+				and s.studyDownRegion like CONCAT('%','충주시', '%')
+			</if>
+
+
+			<!-- 충남 -->
+			<if test="downRegion == '3401'.toString()">
+				and s.studyDownRegion like CONCAT('%','계룡시', '%')
+			</if>
+			<if test="downRegion == '3402'.toString()">
+				and s.studyDownRegion like CONCAT('%','공주시', '%')
+			</if>
+			<if test="downRegion == '3403'.toString()">
+				and s.studyDownRegion like CONCAT('%','금산군', '%')
+			</if>
+			<if test="downRegion == '3404'.toString()">
+				and s.studyDownRegion like CONCAT('%','논산시', '%')
+			</if>
+			<if test="downRegion == '3405'.toString()">
+				and s.studyDownRegion like CONCAT('%','당진시', '%')
+			</if>
+			<if test="downRegion == '3406'.toString()">
+				and s.studyDownRegion like CONCAT('%','보령시', '%')
+			</if>
+			<if test="downRegion == '3407'.toString()">
+				and s.studyDownRegion like CONCAT('%','부여군', '%')
+			</if>
+			<if test="downRegion == '3408'.toString()">
+				and s.studyDownRegion like CONCAT('%','서산시', '%')
+			</if>
+			<if test="downRegion == '3409'.toString()">
+				and s.studyDownRegion like CONCAT('%','서천군', '%')
+			</if>
+			<if test="downRegion == '3410'.toString()">
+				and s.studyDownRegion like CONCAT('%','아산시', '%')
+			</if>
+			<if test="downRegion == '3411'.toString()">
+				and s.studyDownRegion like CONCAT('%','연기군', '%')
+			</if>
+			<if test="downRegion == '3412'.toString()">
+				and s.studyDownRegion like CONCAT('%','예산군', '%')
+			</if>
+			<if test="downRegion == '3413'.toString()">
+				and s.studyDownRegion like CONCAT('%','천안시 동남구', '%')
+			</if>
+			<if test="downRegion == '3414'.toString()">
+				and s.studyDownRegion like CONCAT('%','천안시 서북구', '%')
+			</if>
+			<if test="downRegion == '3415'.toString()">
+				and s.studyDownRegion like CONCAT('%','청양군', '%')
+			</if>
+			<if test="downRegion == '3416'.toString()">
+				and s.studyDownRegion like CONCAT('%','태안군', '%')
+			</if>
+			<if test="downRegion == '3417'.toString()">
+				and s.studyDownRegion like CONCAT('%','홍성군', '%')
+			</if>
+
+
+			<!-- 전북 -->
+			<if test="downRegion == '3501'.toString()">
+				and s.studyDownRegion like CONCAT('%','강진군', '%')
+			</if>
+			<if test="downRegion == '3502'.toString()">
+				and s.studyDownRegion like CONCAT('%','고흥군', '%')
+			</if>
+			<if test="downRegion == '3503'.toString()">
+				and s.studyDownRegion like CONCAT('%','곡성군', '%')
+			</if>
+			<if test="downRegion == '3504'.toString()">
+				and s.studyDownRegion like CONCAT('%','광양시', '%')
+			</if>
+			<if test="downRegion == '3505'.toString()">
+				and s.studyDownRegion like CONCAT('%','구례군', '%')
+			</if>
+			<if test="downRegion == '3506'.toString()">
+				and s.studyDownRegion like CONCAT('%','나주시', '%')
+			</if>
+			<if test="downRegion == '3507'.toString()">
+				and s.studyDownRegion like CONCAT('%','담양군', '%')
+			</if>
+			<if test="downRegion == '3508'.toString()">
+				and s.studyDownRegion like CONCAT('%','목포시', '%')
+			</if>
+			<if test="downRegion == '3509'.toString()">
+				and s.studyDownRegion like CONCAT('%','무안군', '%')
+			</if>
+			<if test="downRegion == '3510'.toString()">
+				and s.studyDownRegion like CONCAT('%','보성군', '%')
+			</if>
+			<if test="downRegion == '3511'.toString()">
+				and s.studyDownRegion like CONCAT('%','순천시', '%')
+			</if>
+			<if test="downRegion == '3512'.toString()">
+				and s.studyDownRegion like CONCAT('%','신안군', '%')
+			</if>
+			<if test="downRegion == '3513'.toString()">
+				and s.studyDownRegion like CONCAT('%','여수시', '%')
+			</if>
+			<if test="downRegion == '3514'.toString()">
+				and s.studyDownRegion like CONCAT('%','영광군', '%')
+			</if>
+			<if test="downRegion == '3515'.toString()">
+				and s.studyDownRegion like CONCAT('%','영암군', '%')
+			</if>
+			<if test="downRegion == '3516'.toString()">
+				and s.studyDownRegion like CONCAT('%','완도군', '%')
+			</if>
+			<if test="downRegion == '3517'.toString()">
+				and s.studyDownRegion like CONCAT('%','장성군', '%')
+			</if>
+			<if test="downRegion == '3518'.toString()">
+				and s.studyDownRegion like CONCAT('%','장흥군', '%')
+			</if>
+			<if test="downRegion == '3519'.toString()">
+				and s.studyDownRegion like CONCAT('%','진도군', '%')
+			</if>
+			<if test="downRegion == '3520'.toString()">
+				and s.studyDownRegion like CONCAT('%','함평군', '%')
+			</if>
+			<if test="downRegion == '3521'.toString()">
+				and s.studyDownRegion like CONCAT('%','해남군', '%')
+			</if>
+			<if test="downRegion == '3522'.toString()">
+				and s.studyDownRegion like CONCAT('%','화순군', '%')
+			</if>
+
+
+			<!-- 전남 -->
+			<if test="downRegion == '3601'.toString()">
+				and s.studyDownRegion like CONCAT('%','고창군', '%')
+			</if>
+			<if test="downRegion == '3602'.toString()">
+				and s.studyDownRegion like CONCAT('%','군산시', '%')
+			</if>
+			<if test="downRegion == '3603'.toString()">
+				and s.studyDownRegion like CONCAT('%','김제시', '%')
+			</if>
+			<if test="downRegion == '3604'.toString()">
+				and s.studyDownRegion like CONCAT('%','남원시', '%')
+			</if>
+			<if test="downRegion == '3605'.toString()">
+				and s.studyDownRegion like CONCAT('%','무주군', '%')
+			</if>
+			<if test="downRegion == '3606'.toString()">
+				and s.studyDownRegion like CONCAT('%','부안군', '%')
+			</if>
+			<if test="downRegion == '3607'.toString()">
+				and s.studyDownRegion like CONCAT('%','순창군', '%')
+			</if>
+			<if test="downRegion == '3608'.toString()">
+				and s.studyDownRegion like CONCAT('%','완주군', '%')
+			</if>
+			<if test="downRegion == '3609'.toString()">
+				and s.studyDownRegion like CONCAT('%','익산시', '%')
+			</if>
+			<if test="downRegion == '3610'.toString()">
+				and s.studyDownRegion like CONCAT('%','임실군', '%')
+			</if>
+			<if test="downRegion == '3611'.toString()">
+				and s.studyDownRegion like CONCAT('%','장수군', '%')
+			</if>
+			<if test="downRegion == '3612'.toString()">
+				and s.studyDownRegion like CONCAT('%','전주시', '%')
+			</if>
+			<if test="downRegion == '3613'.toString()">
+				and s.studyDownRegion like CONCAT('%','전주시', '%')
+			</if>
+			<if test="downRegion == '3614'.toString()">
+				and s.studyDownRegion like CONCAT('%','정읍시', '%')
+			</if>
+			<if test="downRegion == '3615'.toString()">
+				and s.studyDownRegion like CONCAT('%','진안군', '%')
+			</if>
+
+
+			<!-- 경북 -->
+			<if test="downRegion == '3701'.toString()">
+				and s.studyDownRegion like CONCAT('%','경산시', '%')
+			</if>
+			<if test="downRegion == '3702'.toString()">
+				and s.studyDownRegion like CONCAT('%','경주시', '%')
+			</if>
+			<if test="downRegion == '3703'.toString()">
+				and s.studyDownRegion like CONCAT('%','고령군', '%')
+			</if>
+			<if test="downRegion == '3704'.toString()">
+				and s.studyDownRegion like CONCAT('%','구미시', '%')
+			</if>
+			<if test="downRegion == '3705'.toString()">
+				and s.studyDownRegion like CONCAT('%','군위군', '%')
+			</if>
+			<if test="downRegion == '3706'.toString()">
+				and s.studyDownRegion like CONCAT('%','김천시', '%')
+			</if>
+			<if test="downRegion == '3707'.toString()">
+				and s.studyDownRegion like CONCAT('%','문경시', '%')
+			</if>
+			<if test="downRegion == '3708'.toString()">
+				and s.studyDownRegion like CONCAT('%','봉화군', '%')
+			</if>
+			<if test="downRegion == '3709'.toString()">
+				and s.studyDownRegion like CONCAT('%','상주시', '%')
+			</if>
+			<if test="downRegion == '3710'.toString()">
+				and s.studyDownRegion like CONCAT('%','성주군', '%')
+			</if>
+			<if test="downRegion == '3711'.toString()">
+				and s.studyDownRegion like CONCAT('%','안동시', '%')
+			</if>
+			<if test="downRegion == '3712'.toString()">
+				and s.studyDownRegion like CONCAT('%','영덕군', '%')
+			</if>
+			<if test="downRegion == '3713'.toString()">
+				and s.studyDownRegion like CONCAT('%','영양군', '%')
+			</if>
+			<if test="downRegion == '3714'.toString()">
+				and s.studyDownRegion like CONCAT('%','영주시', '%')
+			</if>
+			<if test="downRegion == '3715'.toString()">
+				and s.studyDownRegion like CONCAT('%','영천시', '%')
+			</if>
+			<if test="downRegion == '3716'.toString()">
+				and s.studyDownRegion like CONCAT('%','예천군', '%')
+			</if>
+			<if test="downRegion == '3717'.toString()">
+				and s.studyDownRegion like CONCAT('%','울릉군', '%')
+			</if>
+			<if test="downRegion == '3718'.toString()">
+				and s.studyDownRegion like CONCAT('%','울진군', '%')
+			</if>
+			<if test="downRegion == '3719'.toString()">
+				and s.studyDownRegion like CONCAT('%','의성군', '%')
+			</if>
+			<if test="downRegion == '3720'.toString()">
+				and s.studyDownRegion like CONCAT('%','청도군', '%')
+			</if>
+			<if test="downRegion == '3721'.toString()">
+				and s.studyDownRegion like CONCAT('%','청송군', '%')
+			</if>
+			<if test="downRegion == '3722'.toString()">
+				and s.studyDownRegion like CONCAT('%','칠곡군', '%')
+			</if>
+			<if test="downRegion == '3723'.toString()">
+				and s.studyDownRegion like CONCAT('%','포항시 남구', '%')
+			</if>
+			<if test="downRegion == '3724'.toString()">
+				and s.studyDownRegion like CONCAT('%','포항시 북구', '%')
+			</if>
+
+
+			<!-- 경남 -->
+			<if test="downRegion == '3801'.toString()">
+				and s.studyDownRegion like CONCAT('%','거제시', '%')
+			</if>
+			<if test="downRegion == '3802'.toString()">
+				and s.studyDownRegion like CONCAT('%','거창군', '%')
+			</if>
+			<if test="downRegion == '3803'.toString()">
+				and s.studyDownRegion like CONCAT('%','고성군', '%')
+			</if>
+			<if test="downRegion == '3804'.toString()">
+				and s.studyDownRegion like CONCAT('%','김해시', '%')
+			</if>
+			<if test="downRegion == '3805'.toString()">
+				and s.studyDownRegion like CONCAT('%','남해군', '%')
+			</if>
+			<if test="downRegion == '3806'.toString()">
+				and s.studyDownRegion like CONCAT('%','밀양시', '%')
+			</if>
+			<if test="downRegion == '3807'.toString()">
+				and s.studyDownRegion like CONCAT('%','사천시', '%')
+			</if>
+			<if test="downRegion == '3808'.toString()">
+				and s.studyDownRegion like CONCAT('%','산청군', '%')
+			</if>
+			<if test="downRegion == '3809'.toString()">
+				and s.studyDownRegion like CONCAT('%','양산시', '%')
+			</if>
+			<if test="downRegion == '3810'.toString()">
+				and s.studyDownRegion like CONCAT('%','의령군', '%')
+			</if>
+			<if test="downRegion == '3811'.toString()">
+				and s.studyDownRegion like CONCAT('%','진주시', '%')
+			</if>
+			<if test="downRegion == '3812'.toString()">
+				and s.studyDownRegion like CONCAT('%','창녕군', '%')
+			</if>
+			<if test="downRegion == '3813'.toString()">
+				and s.studyDownRegion like CONCAT('%','창원시 마산합포구', '%')
+			</if>
+			<if test="downRegion == '3814'.toString()">
+				and s.studyDownRegion like CONCAT('%','창원시 마산회원구', '%')
+			</if>
+			<if test="downRegion == '3815'.toString()">
+				and s.studyDownRegion like CONCAT('%','창원시 성산구', '%')
+			</if>
+			<if test="downRegion == '3816'.toString()">
+				and s.studyDownRegion like CONCAT('%','창원시 의창구', '%')
+			</if>
+			<if test="downRegion == '3817'.toString()">
+				and s.studyDownRegion like CONCAT('%','창원시 진해구', '%')
+			</if>
+			<if test="downRegion == '3818'.toString()">
+				and s.studyDownRegion like CONCAT('%','통영시', '%')
+			</if>
+			<if test="downRegion == '3819'.toString()">
+				and s.studyDownRegion like CONCAT('%','하동군', '%')
+			</if>
+			<if test="downRegion == '3820'.toString()">
+				and s.studyDownRegion like CONCAT('%','함안군', '%')
+			</if>
+			<if test="downRegion == '3821'.toString()">
+				and s.studyDownRegion like CONCAT('%','함양군', '%')
+			</if>
+			<if test="downRegion == '3822'.toString()">
+				and s.studyDownRegion like CONCAT('%','합천군', '%')
+			</if>
+
+
+			<!-- 제주 -->
+			<if test="downRegion == '3901'.toString()">
+				and s.studyDownRegion like CONCAT('%','제주시', '%')
+			</if>
+			<if test="downRegion == '3902'.toString()">
+				and s.studyDownRegion like CONCAT('%','서귀포시', '%')
+			</if>
+		</if>
+	</sql>
+
+
+	<!--카테고리 sql 모듈 -->
+	<sql id="upCategory">
+		<if test="upCategory !=null">
+			<if test="upCategory == '0'.toString()">
+				and s.studyUpCategory like CONCAT('%','영어', '%')
+			</if>
+			<if test="upCategory == '1'.toString()">
+				and s.studyUpCategory like CONCAT('%','외국어', '%')
+			</if>
+			<if test="upCategory == '2'.toString()">
+				and s.studyUpCategory like CONCAT('%','IT', '%')
+			</if>
+			<if test="upCategory == '3'.toString()">
+				and s.studyUpCategory like CONCAT('%','교양', '%')
+			</if>
+			<if test="upCategory == '4'.toString()">
+				and s.studyUpCategory like CONCAT('%','공무원', '%')
+			</if>
+		</if>
+	</sql>
+
+	<!--서브 카테고리 sql 모듈 -->
+	<sql id="category">
+		<if test="category !=null">
+			<if test="category == '00'.toString()">
+				and s.studyCategory like CONCAT('%','토익', '%')
+			</if>
+			<if test="category == '01'.toString()">
+				and s.studyCategory like CONCAT('%','토플', '%')
+			</if>
+			<if test="category == '02'.toString()">
+				and s.studyCategory like CONCAT('%','텝스', '%')
+			</if>
+			<if test="category == '03'.toString()">
+				and s.studyCategory like CONCAT('%','토스/오픽', '%')
+			</if>
+			<if test="category == '04'.toString()">
+				and s.studyCategory like CONCAT('%','영어회화', '%')
+			</if>
+			<if test="category == '05'.toString()">
+				and s.studyCategory like CONCAT('%','작문/독해', '%')
+			</if>
+			<if test="category == '06'.toString()">
+				and s.studyCategory like CONCAT('%','미드정복', '%')
+			</if>
+			<if test="category == '07'.toString()">
+				and s.studyCategory like CONCAT('%','영어기타', '%')
+			</if>
+
+			<if test="category == '10'.toString()">
+				and s.studyCategory like CONCAT('%','중국어', '%')
+			</if>
+			<if test="category == '11'.toString()">
+				and s.studyCategory like CONCAT('%','일본어', '%')
+			</if>
+			<if test="category == '12'.toString()">
+				and s.studyCategory like CONCAT('%','독일어', '%')
+			</if>
+			<if test="category == '13'.toString()">
+				and s.studyCategory like CONCAT('%','프랑스어', '%')
+			</if>
+			<if test="category == '14'.toString()">
+				and s.studyCategory like CONCAT('%','스페인어', '%')
+			</if>
+			<if test="category == '15'.toString()">
+				and s.studyCategory like CONCAT('%','러시아어', '%')
+			</if>
+			<if test="category == '16'.toString()">
+				and s.studyCategory like CONCAT('%','베트남어', '%')
+			</if>
+			<if test="category == '17'.toString()">
+				and s.studyCategory like CONCAT('%','태국어', '%')
+			</if>
+			<if test="category == '18'.toString()">
+				and s.studyCategory like CONCAT('%','외국어 기타', '%')
+			</if>
+
+			<if test="category == '20'.toString()">
+				and s.studyCategory like CONCAT('%','컴퓨터언어', '%')
+			</if>
+			<if test="category == '21'.toString()">
+				and s.studyCategory like CONCAT('%','웹프로그래밍', '%')
+			</if>
+			<if test="category == '22'.toString()">
+				and s.studyCategory like CONCAT('%','모바일프로그래밍', '%')
+			</if>
+			<if test="category == '23'.toString()">
+				and s.studyCategory like CONCAT('%','데이터베이스/서버', '%')
+			</if>
+			<if test="category == '24'.toString()">
+				and s.studyCategory like CONCAT('%','게임프로그래밍', '%')
+			</if>
+			<if test="category == '25'.toString()">
+				and s.studyCategory like CONCAT('%','문서작성/편집', '%')
+			</if>
+			<if test="category == '26'.toString()">
+				and s.studyCategory like CONCAT('%','컴퓨터자격증', '%')
+			</if>
+			<if test="category == '27'.toString()">
+				and s.studyCategory like CONCAT('%','사물인터넷', '%')
+			</if>
+			<if test="category == '28'.toString()">
+				and s.studyCategory like CONCAT('%','컴퓨터 기타', '%')
+			</if>
+
+			<if test="category == '30'.toString()">
+				and s.studyCategory like CONCAT('%','디자인/미술', '%')
+			</if>
+			<if test="category == '31'.toString()">
+				and s.studyCategory like CONCAT('%','취업', '%')
+			</if>
+			<if test="category == '32'.toString()">
+				and s.studyCategory like CONCAT('%','음악/공연', '%')
+			</if>
+			<if test="category == '33'.toString()">
+				and s.studyCategory like CONCAT('%','스포츠', '%')
+			</if>
+			<if test="category == '34'.toString()">
+				and s.studyCategory like CONCAT('%','뷰티/미용', '%')
+			</if>
+			<if test="category == '35'.toString()">
+				and s.studyCategory like CONCAT('%','라이프스타일', '%')
+			</if>
+			<if test="category == '36'.toString()">
+				and s.studyCategory like CONCAT('%','게임', '%')
+			</if>
+			<if test="category == '37'.toString()">
+				and s.studyCategory like CONCAT('%','교양 기타', '%')
+			</if>
+
+			<if test="category == '40'.toString()">
+				and s.studyCategory like CONCAT('%','행정', '%')
+			</if>
+			<if test="category == '41'.toString()">
+				and s.studyCategory like CONCAT('%','교육', '%')
+			</if>
+			<if test="category == '42'.toString()">
+				and s.studyCategory like CONCAT('%','경찰', '%')
+			</if>
+			<if test="category == '43'.toString()">
+				and s.studyCategory like CONCAT('%','소방', '%')
+			</if>
+			<if test="category == '44'.toString()">
+				and s.studyCategory like CONCAT('%','의료/보건', '%')
+			</if>
+			<if test="category == '45'.toString()">
+				and s.studyCategory like CONCAT('%','사법', '%')
+			</if>
+			<if test="category == '46'.toString()">
+				and s.studyCategory like CONCAT('%','기술', '%')
+			</if>
+			<if test="category == '47'.toString()">
+				and s.studyCategory like CONCAT('%','공무원 기타', '%')
+			</if>
+
+		</if>
+	</sql>
+</mapper>
+ 
+

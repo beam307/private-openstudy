@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.sbang.mapper.UserMapper">
+
+	<insert id="create"> <!-- 회원가입 -->
+		insert into user(userName, userEmail, userPwd, userBirth, userGender, userPhoneNumber, userNick)
+		values (#{userName}, #{userEmail}, #{userPwd}, #{userBirth}, #{userGender}, #{userPhoneNumber}, #{userNick})
+	</insert>
+
+	<select id="login" resultType="UserVO"> <!-- 로그인 -->
+		<![CDATA[select userNo, userEmail, userNick, userAuth, userProfileImgPath from user where userEmail = #{userEmail}]]>
+	</select>
+	
+	<select id="userLeaveCheck" resultType="Integer"> <!-- 탈퇴여부 확인 -->
+		select count(*) from user where userEmail = #{userEmail} and userLeave > 0
+	</select>
+
+	<update id="keepLogin">	<!-- 자동로그인 -->
+		update user set sessionKey = #{sessionId}, sessionLimit = #{next} where userEmail = #{userEmail}
+	</update>
+
+	<select id="checkUserWithSessionKey" resultType="UserVO">	<!-- 자동로그인 -->
+		<![CDATA[select * from user where sessionKey = #{value} and sessionLimit > now()]]>
+	</select>
+
+	<select id="getPwd" resultType="String"> <!-- 비밀번호 가져오기 -->
+		select userPwd from user where userEmail = #{userEmail}
+	</select>
+
+	<select id="findId" resultType="String"> <!-- 아이디 찾기 -->
+		select userEmail from user where userPhoneNumber = #{userPhoneNumber}
+	</select>
+
+	<select id="findIdCheck" resultType="Integer"> <!-- 아이디 찾기(일치하는 정보확인) -->
+		select count(*) from user where userPhoneNumber = #{userPhoneNumber}
+	</select>
+
+	<update id="findPwd"> <!-- 비밀번호찾기 (임시비밀번호으로 변경) -->
+		update user set userPwd = #{tempPwd}, userUpdateDate = now() 
+		where userEmail = #{UserVO.userEmail} and userName = #{UserVO.userName} and userBirth = #{UserVO.userBirth}
+	</update>
+
+	<select id="findPwdCheck" resultType="Integer"> <!-- 비밀번호 찾기(일치하는 정보확인) -->
+		select count(*) from user where userName = #{userName} and userEmail = #{userEmail} and userBirth = #{userBirth}
+	</select>
+
+	<select id="read" resultType="UserVO"> <!-- 마이페이지 유저정보 가져오기 -->
+		select * from user where userNo = #{userNo}
+	</select>
+
+	<update id="changePwd"> <!-- 비밀번호 변경 -->
+		update user set userPwd = #{userPwd} where userNo = #{userNo}
+	</update>
+
+	<update id="modify"> <!-- 프로필 정보 수정 -->
+		update user set userName = #{userName}, userNick = #{userNick}, userBirth = #{userBirth},
+		userGender = #{userGender}, userUpdateDate = now()
+		where userNo = #{userNo}
+	</update>
+	
+	<update id="phoneNumberOK"> <!-- 전화번호 인증 성공시 번호저장 및 인증 여부 변환 -->
+		update user set userPhoneNumber = #{userPhoneNumber} , userCertification = 1 where userNo = #{userNo};
+	</update>
+	
+	<update id="additionalInfo"> <!-- 부가 정보 수정 -->
+		update user set userFavUpCategory = #{userFavUpCategory}, userFavCategory = #{userFavCategory},
+		userFavUpRegion = #{userFavUpRegion}, userFavDownRegion = #{userFavDownRegion}, userIntroduce = #{userIntroduce}
+		where userNo = #{userNo}
+	</update>
+
+	<update id="modifyImg"> <!-- 프로필 정보 수정 -->
+		update user set userProfileImgPath = #{userProfileImgPath} where userNo = #{userNo}
+	</update>
+
+	<update id="delete"> <!-- 회원 탈퇴 -->
+		update user set 
+		<if test="userKakao!=null">userKakao = null, userEmail = null, </if> 
+		<if test="userNaver!=null">userNaver = null, userEmail = null, </if>
+		userPhoneNumber = null,
+		userLeave = 1 
+		where userNo = #{userNo}
+	</update>
+
+	<update id="deleteAllStudy"> <!-- 사용자가 글쓴 게시글 삭제 -->
+		update study set studyDelete = 1 where studyWriter = #{userNo}
+	</update>
+
+	<insert id="insertNaver"> <!-- 네이버 로그인 정보추가 -->
+		insert into user(userEmail, userNick, userGender, userNaver, userName)
+		values(#{userEmail},
+		#{userNick}, #{userGender}, #{userNaver}, #{userName})
+	</insert>
+
+	<select id="selectNaver" resultType="UserVO"> <!-- 네이버 로그인 정보 확인 -->
+		select userNo, userEmail from user where userNaver = #{userNaver}
+	</select>
+
+	<insert id="insertKakao"> <!-- 카카오 로그인 정보 추가 -->
+		insert into user(userEmail, userNick, userName, userKakao)
+		values(#{userEmail}, #{userNick}, #{userName}, #{userKakao})
+	</insert>
+	
+	<update id="returnNaverUser">
+		update user set userFavUpCategory = null, userFavCategory = null, userFavUpRegion = null, 
+		userFavDownRegion = null, userIntroduce = null, userPhoneNumber= null, userBirth = null, 
+		userProfileImgPath = 's_user.jpg', userGender = #{userGender}, userNick = #{userNick}, userName = #{userName}, 
+		userNaver = #{userNaver}, userLeave = 0
+		where userEmail = #{userEmail}
+	</update>
+	
+	<update id="returnKakaoUser">
+		update user set userFavUpCategory = null, userFavCategory = null, userFavUpRegion = null, 
+		userFavDownRegion = null, userIntroduce = null, userPhoneNumber= null, userBirth = null, 
+		userProfileImgPath = 's_user.jpg', userGender = null, userNick = #{userNick}, userName = #{userName}, 
+		userKakao = #{userKakao}, userLeave = 0
+		where userEmail = #{userEmail}
+	</update>
+
+	<select id="selectKakao" resultType="UserVO"> <!-- 카카오 로그인 정보 확인 -->
+		select userNo, userEmail from user where userKakao = #{userKakao}
+	</select>
+
+	<select id="snsLogin" resultType="UserVO"> <!-- 외부 로그인 -->
+		<![CDATA[select userNo, userEmail, UserNick, userAuth, userProfileImgPath, userKakao, userNaver from user where userEmail = #{userEmail}]]>
+	</select>
+
+	<select id="emailCheck" resultType="Integer"> <!-- 이메일 중복 확인 -->
+		select count(*) from user where userEmail = #{userEmail}
+	</select>
+
+	<select id="nickCheck" resultType="Integer"> <!-- 닉네임 중복 확인 -->
+		select count(*) from user where userNick = #{userNick}
+	</select>
+
+
+	<select id="favStudyManage" resultType="StudyVO"> <!-- 스터디관리(즐겨찾기) -->
+		select s.studyNo, s.studyCurMemCnt, s.studyName, s.studyStartDate, s.studyViewCnt, s.studyReplyCnt, s.studyFavCnt,
+		s.studyWriter, s.studyUpRegion, s.studyDownRegion, i.imagePath, u.userProfileImgPath, u.userNick
+		from wishlist wl
+		left outer join study s on s.studyNo = wl.studyNo
+		left outer join (select imagePath, studyNo from image group by studyNo) i on i.studyNo = s.studyNo
+		left outer join user u on s.studyWriter = u.userNo
+		where wl.userNo = #{userNo}
+		order by s.studyNo desc, s.studyRegDate;
+	</select>
+
+	<select id="regStudyManage" resultType="StudyVO"> <!-- 스터디관리(모집) -->
+		select s.studyNo, s.studyCurMemCnt, s.studyName, s.studyStartDate, s.studyViewCnt, s.studyReplyCnt, s.studyFavCnt,
+		s.studyWriter, s.studyUpRegion, s.studyDownRegion, i.imagePath, u.userProfileImgPath, u.userNick
+		from study s
+		left outer join (select imagePath, studyNo from image group by studyNo) i on i.studyNo = s.studyNo
+		left outer join user u on s.studyWriter = u.userNo
+		where s.studyWriter = #{userNo} and s.studyDelete = 0
+		order by s.studyNo desc, s.studyRegDate
+	</select>
+
+	<select id="applyStudyManage" resultType="StudyVO"> <!-- 스터디관리(신청) -->
+		select s.studyNo, s.studyCurMemCnt, s.studyName, s.studyStartDate, s.studyViewCnt, s.studyReplyCnt, s.studyFavCnt,
+		s.studyWriter, s.studyUpRegion, s.studyDownRegion, i.imagePath, u.userProfileImgPath, u.userNick
+		from user_study us
+		left outer join study s on s.studyNo = us.studyNo
+		left outer join (select imagePath, studyNo from image group by studyNo) i on i.studyNo = s.studyNo
+		left outer join user u on s.studyWriter = u.userNo
+		where us.userNo = #{userNo} and (us.userApprove = 0 or us.userApprove = 2) and s.studyDelete = 0
+		order by s.studyNo desc, s.studyRegDate;
+	</select>
+	
+	<select id="endStudyManage" resultType="StudyVO"> <!-- 스터디관리(완료) -->
+		select s.studyNo, s.studyCurMemCnt, s.studyName, s.studyStartDate, s.studyViewCnt, s.studyReplyCnt, s.studyFavCnt,
+		s.studyWriter, s.studyUpRegion, s.studyDownRegion, i.imagePath, u.userProfileImgPath, u.userNick
+		from studyEnd s
+		left outer join (select imagePath, studyNo from endImage group by studyNo) i on i.studyNo = s.studyNo
+		left outer join user u on s.studyWriter = u.userNo
+		where s.studyWriter = #{userNo} and s.studyDelete = 0
+		order by s.studyNo desc, s.studyRegDate
+	</select>
+	
+	<select id="memberEndStudyManage" resultType="StudyVO"> <!-- 스터디관리(완료)스터디원기준 -->
+		select s.studyNo, s.studyCurMemCnt, s.studyName, s.studyStartDate, s.studyViewCnt, s.studyReplyCnt, s.studyFavCnt,
+		s.studyWriter, s.studyUpRegion, s.studyDownRegion, i.imagePath, u.userProfileImgPath, u.userNick
+		from studyEnd s
+		left outer join (select imagePath, studyNo from endImage group by studyNo) i on i.studyNo = s.studyNo
+		left outer join user u on s.studyWriter = u.userNo
+		left outer join endApplyUser eu on s.studyNo = eu.studyNo
+		where eu.userNo = #{userNo} and s.studyDelete = 0 and eu.userApprove = 2
+		order by s.studyNo desc, s.studyRegDate;
+	</select>
+	
+	<select id="exStudyList" resultType="StudyVO"> <!-- 스터디등록(이전 스터디등록 리스트 불러오기) -->
+		select s.studyNo, s.studyRegDate, s.studyName
+		from study s
+		left outer join user u on s.studyWriter = u.userNo
+		where s.studyWriter = #{userNo}
+		order by s.studyNo desc, s.studyRegDate
+	</select>
+	
+	<select id="exStudyEndList" resultType="StudyVO"> <!-- 스터디등록(이전 스터디등록 리스트 불러오기) -->
+		select se.studyNo, se.studyRegDate, se.studyName
+		from studyEnd se
+		left outer join user u on se.studyWriter = u.userNo
+		where se.studyWriter = #{userNo}
+		order by se.studyNo desc, se.studyRegDate
+	</select>		
+
+	<select id="checkFavorStudy" resultType="Integer"> <!-- 즐겨찾기 유무 체크 -->
+		select count(*) from wishlist where userNo = #{userNo} and studyNo = #{studyNo}
+	</select>
+
+	<insert id="favorStudy"> <!-- 스터디 즐겨찾기 추가 -->
+		insert into wishlist values(#{userNo}, #{studyNo})
+	</insert>
+
+	<delete id="deleteFavorStudy"> <!-- 스터디 즐겨찾기 삭제 -->
+		delete from wishlist where userNo = #{userNo} and studyNo = #{studyNo}
+	</delete>
+	
+	<select id="checkApplyStudy" resultType="Integer"> <!-- 스터디 신청 여부 체크 -->
+		select count(*) from user_study where userNo = #{userNo} and studyNo = #{studyNo}
+	</select>
+
+	<insert id="applyStudy"> <!-- 스터디 신청 -->
+		insert into user_study(userNo, studyNo) values(#{userNo}, #{studyNo})
+	</insert>
+
+	<update id="CurMemCnt"> <!-- 스터디 신청멤버수 업데이트 -->
+		update study set studyCurMemCnt = (select count(*) from user_study where studyNo = #{studyNo} and userApprove = 2) where studyNo = #{studyNo};
+	</update>
+
+	<delete id="cancelStudy"> <!-- 스터디 신청 취소 -->
+		delete from user_study where userNo = #{userNo} and studyNo = #{studyNo}
+	</delete>
+
+	<select id="applyMember" resultType="UserVO"> <!-- 모집스터디 신청자 리스트 -->
+		select u.userNo, u.userNick, u.userName, u.userPhoneNumber, u.userProfileImgPath, us.userApprove
+		from study s
+		left outer join user_study us on s.studyNo = us.studyNo
+		left outer join user u on us.userNo = u.userNo
+		where s.studyNo = #{studyNo};
+	</select>
+
+	<update id="applyApprove"> <!-- 반장 승인 수락 -->
+		update user_study set userApprove = 2 where studyNo = #{studyNo} and userNo = #{userNo}
+	</update>
+
+	<update id="applyDeny"> <!-- 반장 승인 거부 -->
+		update user_study set userApprove = 1, denyMsg = #{denyMsg} where studyNo = #{studyNo} and userNo = #{userNo}
+	</update>
+
+	<select id="approveCheck" resultType="UserStudyVO"> <!-- 스터디 승인 여부 확인 -->
+		select userApprove, denyMsg from user_study where userNo = #{userNo} and studyNo = #{studyNo}
+	</select>
+
+	<select id="studyLeaderInfo" resultType="UserVO"> <!-- 스터디장 정보 가져오기 -->
+		select u.userName, u.userPhoneNumber
+		from study s
+		left outer join user u on u.userNo = s.studyWriter
+		where s.studyNo = #{studyNo};
+	</select>
+	
+	<select id="findUserNoByNick" resultType="Integer"> <!-- 유저nick으로 유저No 찾기 -->
+		select userNo from user where userNo > 0 and userNick = #{userNick}
+	</select>
+	
+	<select id="approveMemList" resultType="Integer"> <!-- 스터디 참여자리스트  -->
+		select userNo from user_study where studyNo=#{studyNo} and userApprove=2;
+	</select>
+	
+	
+	<insert id="studyEnd"> <!-- 스터디 완료 (studyEnd테이블에 추가) -->
+		insert into studyEnd select *, now() from study where studyNo = #{studyNo}
+	</insert>
+	
+	<insert id="studyEndImg"> <!-- 스터디 완료 (endImage테이블에 추가) -->
+		insert into endImage select * from image where studyNo = #{studyNo}
+	</insert>
+	
+	<insert id="studyEndWeek"> <!-- 스터디 완료 (endWeek테이블에 추가) -->
+		insert into endWeek select * from week where studyNo = #{studyNo}
+	</insert>
+	
+	<insert id="studyEndApply"> <!-- 스터디 완료 (endApplyUser테이블에 추가) -->
+		insert into endApplyUser select * from user_study where studyNo = #{studyNo}
+	</insert>
+	
+	<delete id="studyEndDelete"> <!--  스터디 완료 (study테이블에서 삭제) -->
+		delete from study where studyNo = #{studyNo}
+	</delete>
+	
+	<select id="studyRegCnt" resultType="Integer"> <!-- 스터디등록갯수 -->
+		select count(*) from study where studyWriter = #{userNo} and studyDelete = 0;
+	</select>
+	
+
+	<select id="applyStudyCnt" resultType="Integer"> <!-- 신청스터디(승인완료) 갯수  -->
+		select sum(C.cnt)
+		from
+		(select count(*) cnt from user_study where userNo = 1 and userApprove = 2
+		union all
+		select count(*) cnt from endApplyUser where userNo = 1 and userApprove = 2)
+		C;
+	</select>
+	
+	<select id="applyStudyList" resultType="StudyVO"> <!-- 신청스터디(승인완료) 리스트 -->
+		select s.studyNo, s.studyName
+		from user_study us
+		left outer join study s on s.studyNo = us.studyNo
+		where us.userNo = #{userNo} and us.userApprove = 2 and s.studyDelete = 0
+		order by s.studyNo desc, s.studyRegDate;
+	</select>
+	
+	<select id="endStudyList" resultType="StudyVO"> <!-- 완료스터디(승인완료) 리스트 -->
+		select s.studyNo, s.studyName
+		from studyEnd s
+		left outer join endApplyUser eu on s.studyNo = eu.studyNo
+		where eu.userNo = #{userNo} and eu.userApprove = 2 and s.studyDelete = 0
+		order by s.studyNo desc, s.studyRegDate;
+	</select>
+	
+	<select id="studyMemList" resultType="UserVO"> <!-- 스터디 멤버(완료) 리스트 -->
+		select u.userNo, u.userNick, u.userName, u.userPhoneNumber, u.userProfileImgPath, eu.userApprove
+		from studyEnd se
+		left outer join endApplyUser eu on se.studyNo = eu.studyNo
+		left outer join user u on eu.userNo = u.userNo
+		where se.studyNo = #{studyNo} and eu.userApprove = 2
+	</select>
+	
+	<select id="studyEndCheck" resultType="Integer"> <!-- 스터디완료 시작날짜 이후로 하기 -->
+		<![CDATA[select count(*) from study where studyNo = #{studyNo} and studyStartDate < now()]]>
+	</select>
+	
+	<select id="phoneDuplicate" resultType="Integer"> <!-- 휴대폰번호 중복확인 -->
+		select count(*) from user where userPhoneNumber = #{userPhoneNumber}
+	</select>
+	
+	<insert id="insertAuthCode"> <!-- 인증번호 테이블에 넣기 -->
+		insert into phoneAuth(phoneNumber, authCode) values(#{userPhoneNumber}, #{authCode});
+	</insert>
+	
+	<delete id="deleteAuthCode"> <!-- 인증번호 테이블에 삭제하기 -->
+		delete from phoneAuth where phoneNumber = #{userPhoneNumber}
+	</delete>
+	
+	<select id="authCodeCheck" resultType="String"> <!-- 인증번호 체크 -->
+		select authCode from phoneAuth where phoneNumber = #{userPhoneNumber} and authDate > date_sub(now(), interval 3 minute);
+	</select>
+	
+</mapper>

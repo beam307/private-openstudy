@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.sbang.mapper.ItemsMapper">
+	<select id="readUpRegionNo" resultType="String"> <!-- 상위 지역 번호 조회 -->
+		select upRegionNo from upRegion where upRegionName = #{upRegionName}
+	</select>
+	
+	<select id="readDownRegionNo" resultType="String"> <!-- 지역 번호 조회 -->
+		select downRegionNo from downRegion where downRegionName = #{downRegionName}
+	</select>
+	
+	<select id="readCategoryNo" resultType="String"> <!-- 카테고리 번호 조회 -->
+		select categoryNo from category where categoryName = #{categoryName}
+	</select>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.sbang.mapper.MessageMapper">
+
+	<insert id="create">
+		insert into message (msgTo, msgFrom, msgText, msgRoom, msgSendDate, msgReadDate)
+		values (#{msgTo}, #{msgFrom}, #{msgText}, #{msgRoom}, #{msgSendDate}, #{msgReadDate})
+	</insert>
+	
+	<delete id="delete">
+		delete from message where msgNo>0 and msgNo=#{msgNo}
+	</delete>
+	
+	<update id="readState">
+		update message set msgReadDate=now() where msgNo>0 and msgRoom=#{msgRoom} and msgSendDate=msgReadDate
+	</update>
+	
+	<update id="userReadState">
+		update message set msgUserReadState=1 where msgNo>0 and msgRoom=#{msgRoom};
+	</update>
+	
+	<select id="msgList" resultType="MessageVO"> <!--받은쪽지 리스트  -->
+		select * from message m left outer join (select userNo, userNick, userProfileImgPath from user) u on m.msgFrom = u.userNo 
+		where m.msgNo>0 and ((m.msgTo=#{msgTo} and m.msgFrom=#{msgFrom}) or (m.msgTo=#{msgFrom} and m.msgFrom=#{msgTo}))
+		order by m.msgNo asc, m.msgSendDate 
+	</select>
+	
+	<select id="senderList" resultType="MessageVO">
+		select * from (select * from message order by msgNo desc, msgSendDate) m 
+		left outer join (select userNo, userNick, userProfileImgPath, userLeave from user) u on m.msgRoom = u.userNo 
+		where ((m.msgTo=#{msgTo} and m.msgFrom!=#{msgTo}) or (m.msgTo!=#{msgTo} and m.msgFrom=#{msgTo})) and u.userLeave=0
+		group by m.msgRoom order by m.msgNo desc, m.msgSendDate
+	</select>
+	
+	<select id="countReceiveChat" resultType="hashMap"> <!-- 웹소켓 알림  -->
+		select count(*) countChat, msgFrom from message 
+		where msgNo> 0 and msgTo=#{msgTo} and msgFrom!=#{msgTo} and msgSendDate=msgReadDate
+		group by msgFrom order by msgNo desc, msgSendDate
+	</select>
+	
+	<select id="countReceiveChatUser" resultType="Integer"> <!-- 웹소켓 알림  -->
+		select count(*) from message 
+		where msgNo> 0 and msgTo=#{msgTo} and msgFrom!=#{msgTo} and msgUserReadState!=1;
+	</select>
+	
+</mapper>

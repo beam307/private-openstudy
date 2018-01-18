@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<websocket:handlers>
+		<websocket:mapping path="/note" handler="noteHandler" />
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+		<websocket:sockjs />
+	</websocket:handlers>
+
+	<bean id="noteHandler" class="org.sbang.websocket.WebSocketNoteHandler" />
+	
+	<websocket:handlers>
+		<websocket:mapping path="/user" handler="alarmHandler" />
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+		<websocket:sockjs />
+	</websocket:handlers>
+	
+	<bean id="alarmHandler" class="org.sbang.websocket.WebSocketAlarmHandler" />
+
+	<websocket:handlers>
+		<websocket:mapping path="/admin" handler="chatHandler" />
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+		<websocket:sockjs />
+	</websocket:handlers>
+
+		<bean id="chatHandler" class="org.sbang.websocket.WebSocketChatHandler" />
+		
+	<websocket:handlers>
+		<websocket:mapping path="/login" handler="chatAlarmHandler" />
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+		<websocket:sockjs />
+	</websocket:handlers>
+
+		<bean id="chatAlarmHandler" class="org.sbang.websocket.WebSocketChatAlarmHandler" />
+	
+
+</beans>

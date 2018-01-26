@@ -2,7 +2,6 @@ package org.sbang.persistence;
 
 import java.util.List;
 
-import org.sbang.DTO.LoginDTO;
 import org.sbang.domain.SearchCriteria;
 import org.sbang.domain.StudyVO;
 import org.sbang.domain.UserVO;
@@ -31,7 +30,7 @@ public interface AdminDAO {
 
 	public Integer studyCount(SearchCriteria cri) throws Exception;
 
-	public Integer totalVisit() throws Exception;
+	public Integer totalUserVisit() throws Exception;
 
 	public Integer totalUserReg() throws Exception;
 

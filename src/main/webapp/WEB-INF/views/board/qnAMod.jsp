@@ -1,12 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/include/headerSub.jsp"%>
-<!--글쓰기 js-->
-<script src="/resources/dist/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/resources/dist/js/jquery.bootstrap.js" type="text/javascript"></script>
+<jsp:include page="../include/headerSub.jsp" flush="false"/>
 
-<!--  Plugin for the Wizard -->
-<script src="/resources/dist/js/material-bootstrap-wizard.js"></script>
 
 <!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
 <script src="/resources/dist/js/jquery.validate.min.js"></script>
@@ -24,7 +17,7 @@
 							<form class="form-horizontal" id="registerForm" method="post">
 								<div class="wizard-navigation">
 									<ul>
-										<li><a href="#about" data-toggle="tab">QnA질문 등록</a></li>
+										<li><a href="#about" data-toggle="tab">FAQ질문 등록</a></li>
 									</ul>
 								</div>
 
@@ -34,7 +27,7 @@
 											<div class="form-horizontal">
 												<div class="form-group label-floating">
 													<div class="col-sm-12">
-														<label class="control-label">QnA질문 제목</label> <input type="text" class="form-control" name="qnATitle" id="qnATitle" value="${qnAVO.qnATitle }">
+														<label class="control-label">FAQ질문 제목</label> <input type="text" class="form-control" name="qnATitle" id="qnATitle" value="${qnAVO.qnATitle }">
 													</div>
 												</div>
 											</div>
@@ -42,10 +35,11 @@
 										<div class="row">
 											<div class="form-group area">
 												<div class="col-sm-12">
-													<label class="col-sm-2 control-label">QnA질문 내용</label>
+													<label class="col-sm-2 control-label">FAQ질문 내용</label>
 													<div class="col-sm-10">
 														<div class="col-sm-12">
-															<textarea class="form-control" rows="10" name="qnAContent" id="qnAContent">${qnAVO.qnAContent }</textarea>
+															<!--<textarea class="form-control" rows="10" name="qnAContent" id="qnAContent">${qnAVO.qnAContent }</textarea>  -->
+															<textarea class="form-control" rows="10" id="summernote" name="qnAContent">${qnAVO.qnAContent }</textarea>
 														</div>
 													</div>
 												</div>
@@ -76,5 +70,23 @@
 	</div>
 </div>
 <!-- </form> -->
-
-<%@include file="/WEB-INF/views/include/footerSub.jsp"%>
+<script>
+	$(document).ready(function() {
+        $('#summernote').summernote({
+        	toolbar: [
+        	    // [groupName, [list of button]]
+        	    ['style', ['bold', 'italic', 'underline', 'clear']],
+        	    ['font', ['strikethrough', 'superscript', 'subscript']],
+        	    ['fontsize', ['fontsize']],
+        	    ['color', ['color']],
+        	    ['para', ['ul', 'ol', 'paragraph']],
+        	    ['height', ['height']],
+        	    ['insert', ['link', 'picture', 'hr']]
+        	],
+            tabsize: 4,
+            height: 200,
+            lang: 'ko-KR',
+          });
+    });
+</script>
+<jsp:include page="../include/footerSub.jsp" flush="false"/>

@@ -16,6 +16,15 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	<!-- jsp 디렉티브 모음 -->
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+			<include-prelude>/WEB-INF/views/common/webConstraint.jspf</include-prelude>
+		</jsp-property-group>
+	</jsp-config>
 
 	<!-- 인코딩 utf-8 -->
 	<filter>
@@ -61,7 +70,7 @@
 		<url-pattern>/login/naverLogin.jsp</url-pattern>
 		<url-pattern>/login/callback.jsp</url-pattern>
 	</servlet-mapping>
-	
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/WEB-INF/views/error/404.jsp</location>
@@ -70,5 +79,5 @@
 		<error-code>500</error-code>
 		<location>/WEB-INF/views/error/500.jsp</location>
 	</error-page>
-	
+
 </web-app>

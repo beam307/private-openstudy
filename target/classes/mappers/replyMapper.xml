@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.sbang.mapper.ReplyMapper">
+	<select id="list" resultType="ReplyVO">
+		select * from reply where studyNo = #{studyNo} order by replyNo desc
+	</select>
+
+	<insert id="create">
+		insert into reply (studyNo, replyText, replySecret ,userNo) values (#{studyNo}, #{replyText},
+		#{replySecret}, #{userNo})
+	</insert>
+
+	<update id="update">
+		update reply set replyText = #{replyText}, replyUpdateDate = now(), replySecret = #{replySecret} where replyNo = #{replyNo}
+	</update>
+
+	<delete id="delete">
+		delete from reply where replyNo = #{replyNo}
+	</delete>
+
+	<select id="listPage" resultType="ReplyVO"> <!--댓글리스트페이지와 같이 출력 -->
+		select r.*, u.userNick  
+		from reply r left outer join user u on r.userNo=u.userNo
+		where r.studyNo = #{studyNo} order by replyNo desc limit
+		#{cri.pageStart}, #{cri.perPageNum}
+	</select>
+
+	<select id="count" resultType="int">
+		select count(studyNo) from reply where studyNo = #{studyNo}
+	</select>
+
+	<delete id="deleteWithStudyNo"> <!--스터디 제거시 댓글도 같이 제거 -->
+		delete from reply where studyNo=#{studyNo}
+	</delete>
+
+</mapper>

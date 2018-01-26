@@ -32,7 +32,7 @@ public class SnsInterceptor extends HandlerInterceptorAdapter {
 		if (modelMap.get("userHaltCheck") != null) { // 정지 유저 일 경우
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('고객님은 [" + modelMap.get("userHaltCheck") + "] 까지 정지기간 입니다.'); location.replace('/login/loginGet');</script>"); // 정지 알림 후
+			out.println("<script>alert('고객님은 [" + modelMap.get("userHaltCheck") + "] 까지 정지기간 입니다.'); location.replace('/login');</script>"); // 정지 알림 후
 			out.close();
 		} else {
 			if (userVO != null) { // 로그인 성공시(객체가 있을 경우)
@@ -46,9 +46,10 @@ public class SnsInterceptor extends HandlerInterceptorAdapter {
 					dest = "/";
 					session.removeAttribute("snsHalt");
 				}
+				
 				response.sendRedirect(dest != null ? dest : "/");
 			} else
-				response.sendRedirect("/login/loginGet");
+				response.sendRedirect("/login");
 		}
 	}
 }

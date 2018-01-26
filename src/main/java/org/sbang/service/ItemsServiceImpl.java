@@ -1,7 +1,10 @@
 package org.sbang.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.sbang.domain.StudyVO;
 import org.sbang.persistence.ItemsDAO;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +27,10 @@ public class ItemsServiceImpl implements ItemsService {
 	@Override
 	public String readCategoryNo(String categoryName) throws Exception {
 		return itemsDAO.readCategoryNo(categoryName);
+	}
+
+	@Override
+	public List<StudyVO> favStudyList(String[] favCategoryArr, String favRegion) throws Exception {
+		return itemsDAO.favStudyList(favCategoryArr, favRegion);
 	}
 }

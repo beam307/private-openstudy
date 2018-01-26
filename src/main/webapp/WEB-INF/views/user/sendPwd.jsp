@@ -1,5 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +5,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<script type="text/javascript">
-		var userEmail = '${userEmail}';
-
-		alert(userEmail + '님 메일 확인부탁');
-		self.location = "/";
-	</script>
+	alert('임시 비밀번호가 발급되었습니다. 메일 확인 부탁드립니다.');
 </body>
 </html>

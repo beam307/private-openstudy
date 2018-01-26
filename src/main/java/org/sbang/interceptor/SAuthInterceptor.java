@@ -22,7 +22,7 @@ public class SAuthInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("login") == null) { // login세션이 없으면
 			saveDest(request); // URI값 가져오기
-			response.sendRedirect("/login/loginGet");
+			response.sendRedirect("/login");
 			session.setAttribute("temp", "temp");
 			return false;
 		}else {

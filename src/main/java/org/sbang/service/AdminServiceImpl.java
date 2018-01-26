@@ -8,7 +8,6 @@ import org.sbang.domain.SearchCriteria;
 import org.sbang.domain.StudyVO;
 import org.sbang.domain.UserVO;
 import org.sbang.persistence.AdminDAO;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,9 +16,6 @@ public class AdminServiceImpl implements AdminService {
 	@Inject
 	private AdminDAO adminDAO;
 	
-	@Inject
-	private BCryptPasswordEncoder pwdEncoder;
-
 	@Override
 	public void userDelete(Integer userNo) throws Exception { // 회원 탈퇴
 		adminDAO.userDelete(userNo);
@@ -66,8 +62,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Integer totalVisit() throws Exception { // 전체 방문자 수
-		return adminDAO.totalVisit();
+	public Integer totalUserVisit() throws Exception { // 전체 방문자 수
+		return adminDAO.totalUserVisit();
 	}
 
 	@Override

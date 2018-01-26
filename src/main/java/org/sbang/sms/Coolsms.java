@@ -17,7 +17,6 @@ public class Coolsms extends Https {
 	private String senderid_url = URL + "/senderid/1.1/";
 	private String api_key;
 	private String api_secret;	
-	private String timestamp;
 	private Https https = new Https();
 	Properties properties = System.getProperties();
 
@@ -33,6 +32,7 @@ public class Coolsms extends Https {
 	 * Send messages
 	 * @param set : HashMap<String, String>
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject send(HashMap<String, String> params) {
 		JSONObject response = new JSONObject();
 		try {
@@ -55,6 +55,7 @@ public class Coolsms extends Https {
 	 * Sent messages
 	 * @param set : HashMap<String, String>
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject sent(HashMap<String, String> params) {
 		JSONObject response = new JSONObject();
 		try {
@@ -73,6 +74,7 @@ public class Coolsms extends Https {
 	 * Reserve message cancel 
 	 * @param set : HashMap<String, String>
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject cancel(HashMap<String, String> params) {
 		JSONObject response = new JSONObject();
 		try {
@@ -97,6 +99,7 @@ public class Coolsms extends Https {
 	/*
 	 * Balance info
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject balance() {
 		JSONObject response = new JSONObject();
 		try {
@@ -117,6 +120,7 @@ public class Coolsms extends Https {
 	 * Register sender number
 	 * @param set : HashMap<String, String>
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject register(HashMap<String, String> params) {
 		JSONObject response = new JSONObject();
 		try {
@@ -136,6 +140,7 @@ public class Coolsms extends Https {
 	 * Verify sender number
 	 * @param set : HashMap<String, String>
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject verify(HashMap<String, String> params) {
 		JSONObject response = new JSONObject();
 		try {
@@ -159,6 +164,7 @@ public class Coolsms extends Https {
 	 * Delete sender number
 	 * @param set : HashMap<String, String>
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject delete(HashMap<String, String> params) {
 		JSONObject response = new JSONObject();
 		try {
@@ -182,6 +188,7 @@ public class Coolsms extends Https {
 	 * Set default sender number
 	 * @param set : HashMap<String, String>
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject setDefault(HashMap<String, String> params) {
 		JSONObject response = new JSONObject();
 		try {
@@ -205,6 +212,7 @@ public class Coolsms extends Https {
 	 * Get sender number list
 	 * @param set : HashMap<String, String>
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject list() {
 		JSONObject response = new JSONObject();
 		try {
@@ -225,6 +233,7 @@ public class Coolsms extends Https {
 	 * Get default sender number
 	 * @param set : HashMap<String, String>
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject getDefault() {
 		JSONObject response = new JSONObject();
 		try {

@@ -6,12 +6,11 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.sbang.domain.AlarmVO;
 import org.sbang.domain.Criteria;
 import org.sbang.domain.PageMaker;
 import org.sbang.domain.ReplyVO;
-import org.sbang.service.AlarmService;
 import org.sbang.service.ReplyService;
+import org.sbang.util.AlarmUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,20 +27,15 @@ public class ReplyController {
 	private ReplyService replyService;
 	
 	@Inject
-	private AlarmService alarmService;
+	private AlarmUtils alarmUtil;
 	
-	@RequestMapping(value = "", method = RequestMethod.POST) 
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody ReplyVO vo) {
 		ResponseEntity<String> entity = null;
 		try {
 			replyService.addReply(vo);
-			if(vo.getUserNo()!=vo.getStudyWriter()) {
-				AlarmVO alarm=new AlarmVO();
-				alarm.setAlarmSender(vo.getUserNo());
-				alarm.setAlarmTargetStudy(vo.getStudyNo());
-				alarm.setAlarmTarget(vo.getStudyWriter());
-				alarm.setAlarmFlag(4);
-				alarmService.create(alarm);
+			if (vo.getUserNo() != vo.getStudyWriter()) {
+				alarmUtil.createAlarm(vo.getStudyNo(), vo.getStudyWriter(), vo.getUserNo(), 4);
 			}
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
@@ -80,10 +74,10 @@ public class ReplyController {
 	}
 
 	@RequestMapping(value = "/{replyNo}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> remove(@PathVariable("replyNo") Integer replyNo,@RequestBody ReplyVO vo) {
+	public ResponseEntity<String> remove(@PathVariable("replyNo") Integer replyNo, @RequestBody ReplyVO vo) {
 		ResponseEntity<String> entity = null;
 		try {
-			replyService.removeReply(replyNo,vo.getStudyNo());
+			replyService.removeReply(replyNo, vo.getStudyNo());
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

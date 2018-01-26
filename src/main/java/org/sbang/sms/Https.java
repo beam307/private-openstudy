@@ -30,6 +30,7 @@ public class Https
 	 * @param StringBuffer : data 
 	 * @param String : image
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject postRequest(String url_string, HashMap<String, String> params) {
 		JSONObject obj = new JSONObject();
 		try {
@@ -147,6 +148,7 @@ public class Https
 	/*
 	 * https request (GET)
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject request(String url_string, HashMap<String, String> params) {
 		JSONObject obj = new JSONObject();
 		try {

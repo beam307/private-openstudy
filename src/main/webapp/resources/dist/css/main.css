@@ -14,6 +14,8 @@
 }
 
 /* ------------------------------------------------------------ */
+
+
 .pc-none {
 	display: none;
 }
@@ -62,7 +64,7 @@ a.top {
 }
 
 .nav-up {
-	top: -30px;
+	top: -50px;
 }
 
 .nav-down {
@@ -71,7 +73,7 @@ a.top {
 }
 
 .navbar {
-	min-height: 40px;
+	min-height: 50px;
 }
 
 .navbar .bg-theme {
@@ -88,7 +90,7 @@ a.top {
 
 .navbar-default .navbar-nav>li>a, .navbar-default .navbar-nav .name {
 	font-size: 13px;
-	padding: 10px 12px;
+	padding: 15px 12px;
 	color: #fff;
 }
 
@@ -107,7 +109,7 @@ a.top {
 .navbar-default .navbar-brand {
 	float: left;
 	height: 40px;
-	padding: 9px 15px;
+	padding: 13px 15px;
 	font-size: 20px;
 	line-height: 20px;
 	font-weight: 600;
@@ -137,6 +139,12 @@ a.top {
 	margin-bottom:2px;
 }
 
+.open #alarm-list li .col-md-10 p .studyName {
+    margin-bottom: -4px;
+    overflow: hidden;
+    display: inline-block;
+}
+
 .open #alarm-list li small {
 	display:block;
 	text-align:right;
@@ -146,17 +154,33 @@ a.top {
 	padding:3px 0;
 	width: 420px;
     white-space: normal;
+    display: flex;
+    align-items: center;
 }
 
 .open .fixed {
-	top: 29px;
-	right: -465px;
+	top: 70px;
+    border-radius: 0;
+    right: -420px;
+    width: 300px;
     opacity: 0.9;
+}
+
+.open .fixed li a {
+	width: 360px !important;
+}
+
+.open .fixed .col-md-2 {
+	display:none;
+}
+
+.open .fixed li .col-md-10 {
+	width: 300px;
 }
 
 #visual {
 	position: relative;
-	height: 800px;
+	height: 950px;
 	text-align: center;
 	overflow: hidden;
 	border-bottom: 3px solid #620017;
@@ -193,12 +217,12 @@ a.top {
 }
 
 #visual-content h1 {
-	margin-bottom: 70px;
+	margin-bottom: 50px;
 }
 
 #visual-content h1 a {
 	color: #fff;
-	font-size: 45px;
+	font-size:45px;
 }
 
 #visual .form-group.label-floating label.control-label, #visual .form-group.label-placeholder label.control-label
@@ -208,7 +232,8 @@ a.top {
 
 #visual .btn-default {
 	background-color: #620017;
-	border: 1px solid #620017;
+	border: 0;
+	outline: 0;
 	color: #fff;
 	border-radius: 5px;
 	margin-left: 15px;
@@ -223,6 +248,43 @@ a.top {
 	color: #fff;
 	border-radius: 5px;
 	padding: 12px 30px;
+}
+
+.scroll-downs {
+  position: absolute;
+  right: 0;
+  bottom: -340px;
+  left: 0;
+  margin: auto;
+  width :34px;
+  height: 55px;
+}
+
+.mousey {
+  width: 3px;
+  padding: 4px 10px;
+  height: 35px;
+  border: 2px solid #fff;
+  border-radius: 25px;
+  opacity: 0.75;
+  box-sizing: content-box;
+}
+
+.scroller {
+  width: 3px;
+  height: 7px;
+  border-radius: 25%;
+  background-color: #fff;
+  animation-name: scroll;
+  animation-duration: 2.2s;
+  animation-timing-function: cubic-bezier(.15,.41,.69,.94);
+  animation-iteration-count: infinite;
+}
+
+@keyframes scroll {
+  0% { opacity: 0; }
+  10% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(15px); opacity: 0;}
 }
 
 .main-thumbnail {
@@ -263,6 +325,23 @@ a.top {
 	margin: 0 auto;
 	margin-top: 20px;
 	margin-bottom: 30px;
+}
+
+.main-thumbnail .subTit {
+	text-align: center;
+	font-size: 13px;
+}
+
+.main-thumbnail .subTitBtnBox {
+	width:100%;
+	text-align:center;
+}
+
+.main-thumbnail .subTitBtn {
+	font-size: 12px;
+    padding: 10px 20px;
+    background-color: #620017;
+    border-color: #620017;
 }
 
 .main-thumbnail .card {
@@ -524,6 +603,10 @@ a.top {
 	vertical-align: middle;
 }
 
+.main-thumbnail .card.hovercard .info .title a:hover {
+	color: #555;
+}
+
 .main-thumbnail .card.hovercard .info .desc {
 	overflow: hidden;
 	font-size: 12px;
@@ -595,6 +678,7 @@ footer {
 #question-list{
 	max-height: 420px;
 	overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #question-list .no-read:hover {
@@ -660,6 +744,7 @@ footer {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	word-break:break-all;
 }
 
 .chatBox .text>p:first-of-type {
@@ -668,13 +753,13 @@ footer {
 	margin-bottom: auto;
 	line-height: 13px;
 	font-size: 12px;
+	overflow: hidden;
 }
 
 .chatBox .text>p:last-of-type {
-	width: 100%;
 	text-align: right;
 	color: silver;
-	margin-bottom: -7px;
+	margin-bottom: -4px;
 	margin-top: auto;
 }
 
@@ -686,6 +771,7 @@ footer {
 .chatBox .text-r {
 	float: right;
 	padding-left: 10px;
+	font-size:12px;
 }
 
 .chatBox .chatAvatar {
@@ -851,10 +937,10 @@ footer {
 /*반응형 css 시작*/
 @media ( min-width : 0px) and (max-width: 450px) {
 	.pc-none {
-		display: block;
+		display: block !important;
 	}
 	.mobile-none {
-		display: none;
+		display: none !important;
 	}
 	.navbar-default .navbar-toggle {
 		border: 0px;
@@ -947,4 +1033,8 @@ footer {
 		padding: 0;
 		margin: 0;
 	}
+	#loading-image {
+		left: 39% !important;
+	}
+
 }

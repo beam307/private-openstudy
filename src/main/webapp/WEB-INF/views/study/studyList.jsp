@@ -1,24 +1,15 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../include/headerSub.jsp"%>
-<%
-	response.addHeader("Cache-control", "no-store");
-%>
+<jsp:include page="../include/headerSub.jsp" flush="false"/>
 <script type="text/javascript" src="/resources/dist/js/items.js"></script>
 <div class="list_bg">
 	<div class="container list inner">
 		<div class="col-md-12 search-sub">
-			<!-- <div class="search-typebtn">
-				<button type="button" class="btn btn-default">스터디검색</button>
-				<button type="button" class="btn btn-default">방검색</button>
-			</div> -->
 			<div class="form-inline">
 				<form>
-					<div class="form-group col-md-7 label-floating">
+					<div class="form-group col-md-10 label-floating">
 						<input type="hidden" name="searchType" value="t" /> <label class="control-label">검색어를 입력해주세요.</label> <input type="text"
 							class="form-control" name="keyword" id="searchBox">
 					</div>
-					<div class="form-group col-md-3 label-floating">
+					<div class="form-group col-md-2 label-floating">
 						<button type="submit" class="btn btn-default" data-dismiss="modal">검색</button>
 					</div>
 				</form>
@@ -65,12 +56,12 @@
 
 				<div class="form-group col-md-6 label-floating">
 					<label class="control-label">카테고리 소분류</label>
-					<c:if test="${empty upCategory || upCategory == 'n' || upCategory == ''}">
+					<c:if test="${empty cri.upCategory || cri.upCategory == 'n' || cri.upCategory == ''}">
 						<select class="form-control filtering">
-							<option value="studyList${pageMaker.makeCategory('n') }" <c:out value="${cri.category eq 'n'?'selected':''}"/>></option>
+							<option value="studyList${pageMaker.makeCategory('n') }" <c:out value="${cri.category eq 'n'?'selected':''}"/>>---</option>
 						</select>
 					</c:if>
-					<c:if test="${upCategory eq '0' }">
+					<c:if test="${cri.upCategory eq '0' }">
 						<select class="form-control filtering">
 							<option value="studyList${pageMaker.makeCategory('n') }" <c:out value="${cri.category eq 'n'?'selected':''}"/>>전체</option>
 							<option value="studyList${pageMaker.makeCategory('00') }" <c:out value="${cri.category eq '00'?'selected':''}"/>>토익</option>
@@ -83,7 +74,7 @@
 							<option value="studyList${pageMaker.makeCategory('07') }" <c:out value="${cri.category eq '07'?'selected':''}"/>>영어 기타</option>
 						</select>
 					</c:if>
-					<c:if test="${upCategory eq '1' }">
+					<c:if test="${cri.upCategory eq '1' }">
 						<select class="form-control filtering">
 							<option value="studyList${pageMaker.makeCategory('n') }" <c:out value="${cri.category eq 'n'?'selected':''}"/>>전체</option>
 							<option value="studyList${pageMaker.makeCategory('10') }" <c:out value="${cri.category eq '10'?'selected':''}"/>>중국어</option>
@@ -97,7 +88,7 @@
 							<option value="studyList${pageMaker.makeCategory('18') }" <c:out value="${cri.category eq '18'?'selected':''}"/>>외국어 기타</option>
 						</select>
 					</c:if>
-					<c:if test="${upCategory eq '2' }">
+					<c:if test="${cri.upCategory eq '2' }">
 						<select class="form-control filtering">
 							<option value="studyList${pageMaker.makeCategory('n') }" <c:out value="${cri.category eq 'n'?'selected':''}"/>>전체</option>
 							<option value="studyList${pageMaker.makeCategory('20') }" <c:out value="${cri.category eq '20'?'selected':''}"/>>컴퓨터언어</option>
@@ -111,7 +102,7 @@
 							<option value="studyList${pageMaker.makeCategory('28') }" <c:out value="${cri.category eq '28'?'selected':''}"/>>컴퓨터 기타</option>
 						</select>
 					</c:if>
-					<c:if test="${upCategory eq '3' }">
+					<c:if test="${cri.upCategory eq '3' }">
 						<select class="form-control filtering">
 							<option value="studyList${pageMaker.makeCategory('n') }" <c:out value="${cri.category eq 'n'?'selected':''}"/>>전체</option>
 							<option value="studyList${pageMaker.makeCategory('30') }" <c:out value="${cri.category eq '30'?'selected':''}"/>>디자인/미술</option>
@@ -124,7 +115,7 @@
 							<option value="studyList${pageMaker.makeCategory('37') }" <c:out value="${cri.category eq '37'?'selected':''}"/>>교양 기타</option>
 						</select>
 					</c:if>
-					<c:if test="${upCategory eq '4' }">
+					<c:if test="${cri.upCategory eq '4' }">
 						<select class="form-control filtering">
 							<option value="studyList${pageMaker.makeCategory('n') }" <c:out value="${cri.category eq 'n'?'selected':''}"/>>전체</option>
 							<option value="studyList${pageMaker.makeCategory('40') }" <c:out value="${cri.category eq '40'?'selected':''}"/>>행정</option>
@@ -178,8 +169,7 @@
 </div>
 
 <script type="text/javascript" src="/resources/dist/js/upload.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-
+<script src="/resources/dist/js/study/studyList.js"></script>
 <!-- 템플릿 -->
 <script id="templateList" type="text/x-handlebars-template">
 <div class="col-md-4">
@@ -187,7 +177,7 @@
 		<div class="cardheaderbox">
 			<div class="cardheaderboxIn">
 				<div class="cardheader" style="background: url({{backgroundImg}}); background-size: cover;"></div>
-				<a href='/study/studyView?${pageMaker.makeSearch(pageMaker.cri.page)}&studyNo={{studyNo}}' class="card-name">{{studyName}}</a>
+				<a href='/study/studyView${pageMaker.makeSearch(pageMaker.cri.page)}&studyNo={{studyNo}}' class="card-name">{{studyName}}</a>
 			</div>
 		</div>
 		<div class="avatar">
@@ -204,59 +194,32 @@
 			<div class="desc">{{studyRegion}}</div>
 			<div class="desc info-bold">스터디 시작일 - {{startDate}}</div>
 		</div>
-		<a class="btn btn-primary btn-sm" href='/study/studyView?${pageMaker.makeSearch(pageMaker.cri.page)}&studyNo={{studyNo}}'>자세히보기</a>
+		<a class="btn btn-primary btn-sm" href='/study/studyView${pageMaker.makeSearch(pageMaker.cri.page)}&studyNo={{studyNo}}'>자세히보기</a>
 	<div class="mailbox-attachment-info"></div>
 </div>
 </script>
+
 <script>
-	$(document).ready(function() {
-
-		var applyResult = '${applyResult}'; // 스터디 신청여부
-		/* 스터디리스트 썸네일과같이 출력  */
-		if (applyResult == 'applyMsg') // 신청했을 경우 메시지
-			alert('스터디를 신청 하셨습니다.');
-		else if (applyResult == 'dupliApplyMsg') // 중복 신청 메시지
-			alert('이미 신청한 스터디 입니다.');
-		else if (applyResult == 'cancelMsg') // 취소 메시지
-			alert('스터디신청을 취소 하였습니다.');
-		else if (applyResult == 'noMsg') // 신청안할때 취소 메시지
-			alert('신청하지 않은 스터디 입니다.');
-
-		var template = Handlebars.compile($("#templateList").html());
-
-		/* 리스트 페이지 썸네일과 같이 출력  --> 콜백순서대로 출력되니 정렬이 안되네 */
-		<c:forEach items="${list}" var="studyVO">
-		<fmt:formatDate value="${studyVO.studyStartDate}" pattern="yyyy-MM-dd" var="date" />
-		var studyRegion = "${studyVO.studyUpRegion} " + "${studyVO.studyDownRegion}";
-		var thumbnail = {
-			imagePath : "${studyVO.imagePath}",
-			studyName : "${studyVO.studyName}",
-			userNick : "${studyVO.userNick}",
-			studyRegion : studyRegion,
-			studyNo : "${studyVO.studyNo}",
-			profileImgPath : "${studyVO.userProfileImgPath}",
-			date : "${date}",
-			viewCnt : "${studyVO.studyViewCnt}",
-			curMemCnt : "${studyVO.studyCurMemCnt}",
-			writer : "${studyVO.studyWriter}"
-		};
-
-		var thumbInfo = thumbnailInfo(thumbnail);
-		var html = template(thumbInfo);
-		$("#sub-thumbnail").append(html);
-		</c:forEach>
-
-		$(".filtering").on("change", function() { // (데이터 유지한채 새로고침)
-			window.location.href = $(this).val()
-		});
-
-		/*userInfo 새창 띄우기  */
-		$(".userNick_link").on("click", function(event) {
-			event.preventDefault();
-			var writerNo = $(this).attr('data-writer');
-			window.open("/user/userInfo?userNo=" + writerNo, "userInfo", "location=no, left=400px, top=100px, width=600px, height=700px");
-		});
-
-	});
+var template = Handlebars.compile($("#templateList").html());
+/* 리스트 페이지 썸네일과 같이 출력  */
+<c:forEach items="${list}" var="studyVO">
+	<fmt:formatDate value="${studyVO.studyStartDate}" pattern="yyyy-MM-dd" var="date" />
+	var studyRegion = "${studyVO.studyUpRegion} " + "${studyVO.studyDownRegion}";
+	var thumbnail = {
+		backgroundImg : "${studyVO.imagePath}",
+		studyName : "${studyVO.studyName}",
+		userNick : "${studyVO.userNick}",
+		studyRegion : studyRegion,
+		studyNo : "${studyVO.studyNo}",
+		profileImg : "${studyVO.userProfileImgPath}",
+		startDate : "${date}",
+		viewCnt : "${studyVO.studyViewCnt}",
+		curMemCnt : "${studyVO.studyCurMemCnt}",
+		writer : "${studyVO.studyWriter}"
+	};
+	var thumbInfo = thumbnailInfo(thumbnail);
+	var html = template(thumbInfo);
+	$("#sub-thumbnail").append(html);
+</c:forEach> 
 </script>
-<%@include file="../include/footerSub.jsp"%>
+<jsp:include page="../include/footerSub.jsp" flush="false"/>

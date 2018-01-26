@@ -1,9 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	response.addHeader("Cache-control", "no-store");
-%>
-<%@include file="../include/headerSub.jsp"%>
+<jsp:include page="../include/headerSub.jsp" flush="false"/>
 <div class="qnA container inner">
 	<h1>자주 묻는 질문</h1>
 	<form action="/board/qnAList" method="get" class="searchForm">
@@ -38,9 +33,7 @@
 				</div>
 				<div id="collapse${status.index + 1 }" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading${status.index + 1 }">
 					<div class="panel-body">
-						<p><textarea readonly="readonly" style="cursor: default; min-height: 150px; min-width: 1100px;" class="form-control " name="studyIntroduce" id="studyIntroduce">${qnAVO.qnAContent }</textarea></p>
-						<!-- <div class="table-responsive reply m_t_20">
-						</div> -->
+						${qnAVO.qnAContent }
 					</div>
 				</div>
 			</div>
@@ -78,4 +71,4 @@
 		});
 	});
 </script>
-<%@include file="../include/footer.jsp"%>
+<jsp:include page="../include/footerSub.jsp" flush="false"/>

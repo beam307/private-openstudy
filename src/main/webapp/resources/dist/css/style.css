@@ -766,7 +766,7 @@ output {
     box-shadow: none;
     border-radius: 0;
     font-weight: 400;
-    width: 350px;
+    width: 400px;
     color: #fff;
 }
 
@@ -1040,8 +1040,8 @@ label.control-label {
 
 .form-group.label-floating label.control-label,
 .form-group.label-placeholder label.control-label {
-    top: -7px;
-    font-size: 12px;
+	top: -10px;
+    font-size: 14px;
     line-height: 1.42857;
     color: #888;
 }

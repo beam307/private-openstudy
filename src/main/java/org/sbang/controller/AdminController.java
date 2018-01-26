@@ -1,5 +1,7 @@
 package org.sbang.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -23,20 +25,46 @@ public class AdminController {
 
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) throws Exception {
-		model.addAttribute("totalVisit", adminService.totalVisit()); // 전체 방문자 수
+		model.addAttribute("totalUserVisit", adminService.totalUserVisit()); // 전체 방문자 수
 		model.addAttribute("totalUserReg", adminService.totalUserReg()); // 전체 가입자 수
-		model.addAttribute("weekVisit", adminService.weekVisit()); // 주간 방문자 수
-		model.addAttribute("weekUserReg", adminService.weekUserReg()); // 주간 가입자 수
 		model.addAttribute("totalStudyReg", adminService.totalStudyReg()); // 스터디 등록 수
 		model.addAttribute("totalStudyApply", adminService.totalStudyApply()); // 스터디 신청 수
 		model.addAttribute("totalStudyEnd", adminService.totalStudyEnd()); // 스터디 완료 수
-		model.addAttribute("weekStudyReg", adminService.weekStudyReg()); // 주간 스터디 신청 수
-		model.addAttribute("weekStudyApply", adminService.weekStudyApply()); // 주간 스터디 신청 수
-		model.addAttribute("weekStudyEnd", adminService.weekStudyEnd()); // 주간 스터디 완료 수
 		
 		return "/admin/index";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/weekUserVisit", method = RequestMethod.POST)
+	public List<Integer> weekVisit() throws Exception { // 주간 방문자 수
+		return adminService.weekVisit();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/weekUserReg", method = RequestMethod.POST)
+	public List<Integer> weekUserReg() throws Exception { // 주간 가입자 수
+		return adminService.weekUserReg();
+	}
 
+	@ResponseBody
+	@RequestMapping(value = "/weekStudyReg", method = RequestMethod.POST)
+	public List<Integer> studyRegCnt() throws Exception { // 주간 스터디 신청 수
+		return adminService.weekStudyReg();
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/weekStudyApply", method = RequestMethod.POST)
+	public List<Integer> studyApplyCnt() throws Exception { // 주간 스터디 신청 수
+		return adminService.weekStudyApply();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/weekStudyEnd", method = RequestMethod.POST)
+	public List<Integer> studyEndCnt() throws Exception { // 주간 스터디 완료 수
+		return adminService.weekStudyEnd();
+	}
+	
+	
 	@RequestMapping(value = "/study", method = RequestMethod.GET)
 	public void study(@ModelAttribute("cri") SearchCriteria cri, HttpSession session, Model model) throws Exception {
 		cri.setPerPageNum(15);

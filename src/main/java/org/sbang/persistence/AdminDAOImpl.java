@@ -66,8 +66,8 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public Integer totalVisit() throws Exception { // 전체 방문 수
-		return session.selectOne(namespace + ".totalVisit");
+	public Integer totalUserVisit() throws Exception { // 전체 방문 수
+		return session.selectOne(namespace + ".totalUserVisit");
 	}
 
 	@Override

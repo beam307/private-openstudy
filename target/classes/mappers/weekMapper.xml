@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.sbang.mapper.WeekMapper"> <!--주단위 일정Mapper  -->
+	<select id="list" resultType="WeekVO">
+		select * from week where studyNo = #{studyNo}
+	</select>
+	
+	<select id="listEnd" resultType="WeekVO">
+		select * from endWeek where studyNo = #{studyNo}
+	</select>
+
+	<insert id="create">
+		insert into week (studyNo, weekDay, weekStartDate,weekEndDate) values (LAST_INSERT_ID(), #{weekDay}, #{weekStartDate}, #{weekEndDate})
+	</insert>
+
+	<insert id="replace">
+		insert into week  (studyNo, weekDay, weekStartDate,weekEndDate) values(#{studyNo}, #{weekVO.weekDay},#{weekVO.weekStartDate},#{weekVO.weekEndDate})
+	</insert>
+
+	<delete id="delete">
+		delete from week where studyNo = #{studyNo}
+	</delete>
+</mapper>

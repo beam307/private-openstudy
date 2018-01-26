@@ -1,133 +1,197 @@
-	.checkbox {
-		margin:0;
-	}
-   .userInfo h4 .noteList{
-   		display: inline-block;
-   		padding-top: 5px;
-    	width: 50%;
-    	overflow: hidden;
-    	 white-space: nowrap;
-    	text-overflow: ellipsis;
-   } 
-   .userInfo h4 .userNick_link {
-   		padding-top: 4px;
-    	display: inline-block;
-    	width:50%;
-    	white-space: nowrap;
-    	text-overflow: ellipsis;
-    	overflow: hidden;
-    }
-    .userInfo h4 .re-cut-btn{
-    	
-    }
-   .userInfo .list-all{
-   		margin: 20px;
-   	    margin-bottom: 0;
-   	    min-height: 260px;
-   } 
-   
-   .userInfo .list-all h4 {
-   		font-size:14px;
-   }
-   
-   .pagination {
-   		margin: 0;
-   }
-   
-   .panel-group {
-   		margin: 0;
-   }
-   
-    .userInfo .nav-tabs>li>a {
-        color: #620017;
-    }
-    
-    .userInfo .panel-body {
-        height: 200px;
-        overflow-y: scroll;
-    }
-    
-    .userInfo .panel-title {
-        font-size: 13px;
-    }
-    
-    .userInfo h4 small {
-        font-size: 82%;
-        overflow:hidden;
-    	width: 22%;
-        float: right;
-        line-height: 1.1;
-    }
-    
-    .cutoff h4 small {
-		font-size: 100%;
-	    width: 17%;
-	    padding-top: 3px;
-	    padding-left: 10px;
-    }
-    
-    .cutoff .check-remove {
-    	float:left;
-    }
-    
-    .userInfo .btn-danger {
-        float: right;
-        background-color: #620017;
-        border-color: #620017;
-        color: #fff;
-        font-size: 12px;
-        padding: 5px 5px;
-        line-height: 1;
-        margin-left: 3px;
-    }
-    
-    .userInfo .read {
-    	color: darkgray;
-    }
-    
-    .div-btn{
-    	overflow: hidden;
-    	margin-right: 2%;
-    	margin-top: 20px;
-    }
-    .pag{
-    	text-align: center;
-    }
-    .btnDiv{
-	    overflow: hidden;
-	    display: inline-block;
-	    margin-left: 20px;
-	    float:right;
-    }
-    
-    .note-in .panel-heading {
-	    padding: 5px;
-	    border: 0;
-	    background: none;
-	    padding-bottom: 12px;
-	    border-bottom: 1px solid #eee;
-    }
-    
-    .note-in .panel-default {
-	    border: 0;
-	    background: none;
-	    box-shadow: none;
-    }
-    
-    .noteTitle span {
-		display: inline-block;
-		text-align: center;
-    }
-    
-    .note-in .panel-heading span {
-    	font-size:12px;
-    	line-height: 1.9;
-    }
-    
-    .note-in .panel-heading .check-remove {
-    	margin-right:5px;
-    }
-    
-    .userInfo .checkbox label, .userInfo .radio label, .userInfo label {
-    	font-size:12px;
-    }
+.checkbox {
+	margin: 0;
+}
+
+.userInfo h4 .noteList {
+	display: inline-block;
+	padding-top: 5px;
+	width: 50%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.userInfo h4 .userNick_link {
+	padding-top: 4px;
+	display: inline-block;
+	width: 50%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.userInfo h4 .re-cut-btn {
+	
+}
+
+.userInfo .list-all {
+	margin: 20px;
+	margin-bottom: 0;
+	min-height: 260px;
+}
+
+.userInfo .list-all h4 {
+	font-size: 14px;
+}
+
+.pagination {
+	margin: 0;
+}
+
+.panel-group {
+	margin: 0;
+}
+
+.userInfo .nav-tabs>li>a {
+	color: #620017;
+}
+
+.userInfo .panel-body {
+	height: 200px;
+	overflow-y: scroll;
+}
+
+.userInfo .panel-title {
+	font-size: 13px;
+}
+
+.userInfo h4 small {
+	font-size: 82%;
+	overflow: hidden;
+	width: 30%;
+	float: right;
+	line-height: 1.1;
+}
+
+.cutoff h4 small {
+	font-size: 100%;
+	width: 17%;
+	padding-top: 3px;
+	padding-left: 10px;
+}
+
+.cutoff .check-remove {
+	float: left;
+}
+
+.userInfo .btn-danger {
+	float: right;
+	background-color: #620017;
+	border-color: #620017;
+	color: #fff;
+	font-size: 12px;
+	padding: 5px 5px;
+	line-height: 1;
+	margin-left: 3px;
+}
+
+.userInfo .read {
+	color: darkgray;
+}
+
+.div-btn {
+	overflow: hidden;
+	margin-right: 2%;
+	margin-top: 20px;
+}
+
+.pag {
+	text-align: center;
+}
+
+.btnDiv {
+	overflow: hidden;
+	display: inline-block;
+	margin-left: 20px;
+	float: right;
+}
+
+.note-in .panel-heading {
+	padding: 5px;
+	border: 0;
+	background: none;
+	padding-bottom: 12px;
+	border-bottom: 1px solid #eee;
+}
+
+.note-in .panel-default {
+	border: 0;
+	background: none;
+	box-shadow: none;
+}
+
+.noteTitle span {
+	display: inline-block;
+	text-align: center;
+}
+
+.note-in .panel-heading span {
+	font-size: 12px;
+	line-height: 1.9;
+}
+
+.note-in .panel-heading .check-remove {
+	margin-right: 5px;
+}
+
+.userInfo .checkbox label, .userInfo .radio label, .userInfo label {
+	font-size: 12px;
+}
+
+.noteReg .nav-tabs>li>a {
+	color: #620017;
+}
+
+.noteReg .panel-body {
+	height: 200px;
+	overflow-y: scroll;
+}
+
+.noteReg .panel-title {
+	font-size: 13px;
+}
+
+.noteReg h4 small {
+	font-size: 82%;
+}
+
+.noteReg .btn-default {
+	background-color: #620017;
+	border-color: #620017;
+	color: #fff;
+	font-size: 12px;
+	padding: 10px 30px;
+	line-height: 1;
+	display: block;
+	margin: 20px auto;
+}
+
+.noteReg .form-control {
+	color: #000;
+}
+
+#noteText {
+	width: 100%;
+	resize: none;
+}
+
+.text-area {
+	width: 100%;
+	padding: 10px 30px;
+	resize: none;
+}
+
+.noteReg .checkbox label, .noteReg .radio label, .noteReg label {
+	width: 100%;
+	padding-left: 30px;
+	font-size: 12px;
+}
+
+.noteReg .form-group {
+	padding-bottom: 7px;
+	margin: 0;
+}
+
+.noteReg .form-control, .noteReg .form-group .form-control {
+	width: 94.7%;
+}

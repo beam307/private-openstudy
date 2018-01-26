@@ -1,12 +1,7 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page session="true"%>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<link rel="icon" type="image/png"  href="/resources/images/favicon.png"/>
+<link rel="icon" type="image/png" href="/resources/images/favicon.png" />
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,20 +51,21 @@
 .join {
 	width: 600px;
 }
-.join_bg{
-padding: 50px 0;
+
+.join_bg {
+	padding: 50px 0;
 }
 </style>
 </head>
 <body>
-<div class="join_bg">
-	<div class="join animate" data-animate="fadeInUp" data-duration="1.0s" data-delay="0.1s">
-		<form action="/user/agreeUser" method="post">
+	<div class="join_bg">
+		<div class="join animate" data-animate="fadeInUp" data-duration="1.0s" data-delay="0.1s">
 			<label class="control-label">약관동의</label>
 			<div class="form-group label-floating">
 				<div class="col-xs-9">
 					<label class="control-label">서비스 이용약관</label>
-					<textarea readonly="readonly" style="cursor: default; min-height: 250px; min-width: 500px; margin-top: 10px; margin-bottom: 20px;" class="form-control ">
+					<textarea readonly="readonly" style="cursor: default; min-height: 250px; min-width: 500px; margin-top: 10px; margin-bottom: 20px;"
+						class="form-control ">
 제 1장. 총 칙
 제 1 조 (목적) 본 약관은 회원( 오픈스터디 서비스 약관에 동의한 자를 말합니다. 이하 "회원"이라고 합니다.)
 이 오아시스(이하 "회사"라고 합니다.)이 제공하는 오픈스터디 서비스(이하 "서비스"라고 합니다)를 이용함에 있어 회사와
@@ -334,8 +330,7 @@ padding: 50px 0;
 				</textarea>
 				</div>
 			</div>
-		</form>
+		</div>
 	</div>
-</div>
 </body>
 </html>

@@ -1,7 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/include/headerSub.jsp"%>
+<jsp:include page="../include/headerSub.jsp" flush="false"/>
 <div class="notice container inner">
 	<h1>공지사항</h1>
 	<form action="/board/noticeList" method="get" class="searchForm">
@@ -61,10 +58,9 @@
 </div>
 <script>
 	$(document).ready(function() {
-		/* 삭제버튼 클릭시  */
-
 		var formObj = $("form[role='form']");
-
+		
+		/* 삭제버튼 클릭시  */
 		$(document).on("click", '#noticeDeleteBtn', function() {
 			formObj.attr("action", "/board/noticeRemove");
 			formObj.submit();
@@ -78,7 +74,4 @@
 		});
 	});
 </script>
-
-<%@include file="/WEB-INF/views/include/footer.jsp"%>
-
-
+<jsp:include page="../include/footerSub.jsp" flush="false"/>

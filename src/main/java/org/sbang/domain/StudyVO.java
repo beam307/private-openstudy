@@ -27,7 +27,7 @@ public class StudyVO {
 	
 	private Date studyRegDate;
 	private Date studyUpdateDate;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM/dd/yyyy")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="Asia/Seoul")
 	private Date studyStartDate;
 	private Date studyEndDate;
 
@@ -37,5 +37,6 @@ public class StudyVO {
 	private String userProfileImgPath; // 유저 프로필 이미지
 	private String userNick; // 유저 닉네임 저장
 	private Integer studyDelete; // 스터디 삭제 유무
+	private String studyLeader; //유저 승인정보(스터디원,장 비교)
 
 }

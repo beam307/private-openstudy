@@ -35,25 +35,25 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		PrintWriter out = response.getWriter();
 		
 		if (modelMap.get("loginFail") != null) { // 아이디,비밀번호가  일치하지 않을 경우
-			out.println("<script>alert('아이디와 비밀번호가 일치하지 않습니다.'); location.href = '/login/loginGet'</script>"); // 실패알림 후 로그인창 가기
+			out.println("<script>alert('아이디와 비밀번호가 일치하지 않습니다.'); location.href = '/login'</script>"); // 실패알림 후 로그인창 가기
 			out.close();
 			return;
 		}
 		
 		if (modelMap.get("userLeaveCheck") != null) {
-			out.println("<script>alert('해당 고객님은 탈퇴 유저입니다.'); location.href = '/login/loginGet'; </script>"); // 탈퇴알림 후 로그인창 가기
+			out.println("<script>alert('해당 고객님은 탈퇴 유저입니다.'); location.href = '/login'; </script>"); // 탈퇴알림 후 로그인창 가기
 			out.close();
 			return;
 		}
 		
 		if (modelMap.get("emailCertification") != null) {
-			out.println("<script>alert('이메일 인증을 받지 않은 고객입니다. 이메일 인증을 받으십시요.'); location.href = '/login/loginGet'; </script>"); // 인증알림 후 로그인창 가기
+			out.println("<script>alert('이메일 인증을 받지 않은 고객입니다. 이메일 인증을 받으십시요.'); location.href = '/login'; </script>"); // 인증알림 후 로그인창 가기
 			out.close();
 			return;
 		}
 		
 		if (modelMap.get("userHaltCheck") != null) { // 정지 유저 일 경우
-			out.println("<script>alert('고객님은 [" + modelMap.get("userHaltCheck") + "] 까지 정지기간 입니다.'); location.href = '/login/loginGet'</script>"); // 정지알림 후 로그인창 가기
+			out.println("<script>alert('고객님은 [" + modelMap.get("userHaltCheck") + "] 까지 정지기간 입니다.'); location.href = '/login'</script>"); // 정지알림 후 로그인창 가기
 			out.close();
 			return;
 		}
@@ -86,11 +86,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 				session.removeAttribute("snsHalt");
 			}
 			
-			if (dest.equals("http://localhost/login/loginPost"))
+			if (dest != null && dest.equals("http://localhost/login/loginPost"))
 				dest = "/";
 			response.sendRedirect(dest != null ? (String) dest : "/");
 		} else
-			response.sendRedirect("/login/loginGet");
+			response.sendRedirect("/login");
 
 	}
 

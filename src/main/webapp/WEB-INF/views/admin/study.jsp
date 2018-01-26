@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../include/headerAdmin.jsp"%>
+<jsp:include page="../include/headerAdmin.jsp" />
 <!--sidebar-menu-->
 <div id="sidebar">
 	<ul>
@@ -116,41 +115,5 @@
         </div>
     </div>
 </div>
-<%@include file="../include/footerAdmin.jsp"%>
-<script>
-	$(document).on("click", "#adminStudyDelete", function() {
-		var studyNo = $(this).parent().siblings('#studyNo').html();
-
-		var result = confirm("정말 삭제 시키겠습니까?");
-		
-		if (result == true) {
-			$.ajax({
-				type : 'post',
-				url : '/admin/studyDelete',
-				data : {'studyNo' : studyNo},
-				success : function() {
-					location.reload();
-				}
-			});
-		} else
-			return;
-	});
-	
-	$(document).on("click", "#adminStudyDeleteCancel", function() {
-		var studyNo = $(this).parent().siblings('#studyNo').html();
-
-		var result = confirm("정말 삭제취소 하시겠습니까?");
-
-		if (result == true) {
-			$.ajax({
-				type : 'post',
-				url : '/admin/studyDeleteCancel',
-				data : {'studyNo' : studyNo},
-				success : function() {
-					location.reload();
-				}
-			});
-		} else
-			return;
-	});
-</script>
+<jsp:include page="../include/footerAdmin.jsp" />
+<script type="text/javascript" src="/resources/dist/js/admin/admin.js"></script>

@@ -1,0 +1,9 @@
+<script type="text/javascript">
+	var userNo = "${login.userNo}";
+	var loginState = "${not empty login}";
+	var msg = "${msg}";
+	var userEmail = "${userEmail}";
+	var userNick = "${login.userNick}";
+	var userProfileImgPath = "${login.userProfileImgPath}"
+	
+</script>

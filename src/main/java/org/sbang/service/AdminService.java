@@ -25,7 +25,7 @@ public interface AdminService {
 
 	public Integer studyCount(SearchCriteria cri) throws Exception;
 
-	public Integer totalVisit() throws Exception;
+	public Integer totalUserVisit() throws Exception;
 
 	public Integer totalUserReg() throws Exception;
 

@@ -1,7 +1,5 @@
 package org.sbang.domain;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data

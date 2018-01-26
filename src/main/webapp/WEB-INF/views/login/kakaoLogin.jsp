@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
-<title>NaverLoginTest</title>
+<title>Open Study - 쉽고 빠른 매칭 서비스</title>
 </head>
 <body>
 	<script>

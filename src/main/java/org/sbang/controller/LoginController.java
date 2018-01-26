@@ -47,13 +47,13 @@ public class LoginController {
 	@Inject
 	private AdminService adminService;
 	
-	@RequestMapping(value = "/loginGet", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String loginGet(HttpServletRequest request) throws Exception { // 로그인창
 		HttpSession session = request.getSession();
 		if (request.getRequestURI() != null && request.getHeader("referer") != null) { // 바로 로그인 URI 접근시 null값 방지
 			if (session.getAttribute("temp") != null) // auth인터셉터 거칠때는 이전 페이지 저장 X
 				session.removeAttribute("temp");
-			else if (!(request.getRequestURI().equals("/login/loginGet") && request.getHeader("referer").equals("http://localhost/login/loginGet"))) // 로그인창 여러번 할때는 저장하지 않음
+			else if (!(request.getRequestURI().equals("/login") && request.getHeader("referer").equals("http://localhost/login"))) // 로그인창 여러번 할때는 저장하지 않음
 				session.setAttribute("dest", request.getHeader("referer")); // 이전 페이지 정보 저장
 		}
 
@@ -63,22 +63,23 @@ public class LoginController {
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public void loginPost(LoginDTO dto, Model model, HttpSession session) throws Exception { // 로그인
 		UserVO vo = null;
-		
-		if(userService.userLeaveCheck(dto.getUserEmail()) > 0) // 탈퇴유저 확인
+
+		if (userService.userLeaveCheck(dto.getUserEmail()) != 0) // 탈퇴유저 확인
 			model.addAttribute("userLeaveCheck", true);
-		
+
 		if (pwdEncoder.matches(dto.getUserPwd(), userService.getPwd(dto))) // DB 비밀번호와 로그인 비밀번호 비교
 			vo = userService.login(dto); // vo에 userNo, userEmail, userNick, userProfileImgPath 저장
 		else {
 			model.addAttribute("loginFail", true);
 			return;
 		}
-		
-		String temp;
-		if((temp = adminService.userHaltCheck(vo.getUserNo())) != null) // 정지 유저인 경우
+
+		String temp; // 정지날짜 저장 변수
+		if ((temp = adminService.userHaltCheck(vo.getUserNo())) != null) // 정지 유저인 경우
 			model.addAttribute("userHaltCheck", temp); // model을 인터셉터로 넘기기
 		model.addAttribute("userVO", vo); // model에 {userVO : vo} 저장
-		if (dto.isUseCookie()) {
+		
+		if (dto.isUseCookie()) { // 자동로그인
 			int amount = 60 * 60 * 24 * 7;
 			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));
 			userService.keepLogin(vo.getUserEmail(), session.getId(), sessionLimit); // 세션ID,세션시간,저장
@@ -88,10 +89,10 @@ public class LoginController {
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception { // 로그아웃
-		Object obj = session.getAttribute("login");
+		Object login = session.getAttribute("login");
 
-		if (obj != null) {
-			UserVO vo = (UserVO) obj;
+		if (login != null) {
+			UserVO userVO = (UserVO) login; // 로그인 정보
 			session.removeAttribute("login"); // 세션 제거
 			session.invalidate();
 
@@ -101,7 +102,7 @@ public class LoginController {
 				loginCookie.setPath("/");
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
-				userService.keepLogin(vo.getUserEmail(), session.getId(), new Date());
+				userService.keepLogin(userVO.getUserEmail(), session.getId(), new Date()); // 자동로그인 데이터 삭제
 			}
 		}
 		return "/login/logout";
@@ -116,38 +117,38 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/callback", method = RequestMethod.GET)
-	public void callback(@RequestParam String code, @RequestParam String state, HttpSession session, Model model, UserVO userVO) throws Exception { // 네이버 로그인 콜백
+	public void callback(@RequestParam String code, @RequestParam String state, HttpSession session, Model model) throws Exception { // 네이버 로그인 콜백
 		/* 네아로 인증이 성공적으로 완료되면 code 파라미터가 전달되며 이를 통해 access token을 발급 */
 		JsonParser json = new JsonParser();
 
 		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		String apiResult = naverLoginBO.getUserProfile(oauthToken);
-		userVO = json.changeJson(apiResult); // userVO {userEmail, userNick, userGender, userNaver} 저장
+		UserVO userVO = json.changeJson(apiResult); // userVO {userEmail, userNick, userGender, userNaver} 저장
 		boolean SNSFlag = false;
 		if (userService.selectNaver(userVO) == null) {// 처음 로그인 하는 사용자
 			String userNick = userVO.getUserNick();
-			if (userService.nickCheck(userNick) >0) {
-				String ran =null;
-				 do{
-					ran=String.valueOf((int)(Math.random()*10000));
-					
-					while(ran.length()!=4) 
-						ran=String.valueOf((int)(Math.random()*10000));
-					
-				}while (userService.nickCheck(userNick+"#"+ran) > 0);
-				 userVO.setUserNick(userNick+"#"+ran);
+			if (userService.nickCheck(userNick) != 0) { // 닉네임이 중복된 경우
+				String ran = null;
+				do {
+					ran = String.valueOf((int) (Math.random() * 10000));
+
+					while (ran.length() != 4)
+						ran = String.valueOf((int) (Math.random() * 10000));
+
+				} while (userService.nickCheck(userNick + "#" + ran) != 0);
+				userVO.setUserNick(userNick + "#" + ran);
 			}
-			userService.insertNaver(userVO);//처음 로그인시
-			
-			SNSFlag = true;// 처음 SNS로그인하는 사용자는 myPage로
-			
+			userService.insertNaver(userVO); // 처음 로그인시
+
+			SNSFlag = true;// 처음 SNS로그인하는 사용자는 myPage로 보내기
+
 		}
 		userVO = userService.snsLogin(userVO); // user 재설정(userNo, userEmail, userNick, userProfileImgPath} 담기
 		model.addAttribute("userVO", userVO); // model에 {userVO : userVO} 저장 // 이전 페이지 정보 저장을 위해서 필요
 		model.addAttribute("SNSFlag", SNSFlag);
 		
 		String temp;
-		if((temp = adminService.userHaltCheck(userVO.getUserNo())) != null) {// 정지 유저인 경우
+		if ((temp = adminService.userHaltCheck(userVO.getUserNo())) != null) { // 정지 유저인 경우
 			model.addAttribute("userHaltCheck", temp); // model을 인터셉터로 넘기기
 			session.setAttribute("snsHalt", true);
 		}
@@ -163,26 +164,26 @@ public class LoginController {
 		boolean SNSFlag = false;
 		if (userService.selectKakao(userVO) == null) {// 처음 로그인 하는 사용자
 			String userNick = userVO.getUserNick();
-			if (userService.nickCheck(userNick) > 0) {
-				String ran =null;
-				 do{
-					ran=String.valueOf((int)(Math.random()*10000));
-					while(ran.length()!=4) 
-						ran=String.valueOf((int)(Math.random()*10000));
-				}while (userService.nickCheck(userNick+"#"+ran) > 0);
-				 userVO.setUserNick(userNick+"#"+ran);
+			if (userService.nickCheck(userNick) != 0) { // 닉네임 중복된 경우
+				String ran = null;
+				do {
+					ran = String.valueOf((int) (Math.random() * 10000));
+					while (ran.length() != 4)
+						ran = String.valueOf((int) (Math.random() * 10000));
+				} while (userService.nickCheck(userNick + "#" + ran) != 0);
+				userVO.setUserNick(userNick + "#" + ran);
 			}
 			userService.insertKakao(userVO);// 처음가입시
-			
+
 			SNSFlag = true;// 처음 SNS로그인하는 사용자는 myPage로
 		}
 
 		userVO = userService.snsLogin(userVO); // user 재설정(userNo, userEmail, userNick, userKakao, userNaver, userProfileImgPath} 담기
 		model.addAttribute("userVO", userVO); // model에 {userVO : userVO} 저장 // 이전 페이지 정보 저장을 위해서 필요
 		model.addAttribute("SNSFlag", SNSFlag);
-		
+
 		String temp;
-		if((temp = adminService.userHaltCheck(userVO.getUserNo())) != null) { // 정지 유저인 경우
+		if ((temp = adminService.userHaltCheck(userVO.getUserNo())) != null) { // 정지 유저인 경우
 			model.addAttribute("userHaltCheck", temp); // model을 인터셉터로 넘기기
 			session.setAttribute("snsHalt", true);
 		}

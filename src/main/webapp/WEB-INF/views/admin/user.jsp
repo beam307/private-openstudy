@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../include/headerAdmin.jsp"%>
+<jsp:include page="../include/headerAdmin.jsp" />
 <!--sidebar-menu-->
 <div id="sidebar">
 	<ul>
@@ -125,85 +124,5 @@
 		</div>
 	</div>
 </div>
-<%@include file="../include/footerAdmin.jsp"%>
-<script>
-	$(document).on("click", "#adminUserDelete", function() { // 탈퇴 버튼 클릭시 
-		var userNo = $(this).parent().siblings('#userNo').html();
-
-		var result = confirm("정말 탈퇴 시키겠습니까?");
-
-		if (result == true) {
-			$.ajax({
-				type : 'post',
-				url : '/admin/userDelete',
-				data : {
-					'userNo' : userNo
-				},
-				success : function() {
-					location.reload();
-				}
-			});
-		} else
-			return;
-	});
-
-	$(document).on("click", "#adminUserCancel", function() { // 철회 버튼 클릭시 
-		var userNo = $(this).parent().siblings('#userNo').html();
-
-		var result = confirm("정말 탈퇴를 철회 하시겠습니까?");
-
-		if (result == true) {
-			$.ajax({
-				type : 'post',
-				url : '/admin/userDeleteCancel',
-				data : {
-					'userNo' : userNo
-				},
-				success : function() {
-					location.reload();
-				}
-			});
-		} else
-			return;
-	});
-
-	$(document).on("click", "#adminUserHalt", function() { // 정지 버튼 클릭시 
-		var userNo = $(this).parent().siblings('#userNo').html();
-		var adminUserHalt = $('#adminUserHalt');
-		var result = prompt("정지 기간을 일수로 설정 해주세요. (0 이하로 입력시 정지 해제)");
-		if (result) {
-			result = parseInt(result); // 정수 반환
-
-			if (isNaN(Number(result))) {
-				alert('숫자를 입력하세요');
-				return;
-			}
-			$.ajax({
-				type : 'post',
-				url : '/admin/userHalt',
-				data : {
-					'userNo' : userNo,
-					'haltTime' : result
-				},
-				success : function() {
-					location.reload();
-				}
-			});
-		};
-	});
-	
-	$(document).on("click", "#adminUserHaltCancel", function() { // 정지 버튼 클릭시 
-		var userNo = $(this).parent().siblings('#userNo').html();
-			$.ajax({
-				type : 'post',
-				url : '/admin/userHalt',
-				data : {
-					'userNo' : userNo,
-					'haltTime' : 0
-				},
-				success : function() {
-					location.reload();
-				}
-			});
-	});
-</script>
+<jsp:include page="../include/footerAdmin.jsp" />
+<script type="text/javascript" src="/resources/dist/js/admin/admin.js"></script>

@@ -1,12 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="/WEB-INF/views/include/headerSub.jsp"%>
-<!--글쓰기 js-->
-<script src="/resources/dist/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/resources/dist/js/jquery.bootstrap.js" type="text/javascript"></script>
-
-<!--  Plugin for the Wizard -->
-<script src="/resources/dist/js/material-bootstrap-wizard.js"></script>
+<jsp:include page="../include/headerSub.jsp" flush="false"/>
 
 <!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
 <script src="/resources/dist/js/jquery.validate.min.js"></script>
@@ -45,7 +37,7 @@
 													<label class="col-sm-2 control-label">공지사항 내용</label>
 													<div class="col-sm-10">
 														<div class="col-sm-12">
-															<textarea class="form-control" rows="10" name="noticeContent" id="noticeContent">${noticeVO.noticeContent }</textarea>
+															<textarea class="form-control" id="summernote" name="noticeContent">${noticeVO.noticeContent }</textarea>
 														</div>
 													</div>
 												</div>
@@ -55,10 +47,9 @@
 								</div>
 								<div class="wizard-footer">
 									<div class="pull-right">
-										<input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next' value='다음' /> <input type='submit'
-											class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='완료' />
+										<input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next' value='다음' />
+										<input type='submit' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='완료' />
 									</div>
-
 									<div class="pull-left">
 										<input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='이전' />
 									</div>
@@ -76,5 +67,23 @@
 	</div>
 </div>
 <!-- </form> -->
-
-<%@include file="/WEB-INF/views/include/footerSub.jsp"%>
+<script>
+	$(document).ready(function() {
+        $('#summernote').summernote({
+        	toolbar: [
+        	    // [groupName, [list of button]]
+        	    ['style', ['bold', 'italic', 'underline', 'clear']],
+        	    ['font', ['strikethrough', 'superscript', 'subscript']],
+        	    ['fontsize', ['fontsize']],
+        	    ['color', ['color']],
+        	    ['para', ['ul', 'ol', 'paragraph']],
+        	    ['height', ['height']],
+        	    ['insert', ['link', 'picture', 'hr']]
+        	],
+            tabsize: 4,
+            height: 200,
+            lang: 'ko-KR',
+          });
+    });
+</script>
+<jsp:include page="../include/footerSub.jsp" flush="false"/>

@@ -42,7 +42,7 @@ public class UploadFileUtils {
          uploadedFileName = makeIcon(uploadPath, savedName);
       }
 */
-      return uploadedFileName; // 썸네일 파일 생성후 썸네일명 리턴
+      return uploadedFileName; // 파일 생성후 업로드파일명 리턴
    }
 
   /* private static String makeIcon(String uploadPath, String fileName) throws Exception {

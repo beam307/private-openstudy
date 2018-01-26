@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<c:if test="${empty upRegion || upRegion == 'n' || upRegion == ''}">
+<c:if test="${empty cri.upRegion || cri.upRegion == 'n' || cri.upRegion == ''}">
 	<select class="form-control filtering">
-		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>></option>
+		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>---</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '11' }">
+<c:if test="${cri.upRegion eq '11' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('1101') }" <c:out value="${cri.downRegion eq '1101'?'selected':''}"/>>강남구</option>
@@ -34,7 +33,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('1125') }" <c:out value="${cri.downRegion eq '1125'?'selected':''}"/>>중랑구</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '21' }">
+<c:if test="${cri.upRegion eq '21' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('2101') }" <c:out value="${cri.downRegion eq '2101'?'selected':''}"/>>강서구</option>
@@ -55,7 +54,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('2116') }" <c:out value="${cri.downRegion eq '2116'?'selected':''}"/>>해운대구</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '22' }">
+<c:if test="${cri.upRegion eq '22' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('2201') }" <c:out value="${cri.downRegion eq '2201'?'selected':''}"/>>남구</option>
@@ -68,7 +67,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('2208') }" <c:out value="${cri.downRegion eq '2208'?'selected':''}"/>>중구</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '23' }">
+<c:if test="${cri.upRegion eq '23' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('2301') }" <c:out value="${cri.downRegion eq '2301'?'selected':''}"/>>강화군</option>
@@ -83,7 +82,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('2310') }" <c:out value="${cri.downRegion eq '2310'?'selected':''}"/>>중구</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '24' }">
+<c:if test="${cri.upRegion eq '24' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('2401') }" <c:out value="${cri.downRegion eq '2401'?'selected':''}"/>>광산구</option>
@@ -93,7 +92,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('2405') }" <c:out value="${cri.downRegion eq '2405'?'selected':''}"/>>서구</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '25' }">
+<c:if test="${cri.upRegion eq '25' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('2501') }" <c:out value="${cri.downRegion eq '2501'?'selected':''}"/>>대덕구</option>
@@ -103,7 +102,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('2505') }" <c:out value="${cri.downRegion eq '2505'?'selected':''}"/>>중구</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '26' }">
+<c:if test="${cri.upRegion eq '26' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('2601') }" <c:out value="${cri.downRegion eq '2601'?'selected':''}"/>>남구</option>
@@ -113,13 +112,13 @@
 		<option value="studyList${pageMaker.makeDownRegion('2605') }" <c:out value="${cri.downRegion eq '2605'?'selected':''}"/>>중구</option>
 	</select>                                                                                                                    
 </c:if>
-<c:if test="${upRegion eq '29' }">
+<c:if test="${cri.upRegion eq '29' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('2901') }" <c:out value="${cri.downRegion eq '2901'?'selected':''}"/>>세종시</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '31' }">
+<c:if test="${cri.upRegion eq '31' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('3101') }" <c:out value="${cri.downRegion eq '3101'?'selected':''}"/>>가평군</option>
@@ -166,7 +165,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('3142') }" <c:out value="${cri.downRegion eq '3142'?'selected':''}"/>>화성시</option>
 	</select>                                                                                                                    
 </c:if>
-<c:if test="${upRegion eq '32' }">
+<c:if test="${cri.upRegion eq '32' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('3201') }" <c:out value="${cri.downRegion eq '3201'?'selected':''}"/>>강릉시</option>
@@ -189,7 +188,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('3218') }" <c:out value="${cri.downRegion eq '3218'?'selected':''}"/>>횡성군</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '33' }">
+<c:if test="${cri.upRegion eq '33' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('3301') }" <c:out value="${cri.downRegion eq '3301'?'selected':''}"/>>괴산군</option>
@@ -208,7 +207,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('3314') }" <c:out value="${cri.downRegion eq '3314'?'selected':''}"/>>충주시</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '34' }">
+<c:if test="${cri.upRegion eq '34' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('3401') }" <c:out value="${cri.downRegion eq '3401'?'selected':''}"/>>계룡시</option>
@@ -230,7 +229,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('3417') }" <c:out value="${cri.downRegion eq '3417'?'selected':''}"/>>홍성군</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '35' }">
+<c:if test="${cri.upRegion eq '35' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('3501') }" <c:out value="${cri.downRegion eq '3501'?'selected':''}"/>>강진군</option>
@@ -257,7 +256,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('3522') }" <c:out value="${cri.downRegion eq '3522'?'selected':''}"/>>화순군</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '36' }">
+<c:if test="${cri.upRegion eq '36' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('3601') }" <c:out value="${cri.downRegion eq '3601'?'selected':''}"/>>고창군</option>
@@ -277,7 +276,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('3615') }" <c:out value="${cri.downRegion eq '3615'?'selected':''}"/>>진안군</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '37' }">
+<c:if test="${cri.upRegion eq '37' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('3701') }" <c:out value="${cri.downRegion eq '3701'?'selected':''}"/>>경산시</option>
@@ -306,7 +305,7 @@
 		<option value="studyList${pageMaker.makeDownRegion('3724') }" <c:out value="${cri.downRegion eq '3724'?'selected':''}"/>>포항시 북구</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '38' }">
+<c:if test="${cri.upRegion eq '38' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('3801') }" <c:out value="${cri.downRegion eq '3801'?'selected':''}"/>>거제시</option>
@@ -333,14 +332,14 @@
 		<option value="studyList${pageMaker.makeDownRegion('3822') }" <c:out value="${cri.downRegion eq '3822'?'selected':''}"/>>합천군</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '39' }">
+<c:if test="${cri.upRegion eq '39' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 		<option value="studyList${pageMaker.makeDownRegion('3901') }" <c:out value="${cri.downRegion eq '3901'?'selected':''}"/>>제주시</option>
 		<option value="studyList${pageMaker.makeDownRegion('3902') }" <c:out value="${cri.downRegion eq '3902'?'selected':''}"/>>서귀포시</option>
 	</select>
 </c:if>
-<c:if test="${upRegion eq '40' }">
+<c:if test="${cri.upRegion eq '40' }">
 	<select class="form-control filtering">
 		<option value="studyList${pageMaker.makeDownRegion('n') }" <c:out value="${cri.downRegion eq 'n'?'selected':''}"/>>전체</option>
 	</select>

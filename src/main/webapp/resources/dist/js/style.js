@@ -1,4 +1,4 @@
-;
+
 (function ($) {
     var bootstrapWizardCreate = function (element, options) {
         var element = $(element);

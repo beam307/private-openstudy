@@ -1228,7 +1228,6 @@ a:focus {
   border-color: #d2d6de;
 }
 .form-control:focus {
-  border-color: #3c8dbc !important;
   box-shadow: none;
 }
 .form-control::-moz-placeholder {

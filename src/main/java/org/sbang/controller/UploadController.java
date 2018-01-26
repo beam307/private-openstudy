@@ -7,7 +7,6 @@ import java.net.URL;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.IOUtils;
 import org.sbang.domain.UserVO;
 import org.sbang.service.UserService;
 import org.sbang.util.MediaUtils;
@@ -23,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.amazonaws.util.IOUtils;
 
 @Controller
 public class UploadController {
@@ -48,7 +49,6 @@ public class UploadController {
 		return status;
 	}
 
-	@SuppressWarnings("resource")
 	@ResponseBody
 	@RequestMapping("/displayFile") // 이미지 출력 매핑
 	public ResponseEntity<byte[]> displayFile(String fileName, HttpSession session) throws Exception {

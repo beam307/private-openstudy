@@ -19,4 +19,7 @@
  ### 3.3 주요기술
         - JAVA8, SpringFramework, Mybatis, Ajax, jQuery, HTML5, CSS3, Bootstrap, javascript, Apache Tomcat, KakaoApi, NaverApi,        
           googleChart, handlebars, coolSMS API, SockJS, javaxMail, SummerNote, AWS, 가비아
-    
+          
+## 4. 개발팀원
+   #### Lee YoungHoon, Kim xx, You xx, Han xx, Han xx
+       

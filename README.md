@@ -7,4 +7,16 @@
 ## 2. 예상효과
 사용자들은 간단한 입력을 통해 스터디 모집을 할 수 있으며 클릭 하나만으로 신청이 가능하다. 그 외에 휴대폰 인증 등을 통해 허위 신청 및 이유 없는 불참 등을 신뢰성을 줄 수 있다. 즉 하나의 웹사이트를 통해 쉽고 빠르게 스터디를 모집을 할 수 있다.
 
-## 3.
+## 3. 기술적고려사항
+ ### 3.1 적용방법론
+         -객체지향방법론
+ ### 3.2 개발환경
+        - 사용언어 : java8
+        - 개발 툴 : Eclipse
+        - 사용 DB : MySQL
+        - 협력 툴 : Trello
+        - 형상관리 : SVN
+ ### 3.3 주요기술
+        - JAVA8, SpringFramework, Mybatis, Ajax, jQuery, HTML5, CSS3, Bootstrap, javascript, Apache Tomcat, KakaoApi, NaverApi,        
+          googleChart, handlebars, coolSMS API, SockJS, javaxMail, SummerNote, AWS, 가비아
+    

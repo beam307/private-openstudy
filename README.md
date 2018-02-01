@@ -21,5 +21,6 @@
           googleChart, handlebars, coolSMS API, SockJS, javaxMail, SummerNote, AWS, 가비아
           
 ## 4. 개발팀원
+
    #### Lee YoungHoon, Kim xx, You xx, Han xx, Han xx
        
